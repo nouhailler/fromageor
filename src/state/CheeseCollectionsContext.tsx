@@ -1,18 +1,22 @@
 import { createContext, useContext, type ReactNode } from 'react'
 import { useAppState } from './AppStateContext'
 import { useCheeseCollections } from './useCheeseCollections'
+import { useCheeseDatabase } from './useCheeseDatabase'
 
-type Collections = ReturnType<typeof useCheeseCollections>
+type Collections = ReturnType<typeof useCheeseCollections> & ReturnType<typeof useCheeseDatabase>
 
 const CheeseCollectionsContext = createContext<Collections | null>(null)
 
-/** Computes all derived cheese collections once (see useCheeseCollections)
- *  and shares them with every mounted screen, instead of each screen
- *  recomputing its own copy. */
+/** Computes all derived cheese collections once (see useCheeseCollections),
+ *  on top of the active database (built-in + any locally imported cheeses,
+ *  see useCheeseDatabase), and shares them with every mounted screen instead
+ *  of each screen recomputing its own copy. */
 export function CheeseCollectionsProvider({ children }: { children: ReactNode }) {
   const { state, lists } = useAppState()
-  const collections = useCheeseCollections(state, lists)
-  return <CheeseCollectionsContext.Provider value={collections}>{children}</CheeseCollectionsContext.Provider>
+  const database = useCheeseDatabase()
+  const collections = useCheeseCollections(state, lists, database.cheeses)
+  const value: Collections = { ...collections, ...database }
+  return <CheeseCollectionsContext.Provider value={value}>{children}</CheeseCollectionsContext.Provider>
 }
 
 export function useCollections(): Collections {

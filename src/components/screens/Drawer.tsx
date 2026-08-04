@@ -1,8 +1,7 @@
-import { X, Home, MapPin, Search, Heart } from 'lucide-react'
+import { X, Home, MapPin, Search, Heart, Database } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
-import { REGIONS } from '../../data/regions'
 import type { Tab } from '../../state/types'
 import { GobletIcon, ShearsIcon, CalendarIcon, StarBadgeIcon, OpenBookIcon } from '../icons/MiscIcons'
 import styles from './Drawer.module.css'
@@ -16,8 +15,7 @@ const TAB_ITEMS: { key: Tab; label: string; Icon: ComponentType<{ size?: number;
 
 export function Drawer() {
   const { actions } = useAppState()
-  const { deco } = useCollections()
-  const region = REGIONS[0]
+  const { deco, regions } = useCollections()
 
   return (
     <div className={styles.root}>
@@ -103,16 +101,29 @@ export function Drawer() {
             </span>
             Encyclopédie
           </button>
+          <button
+            type="button"
+            className={styles.navItem}
+            style={{ background: 'transparent', color: 'var(--color-text)' }}
+            onClick={actions.openImportExport}
+          >
+            <span className={styles.navItemIcon}>
+              <Database size={22} strokeWidth={2.75} />
+            </span>
+            Import / Export
+          </button>
 
           <div className={styles.divider} />
           <div className={styles.regionsSection}>
             <div className={styles.regionsLabel}>Régions</div>
-            <div className={styles.regionRow}>
-              <span className={styles.regionDot} />
-              <span className={styles.regionName}>{region.name}</span>
-              <span className={styles.regionCount}>{deco.length}</span>
-            </div>
-            <div className={styles.regionsHint}>Autres régions à venir…</div>
+            {regions.map((region) => (
+              <div key={region.id} className={styles.regionRow}>
+                <span className={styles.regionDot} />
+                <span className={styles.regionName}>{region.name}</span>
+                <span className={styles.regionCount}>{deco.filter((c) => c.regionId === region.id).length}</span>
+              </div>
+            ))}
+            {regions.length <= 1 && <div className={styles.regionsHint}>Autres régions à venir…</div>}
           </div>
           <div className={styles.divider} />
           <div className={styles.footer}>

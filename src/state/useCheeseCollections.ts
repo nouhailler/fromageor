@@ -3,7 +3,6 @@
 // mapDots, searchResults, favoris, listsOverview, sheetLists, calMonths,
 // appList, accordsCats).
 import { useMemo } from 'react'
-import { CHEESES } from '../data/cheeses'
 import { FR_XY } from '../data/fr-map'
 import type { Cheese } from '../data/cheese.types'
 import type { FavoriteList } from '../lib/favorites-storage'
@@ -74,7 +73,7 @@ function pluralFromage(n: number): string {
   return n + (n === 1 ? ' fromage' : ' fromages')
 }
 
-export function useCheeseCollections(state: AppState, lists: FavoriteList[]) {
+export function useCheeseCollections(state: AppState, lists: FavoriteList[], cheeses: Cheese[]) {
   const inAny = useMemo(() => {
     const favIds = new Set<string>()
     lists.forEach((l) => l.ids.forEach((id) => favIds.add(id)))
@@ -82,7 +81,7 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[]) {
   }, [lists])
 
   const deco = useMemo<DecoratedCheese[]>(() => {
-    return CHEESES.map((c) => {
+    return cheeses.map((c) => {
       const base = laitBase(c.lait)
       const xy = FR_XY[c.id] ?? c.map
       return {
@@ -98,7 +97,7 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[]) {
         fav: inAny(c.id),
       }
     })
-  }, [inAny])
+  }, [cheeses, inAny])
 
   const byId = useMemo(() => {
     const map = new Map<string, DecoratedCheese>()

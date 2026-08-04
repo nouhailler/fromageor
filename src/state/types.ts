@@ -8,7 +8,9 @@ export type AppFilterValue = 'Tous' | AppellationLabel
 
 /** Mirrors the state object of the Component class in the design handoff
  *  prototype (constructor's this.state), minus `lists` which is owned by
- *  useFavoriteLists (see AppStateContext). */
+ *  useFavoriteLists (see AppStateContext). `importExport` is an addition
+ *  beyond the handoff (see ImportExportScreen), following the exact same
+ *  open/close pattern as the other secondary overlays (accords, decoupe…). */
 export interface AppState {
   tab: Tab
   selected: string | null
@@ -27,6 +29,7 @@ export interface AppState {
   appFilter: AppFilterValue
   encyclo: boolean
   article: string | null
+  importExport: boolean
 }
 
 export const INITIAL_APP_STATE: AppState = {
@@ -47,4 +50,5 @@ export const INITIAL_APP_STATE: AppState = {
   appFilter: 'Tous',
   encyclo: false,
   article: null,
+  importExport: false,
 }

@@ -37,6 +37,8 @@ export interface AppActions {
   closeEncyclopedia: () => void
   openArticle: (id: string) => void
   backToArticles: () => void
+  openImportExport: () => void
+  closeImportExport: () => void
   openListDetail: (id: string) => void
   backToLists: () => void
   deleteCurrentList: () => void
@@ -93,6 +95,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       closeEncyclopedia: () => dispatch({ encyclo: false, article: null }),
       openArticle: (id) => dispatch({ article: id }),
       backToArticles: () => dispatch({ article: null }),
+
+      openImportExport: () => dispatch({ importExport: true, menuOpen: false, selected: null }),
+      closeImportExport: () => dispatch({ importExport: false }),
 
       openListDetail: (id) => dispatch({ openList: id }),
       backToLists: () => dispatch({ openList: null }),

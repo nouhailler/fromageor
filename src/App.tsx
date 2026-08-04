@@ -13,6 +13,7 @@ import { DecoupeScreen } from './components/screens/DecoupeScreen'
 import { CalendarScreen } from './components/screens/CalendarScreen'
 import { AppellationsScreen } from './components/screens/AppellationsScreen'
 import { EncyclopediaScreen } from './components/screens/EncyclopediaScreen'
+import { ImportExportScreen } from './components/screens/ImportExportScreen'
 import { Drawer } from './components/screens/Drawer'
 import { FavoritesSheet } from './components/screens/FavoritesSheet'
 
@@ -50,6 +51,7 @@ function AppShell() {
       {state.calendrier && <CalendarScreen />}
       {state.appel && <AppellationsScreen />}
       {state.encyclo && <EncyclopediaScreen />}
+      {state.importExport && <ImportExportScreen />}
       {state.menuOpen && <Drawer />}
       <FavoritesSheet />
     </PhoneFrame>
