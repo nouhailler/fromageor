@@ -1,0 +1,20 @@
+.button {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: var(--z-hamburger);
+  /* 44px, not the handoff's 42px — meets the minimum touch target size. */
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  place-items: center;
+  color: var(--color-text);
+}
+.button:hover {
+  background: var(--color-neutral-200);
+}

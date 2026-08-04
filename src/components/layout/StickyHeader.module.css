@@ -1,0 +1,8 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky-header);
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  padding: 22px 22px 14px;
+}

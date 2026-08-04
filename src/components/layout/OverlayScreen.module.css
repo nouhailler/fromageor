@@ -1,0 +1,8 @@
+.screen {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-overlay-screen);
+  background: var(--color-bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+}

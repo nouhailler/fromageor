@@ -1,0 +1,122 @@
+@import '@fontsource/figtree/400.css';
+@import '@fontsource/figtree/600.css';
+@import '@fontsource/figtree/700.css';
+@import '@fontsource/caprasimo/400.css';
+
+@import './tokens.css';
+
+/* App layout constants — specific to this app's overlay stacking, not part
+   of the Organic design system itself. Mirrors the z-index values used in
+   the reference prototype (hamburger 15, sticky header 5, secondary
+   overlays 18, fiche 20, drawer 30, bottom-sheet 40). */
+:root {
+  --z-sticky-header: 5;
+  --z-hamburger: 15;
+  --z-overlay-screen: 18;
+  --z-fiche: 20;
+  --z-drawer: 30;
+  --z-sheet: 40;
+
+  --app-max-width: 428px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  margin: 0;
+}
+
+button,
+input {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--color-accent-700);
+}
+a:hover {
+  color: var(--color-accent-600);
+}
+
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Horizontal carousels (scrollx) — hide the scrollbar visually. */
+.scrollx {
+  scrollbar-width: none;
+}
+.scrollx::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Vertical scroll areas (mainscroll) — thin styled scrollbar. */
+.mainscroll {
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-accent) var(--color-neutral-300);
+}
+.mainscroll::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.mainscroll::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 999px;
+  border: 3px solid var(--color-neutral-300);
+}
+.mainscroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-600);
+}
+.mainscroll::-webkit-scrollbar-track {
+  background: var(--color-neutral-300);
+  border-radius: 999px;
+}
+
+@keyframes drawerIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

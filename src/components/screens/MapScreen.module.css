@@ -1,0 +1,82 @@
+.title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 26px;
+  margin: 0 0 12px;
+}
+
+.content {
+  padding: 8px 22px 24px;
+}
+
+.mapCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.mapSvg {
+  width: 100%;
+  display: block;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-top: 16px;
+  padding: 0 4px;
+}
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--color-neutral-700);
+}
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+
+.list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.listRow {
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  min-height: 44px;
+  font-family: var(--font-body);
+  color: var(--color-text);
+}
+.listRow:hover {
+  background: var(--color-neutral-200);
+}
+.listDot {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+.listName {
+  flex: 1;
+  font-weight: 700;
+  font-size: 14px;
+}
+.listDept {
+  font-size: 12px;
+  color: var(--color-neutral-700);
+}

@@ -1,0 +1,22 @@
+.background {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 30% 20%, #f0e2cb, var(--color-bg));
+  padding: 16px;
+  font-family: var(--font-body);
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  max-width: var(--app-max-width);
+  height: min(900px, calc(100dvh - 32px));
+  background: var(--color-bg);
+  border-radius: 40px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-neutral-300);
+}

@@ -1,0 +1,57 @@
+.content {
+  padding: 8px 22px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  gap: 15px;
+  box-shadow: var(--shadow-sm);
+}
+
+.diagramBox {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: var(--color-neutral-100);
+  display: grid;
+  place-items: center;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+.shape {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 18px;
+  line-height: 1.1;
+}
+.rule {
+  font-size: 13.5px;
+  color: var(--color-neutral-800);
+  line-height: 1.55;
+  margin-top: 6px;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 11px;
+}
+.example {
+  background: var(--color-accent-2-200);
+  color: var(--color-accent-2-900);
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}

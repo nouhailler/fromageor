@@ -1,0 +1,232 @@
+.overline {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-700);
+  font-weight: 700;
+}
+.title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 30px;
+  line-height: 1.05;
+  margin: 6px 0 2px;
+}
+.subtitle {
+  color: var(--color-neutral-700);
+  font-size: 14px;
+}
+
+.content {
+  padding: 4px 22px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* Featured card */
+.featured {
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  background: var(--color-accent-700);
+  color: var(--color-neutral-100);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+.featuredDecoration {
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #fff 10%, transparent);
+}
+.featuredKicker {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  font-weight: 700;
+}
+.featuredHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.featuredName {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  line-height: 1;
+}
+.featuredDept {
+  opacity: 0.85;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.featuredNotes {
+  font-size: 13px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+.featuredLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Section headers */
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sectionHeaderTight {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 20px;
+  margin: 0;
+}
+.sectionLink {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-accent-700);
+  font-weight: 700;
+  font-size: 13px;
+  font-family: var(--font-body);
+  min-height: 44px;
+}
+.seasonLabel {
+  font-size: 13px;
+  color: var(--color-neutral-700);
+}
+
+/* Map preview */
+.mapCard {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.mapSvg {
+  width: 100%;
+  max-width: 230px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Accords CTA */
+.accordsCta {
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  background: var(--color-accent-2-700);
+  color: var(--color-neutral-100);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+.accordsCtaDecoration {
+  position: absolute;
+  right: -24px;
+  bottom: -30px;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #fff 10%, transparent);
+}
+.accordsCtaIcon {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #fff 16%, transparent);
+  display: grid;
+  place-items: center;
+}
+.accordsCtaBody {
+  flex: 1;
+  min-width: 0;
+}
+.accordsCtaTitle {
+  font-family: var(--font-heading);
+  font-size: 21px;
+  line-height: 1.05;
+}
+.accordsCtaDesc {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+/* Seasonal carousel */
+.carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 12px 22px 4px;
+  margin: 0 -22px;
+}
+.seasonCard {
+  flex-shrink: 0;
+  width: 150px;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: var(--font-body);
+  color: var(--color-text);
+}
+.seasonCard:hover {
+  box-shadow: var(--shadow-md);
+}
+.seasonName {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.15;
+}
+.seasonMeta {
+  font-size: 12px;
+  color: var(--color-neutral-700);
+  margin-top: 2px;
+}
+
+/* Popular list */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

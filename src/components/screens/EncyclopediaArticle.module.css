@@ -1,0 +1,39 @@
+.content {
+  padding: 4px 22px 44px;
+}
+
+.banner {
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 22px;
+}
+.bannerTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 30px;
+  margin: 0;
+  line-height: 1.05;
+}
+.bannerSous {
+  font-size: 14px;
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 20px;
+  margin: 0 0 8px;
+}
+.sectionText {
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0;
+  color: var(--color-neutral-800);
+}
