@@ -34,3 +34,17 @@ npm run import-cheeses  # régénère src/data/{cheeses,fr-map}.ts depuis un dos
 ## Logique métier
 
 Portée fidèlement dans `src/lib/` depuis le prototype de référence : parsing des saisons (`season.ts`), suggestions d'accords (`accords.ts`), appellations (`appellations.ts`), recherche plein texte (`search.ts`), favoris multi-listes avec migration (`favorites-storage.ts`).
+
+## Import / Export de la base de fromages
+
+Un écran dédié (accessible depuis le menu latéral) permet de sauvegarder et d'étendre la base de fromages depuis l'interface :
+
+- **Export** du jeu de données actif au format JSON, ou téléchargement d'un exemple de gabarit pré-rempli.
+- **Import** JSON (collé ou depuis un fichier), avec validation champ par champ avant application.
+- Les données importées sont stockées dans une surcouche `localStorage`, fusionnée par-dessus les données intégrées (upsert par `id`) sans jamais modifier le jeu de données embarqué — voir `useCheeseDatabase`.
+- Accepte un simple tableau de fromages ou un objet `{ region?, cheeses[] }`, ce qui permet à un import d'enregistrer une nouvelle région.
+- Schéma et validation : `src/lib/cheese-schema.ts`, `src/lib/cheese-import-export.ts` (testés).
+
+## Déploiement
+
+Le site est déployé sur Netlify : [fromageor.netlify.app](https://fromageor.netlify.app). La configuration (commande de build, dossier de publication, en-têtes de cache) se trouve dans `netlify.toml`.
