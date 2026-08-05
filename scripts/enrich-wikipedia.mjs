@@ -43,8 +43,17 @@ function writeCheeses(header, cheeses) {
   fs.writeFileSync(cheesesPath, out)
 }
 
-async function fetchJson(apiUrl) {
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+/** Retries once on HTTP 429 (rate limit) with a short backoff — the API
+ *  calls needed per cheese (article + credit + gallery lookups) are frequent
+ *  enough over a full run that Wikimedia occasionally throttles. */
+async function fetchJson(apiUrl, attempt = 0) {
   const res = await fetch(apiUrl, { headers: { 'User-Agent': UA, Accept: 'application/json' } })
+  if (res.status === 429 && attempt < 3) {
+    await sleep(1500 * (attempt + 1))
+    return fetchJson(apiUrl, attempt + 1)
+  }
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${apiUrl}`)
   return res.json()
 }
@@ -207,7 +216,15 @@ async function lookupArticle(cheeseName, altNames) {
   return null
 }
 
-/** Fetches Commons credit (artist + license) for a "File:<name>" title. */
+function creditFromExtmetadata(meta) {
+  const artist = meta.Artist?.value ? stripHtml(meta.Artist.value) : null
+  const license = meta.LicenseShortName?.value || null
+  return [artist, license].filter(Boolean).join(', ') || 'Wikimedia Commons'
+}
+
+/** Fetches Commons credit (artist + license) and the file's own categories
+ *  for a "File:<name>" title — the categories are later used to find
+ *  sibling photos of the same cheese (see pickCategoryName/fetchGalleryImages). */
 async function lookupImageCredit(fileName) {
   const qs = new URLSearchParams({
     action: 'query',
@@ -222,11 +239,99 @@ async function lookupImageCredit(fileName) {
   const page = Object.values(pages)[0]
   const meta = page?.imageinfo?.[0]?.extmetadata
   if (!meta) return null
-  const artist = meta.Artist?.value ? stripHtml(meta.Artist.value) : null
-  const license = meta.LicenseShortName?.value || null
-  const credit = [artist, license].filter(Boolean).join(', ') || 'Wikimedia Commons'
+  const credit = creditFromExtmetadata(meta)
   const creditUrl = `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(fileName)}`
-  return { credit, creditUrl }
+  const categoriesRaw = meta.Categories?.value || null
+  return { credit, creditUrl, categoriesRaw }
+}
+
+/** Picks the best Commons category (from a file's pipe-separated Categories
+ *  extmetadata) for finding more photos of the same cheese: an exact
+ *  (accent/case-insensitive) match to the cheese's name/alt names first,
+ *  otherwise the first category whose words overlap enough (same rule as
+ *  titleMatchesCheeseName). Returns null if none look relevant. */
+function pickCategoryName(categoriesRaw, cheeseName, altNames) {
+  if (!categoriesRaw) return null
+  const cats = categoriesRaw.split('|').map((c) => c.trim()).filter(Boolean)
+  const names = [cheeseName, ...altNames]
+  const exact = cats.find((cat) => names.some((n) => normalize(n) === normalize(cat)))
+  if (exact) return exact
+  return cats.find((cat) => titleMatchesCheeseName(cat, cheeseName, altNames)) || null
+}
+
+async function fetchCategoryMemberTitles(categoryName, limit) {
+  const qs = new URLSearchParams({
+    action: 'query',
+    format: 'json',
+    list: 'categorymembers',
+    cmtitle: `Category:${categoryName}`,
+    cmtype: 'file',
+    cmlimit: String(limit),
+  })
+  const data = await fetchJson(`https://commons.wikimedia.org/w/api.php?${qs}`)
+  return (data?.query?.categorymembers || []).map((m) => m.title.replace(/^File:/, ''))
+}
+
+/** Batched imageinfo (url + credit metadata) lookup for several files at
+ *  once — MediaWiki accepts up to 50 pipe-separated titles per query. */
+async function fetchImageInfoBatch(fileNames) {
+  const map = new Map()
+  if (fileNames.length === 0) return map
+  const qs = new URLSearchParams({
+    action: 'query',
+    format: 'json',
+    prop: 'imageinfo',
+    iiprop: 'url|extmetadata',
+    iiurlwidth: '800',
+    titles: fileNames.map((f) => `File:${f}`).join('|'),
+  })
+  const data = await fetchJson(`https://commons.wikimedia.org/w/api.php?${qs}`)
+  for (const page of Object.values(data?.query?.pages || {})) {
+    const info = page?.imageinfo?.[0]
+    if (!info) continue
+    map.set(page.title.replace(/^File:/, ''), info)
+  }
+  return map
+}
+
+function isPhotoFile(fileName) {
+  return /\.(jpe?g|png)$/i.test(fileName)
+}
+
+/** Finds up to `limit` extra photos of a cheese via its Commons category,
+ *  excluding the file already used as the hero image. Category members are
+ *  a mix of clean product shots and loosely-related photos (a dish, a farm,
+ *  the packaging) since Commons categorizes anything that depicts or
+ *  mentions the subject — so files matching the "<Nom> 01.jpg"-style
+ *  numbered series used by the Wikicheese Commons project (the same series
+ *  most hero photos come from) are preferred first. */
+async function fetchGalleryImages(categoryName, excludeFileName, cheeseName, limit) {
+  const titles = await fetchCategoryMemberTitles(categoryName, 20)
+  const candidates = titles.filter((t) => t !== excludeFileName && isPhotoFile(t))
+  if (candidates.length === 0) return []
+
+  const prefix = normalize(cheeseName)
+  candidates.sort((a, b) => {
+    const aFirst = normalize(a).startsWith(prefix) ? 0 : 1
+    const bFirst = normalize(b).startsWith(prefix) ? 0 : 1
+    return aFirst - bFirst
+  })
+
+  const picked = candidates.slice(0, limit)
+  const infoMap = await fetchImageInfoBatch(picked)
+  const images = []
+  for (const fileName of picked) {
+    const info = infoMap.get(fileName)
+    if (!info || !info.thumburl) continue
+    images.push({
+      url: stripUtm(info.thumburl),
+      width: info.thumbwidth,
+      height: info.thumbheight,
+      credit: creditFromExtmetadata(info.extmetadata || {}),
+      creditUrl: `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(fileName)}`,
+    })
+  }
+  return images
 }
 
 async function enrichCheese(cheese) {
@@ -253,7 +358,27 @@ async function enrichCheese(cheese) {
         credit: creditInfo?.credit ?? 'Wikimedia Commons',
         creditUrl: creditInfo?.creditUrl ?? `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(article.imageName)}`,
       }
-      console.log(`  ✓ ${cheese.nom} — matched "${article.title}", image ${article.thumbnail.width}x${article.thumbnail.height}`)
+
+      const categoryName = creditInfo?.categoriesRaw
+        ? pickCategoryName(creditInfo.categoriesRaw, cheese.nom, cheese.alt || [])
+        : null
+      let extraCount = 0
+      if (categoryName) {
+        try {
+          const extras = await fetchGalleryImages(categoryName, article.imageName, cheese.nom, 4)
+          if (extras.length > 0) {
+            next.galleryImages = extras
+            extraCount = extras.length
+          }
+        } catch (err) {
+          console.warn(`  [warn] gallery fetch failed for category "${categoryName}": ${err.message}`)
+        }
+      }
+
+      console.log(
+        `  ✓ ${cheese.nom} — matched "${article.title}", image ${article.thumbnail.width}x${article.thumbnail.height}` +
+          (extraCount ? `, +${extraCount} gallery photo(s)` : ''),
+      )
     } catch (err) {
       console.warn(`  [warn] image credit lookup failed for "${article.imageName}": ${err.message}`)
       console.log(`  ~ ${cheese.nom} — matched "${article.title}", no image credit (skipped image)`)
@@ -280,12 +405,16 @@ async function main() {
       continue
     }
     out.push(await enrichCheese(cheese))
+    await sleep(200)
   }
 
   writeCheeses(header, out)
   const withImage = out.filter((c) => c.image).length
   const withWiki = out.filter((c) => c.wikipedia).length
-  console.log(`\nDone: ${withWiki}/${out.length} with Wikipedia summary, ${withImage}/${out.length} with a photo.`)
+  const withGallery = out.filter((c) => c.galleryImages?.length).length
+  console.log(
+    `\nDone: ${withWiki}/${out.length} with Wikipedia summary, ${withImage}/${out.length} with a photo, ${withGallery}/${out.length} with extra gallery photos.`,
+  )
 }
 
 main()

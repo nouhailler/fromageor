@@ -68,6 +68,11 @@ export interface Cheese {
   image?: CheeseImage
   /** Optional short summary + article link sourced from Wikipedia — see scripts/enrich-wikipedia.mjs. */
   wikipedia?: CheeseWikipedia
+  /** Optional extra photos (beyond `image`) from the same Wikimedia Commons
+   *  category, shown in the gallery thumbnails with generic captions since
+   *  they aren't guaranteed to match any specific `galerie` label — see
+   *  scripts/enrich-wikipedia.mjs. */
+  galleryImages?: CheeseImage[]
 }
 
 export interface Region {

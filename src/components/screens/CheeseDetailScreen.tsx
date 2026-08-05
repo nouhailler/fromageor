@@ -24,7 +24,19 @@ export function CheeseDetailScreen() {
 
   const gallery = (c.galerie || []).map((label, i) => ({ id: `ph-${c.id}-${i}`, label }))
   const hero = gallery[0] ?? { id: `ph-${c.id}-0`, label: 'Vue entière' }
-  const thumbs = gallery.slice(1)
+  // Real extra photos (from the same Commons category as the hero) aren't
+  // guaranteed to match any particular `galerie` label (coupe, plateau...),
+  // so when available they replace the placeholder thumbs with generic
+  // captions instead of claiming a specific match.
+  type Thumb = { id: string; label: string; src?: string; creditUrl?: string }
+  const thumbs: Thumb[] = (c.galleryImages || []).length > 0
+    ? (c.galleryImages || []).map((img, i) => ({
+        id: `ph-${c.id}-${i + 1}`,
+        label: `Photo ${i + 2}`,
+        src: img.url,
+        creditUrl: img.creditUrl,
+      }))
+    : gallery.slice(1)
 
   const spec: [string, string | undefined][] = [
     ['Noms alternatifs', (c.alt || []).join(' · ')],
@@ -111,9 +123,15 @@ export function CheeseDetailScreen() {
           {thumbs.map((t) => (
             <div key={t.id} className={styles.thumb}>
               <div className={styles.thumbImage}>
-                <ImagePlaceholder id={t.id} label={t.label} style={{ width: '100%', height: '100%' }} />
+                <ImagePlaceholder id={t.id} label={t.label} src={t.src} style={{ width: '100%', height: '100%' }} />
               </div>
-              <span className={styles.thumbLabel}>{t.label}</span>
+              {t.creditUrl ? (
+                <a href={t.creditUrl} target="_blank" rel="noreferrer" className={styles.thumbLabel}>
+                  {t.label}
+                </a>
+              ) : (
+                <span className={styles.thumbLabel}>{t.label}</span>
+              )}
             </div>
           ))}
         </div>
