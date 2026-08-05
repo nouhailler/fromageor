@@ -5,6 +5,7 @@ import { useCollections } from '../../state/CheeseCollectionsContext'
 import { regionName } from '../../lib/region-lookup'
 import { ImagePlaceholder } from '../ui/ImagePlaceholder'
 import { LabelBadge } from '../ui/LabelBadge'
+import { CHEESE_IMAGES } from '../../data/cheese-images'
 import { FranceMap } from '../map/FranceMap'
 import { LightbulbIcon } from '../icons/MiscIcons'
 import styles from './CheeseDetailScreen.module.css'
@@ -25,6 +26,7 @@ export function CheeseDetailScreen() {
   const gallery = (c.galerie || []).map((label, i) => ({ id: `ph-${c.id}-${i}`, label }))
   const hero = gallery[0] ?? { id: `ph-${c.id}-0`, label: 'Vue entière' }
   const thumbs = gallery.slice(1)
+  const heroPhoto = CHEESE_IMAGES[c.id]
 
   const spec: [string, string | undefined][] = [
     ['Noms alternatifs', (c.alt || []).join(' · ')],
@@ -71,7 +73,18 @@ export function CheeseDetailScreen() {
     <div className={styles.screen}>
       <div className={styles.hero}>
         <div className={styles.heroImage}>
-          <ImagePlaceholder id={hero.id} label={hero.label} style={{ width: '100%', height: '100%' }} />
+          <ImagePlaceholder id={hero.id} label={hero.label} src={heroPhoto?.url} style={{ width: '100%', height: '100%' }} />
+          {heroPhoto && (
+            <a
+              href={heroPhoto.filePageUrl ?? heroPhoto.pageUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.photoCredit}
+            >
+              {heroPhoto.author ? `Photo : ${heroPhoto.author}` : 'Photo : Wikimedia Commons'}
+              {heroPhoto.license ? ` (${heroPhoto.license})` : ''}
+            </a>
+          )}
         </div>
         <button
           type="button"

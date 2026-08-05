@@ -25,11 +25,24 @@ npm run build       # build de production (+ typecheck)
 npm run typecheck
 npm run test         # tests unitaires (Vitest)
 npm run import-cheeses  # régénère src/data/{cheeses,fr-map}.ts depuis un dossier de handoff (voir scripts/import-cheeses.mjs)
+npm run fetch-cheese-images  # régénère src/data/cheese-images.ts depuis Wikipedia/Wikimedia Commons (voir scripts/fetch-cheese-images.mjs)
 ```
 
 ## Données
 
 `src/data/cheeses.ts` et `src/data/fr-map.ts` sont générés automatiquement depuis les fichiers `cheeses.js` / `fr-map.js` du dossier de handoff de design via `scripts/import-cheeses.mjs` — voir ce script pour ajouter une nouvelle région.
+
+## Images des fromages
+
+`src/data/cheese-images.ts` associe à chaque fromage (par `id`) une photo trouvée automatiquement via l'API Wikipedia (page summary), avec l'attribution (auteur/licence) récupérée sur Wikimedia Commons. Généré par `scripts/fetch-cheese-images.mjs` :
+
+```bash
+npm run fetch-cheese-images                       # tous les fromages
+node scripts/fetch-cheese-images.mjs --only reblochon,beaufort  # un sous-ensemble
+node scripts/fetch-cheese-images.mjs --dry         # test sans écrire le fichier
+```
+
+L'image (si trouvée) et son crédit s'affichent sur la fiche détaillée (`CheeseDetailScreen`) ; sans entrée, l'écran retombe sur le placeholder habituel. Ce script nécessite un accès réseau sortant vers `*.wikipedia.org` / `*.wikimedia.org`, bloqué par défaut dans cet environnement de développement sandboxé — à lancer depuis un environnement/une session avec accès réseau complet.
 
 ## Logique métier
 

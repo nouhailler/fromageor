@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "test": "vitest run",
-    "import-cheeses": "node scripts/import-cheeses.mjs"
+    "import-cheeses": "node scripts/import-cheeses.mjs",
+    "fetch-cheese-images": "node scripts/fetch-cheese-images.mjs"
   },
   "dependencies": {
     "@fontsource/caprasimo": "^5.3.0",
