@@ -25,11 +25,20 @@ npm run build       # build de production (+ typecheck)
 npm run typecheck
 npm run test         # tests unitaires (Vitest)
 npm run import-cheeses  # régénère src/data/{cheeses,fr-map}.ts depuis un dossier de handoff (voir scripts/import-cheeses.mjs)
+npm run enrich-wikipedia  # enrichit src/data/cheeses.ts avec photo + résumé Wikipédia (voir scripts/enrich-wikipedia.mjs)
 ```
 
 ## Données
 
 `src/data/cheeses.ts` et `src/data/fr-map.ts` sont générés automatiquement depuis les fichiers `cheeses.js` / `fr-map.js` du dossier de handoff de design via `scripts/import-cheeses.mjs` — voir ce script pour ajouter une nouvelle région.
+
+### Enrichissement Wikipédia (photo + résumé)
+
+`scripts/enrich-wikipedia.mjs` complète chaque fromage avec un champ `image` (photo + crédit, sourcée sur Wikimedia Commons) et un champ `wikipedia` (résumé + lien), tous deux optionnels sur le type `Cheese`. Il interroge l'API de Wikipédia en français par nom (puis noms alternatifs, puis `<nom> (fromage)`, puis une recherche plein texte en dernier recours), et rejette les correspondances qui ne sont pas réellement des articles de fromage (pages d'homonymie, communes du même nom, etc.).
+
+- **Ré-exécuter après un import** : `import-cheeses.mjs` régénère `cheeses.ts` depuis le handoff et efface donc cet enrichissement — relancer `npm run enrich-wikipedia` ensuite.
+- Idempotent : ne re-télécharge pas les fromages déjà enrichis (`--force` pour tout re-télécharger, `--id <id>` pour un seul fromage).
+- Les photos restent hébergées sur `upload.wikimedia.org` (pas de copie locale) ; l'écran Fiche affiche le crédit (auteur + licence) en lien vers la page Commons du fichier.
 
 ## Logique métier
 

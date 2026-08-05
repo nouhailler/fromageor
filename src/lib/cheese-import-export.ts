@@ -2,7 +2,7 @@
 // validated against the shape documented in cheese-schema.ts, then persisted
 // to localStorage as an overlay merged on top of the built-in CHEESES/REGIONS
 // (see state/useCheeseDatabase.ts) — nothing here mutates the bundled data.
-import type { Cheese, CheeseAccords, CheeseNutrition, Region } from '../data/cheese.types'
+import type { Cheese, CheeseAccords, CheeseImage, CheeseNutrition, CheeseWikipedia, Region } from '../data/cheese.types'
 
 export const IMPORT_CHEESES_KEY = 'fromages-import-cheeses'
 export const IMPORT_REGIONS_KEY = 'fromages-import-regions'
@@ -113,6 +113,21 @@ function pickNutrition(raw: unknown): CheeseNutrition {
   return out
 }
 
+function isCheeseImage(raw: unknown): raw is CheeseImage {
+  return (
+    isPlainObject(raw) &&
+    isNonEmptyString(raw.url) &&
+    typeof raw.width === 'number' &&
+    typeof raw.height === 'number' &&
+    isNonEmptyString(raw.credit) &&
+    isNonEmptyString(raw.creditUrl)
+  )
+}
+
+function isCheeseWikipedia(raw: unknown): raw is CheeseWikipedia {
+  return isPlainObject(raw) && isNonEmptyString(raw.url) && isNonEmptyString(raw.extract)
+}
+
 /** Validates one raw JSON record against the Cheese schema. `defaultRegionId`
  *  fills `regionId` when the record omits it (wrapped import format). */
 export function validateCheeseRecord(
@@ -174,6 +189,13 @@ export function validateCheeseRecord(
     if (raw[field] !== undefined && !isString(raw[field])) errors.push(`"${field}" doit être une chaîne`)
   }
 
+  if (raw.image !== undefined && !isCheeseImage(raw.image)) {
+    errors.push('"image" doit être un objet { url, width, height, credit, creditUrl }')
+  }
+  if (raw.wikipedia !== undefined && !isCheeseWikipedia(raw.wikipedia)) {
+    errors.push('"wikipedia" doit être un objet { url, extract }')
+  }
+
   if (errors.length > 0) {
     return { ok: false, error: { index, id, errors } }
   }
@@ -211,6 +233,8 @@ export function validateCheeseRecord(
     galerie: raw.galerie as string[],
     map: mapTuple!,
     regionId: regionId as string,
+    image: isCheeseImage(raw.image) ? raw.image : undefined,
+    wikipedia: isCheeseWikipedia(raw.wikipedia) ? raw.wikipedia : undefined,
   }
   return { ok: true, cheese }
 }

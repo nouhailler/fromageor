@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { ChevronLeft, Heart } from 'lucide-react'
+import { ChevronLeft, ExternalLink, Heart } from 'lucide-react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
 import { regionName } from '../../lib/region-lookup'
@@ -71,8 +71,18 @@ export function CheeseDetailScreen() {
     <div className={styles.screen}>
       <div className={styles.hero}>
         <div className={styles.heroImage}>
-          <ImagePlaceholder id={hero.id} label={hero.label} style={{ width: '100%', height: '100%' }} />
+          <ImagePlaceholder id={hero.id} label={hero.label} src={c.image?.url} style={{ width: '100%', height: '100%' }} />
         </div>
+        {c.image && (
+          <a
+            href={c.image.creditUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={styles.imageCredit}
+          >
+            Photo : {c.image.credit}
+          </a>
+        )}
         <button
           type="button"
           className={`${styles.circleButton} ${styles.backButton}`}
@@ -196,6 +206,16 @@ export function CheeseDetailScreen() {
 
         <h2 className={styles.sectionTitle}>Histoire</h2>
         <p className={styles.paragraph}>{c.histoire}</p>
+
+        {c.wikipedia && (
+          <div className={styles.wikipediaCard}>
+            <p className={styles.wikipediaExtract}>{c.wikipedia.extract}</p>
+            <a href={c.wikipedia.url} target="_blank" rel="noreferrer" className={styles.wikipediaLink}>
+              Lire l'article sur Wikipédia
+              <ExternalLink size={14} strokeWidth={2.5} />
+            </a>
+          </div>
+        )}
 
         {c.anecdote && (
           <div className={styles.anecdote}>

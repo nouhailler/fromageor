@@ -13,6 +13,21 @@ export interface CheeseNutrition {
   calcium?: string
 }
 
+export interface CheeseImage {
+  url: string
+  width: number
+  height: number
+  /** Human-readable "Author, License" line, e.g. "Pierre-Yves Beaudouin, CC BY-SA 4.0". */
+  credit: string
+  /** Link to the Wikimedia Commons file page, for full attribution/license details. */
+  creditUrl: string
+}
+
+export interface CheeseWikipedia {
+  url: string
+  extract: string
+}
+
 export interface Cheese {
   id: string
   nom: string
@@ -49,6 +64,10 @@ export interface Cheese {
   map: [number, number]
   /** Which region this cheese belongs to — see regions.ts. */
   regionId: string
+  /** Optional hero photo sourced from Wikimedia Commons — see scripts/enrich-wikipedia.mjs. */
+  image?: CheeseImage
+  /** Optional short summary + article link sourced from Wikipedia — see scripts/enrich-wikipedia.mjs. */
+  wikipedia?: CheeseWikipedia
 }
 
 export interface Region {
