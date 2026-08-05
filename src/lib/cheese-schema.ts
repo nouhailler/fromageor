@@ -81,6 +81,29 @@ export const CHEESE_JSON_SCHEMA = {
       description: '[x, y] normalisés 0-100 sur la silhouette France, utilisé si l\'id est absent des coordonnées réelles.',
     },
     regionId: { type: 'string', description: 'Optionnel dans le fichier importé : hérite de `region.id` (format enveloppé) si omis.' },
+    image: {
+      type: 'object',
+      description: 'Optionnel — photo principale (généralement sourcée depuis Wikimedia Commons via scripts/enrich-wikipedia.mjs).',
+      required: ['url', 'width', 'height', 'credit', 'creditUrl'],
+      properties: {
+        url: { type: 'string' },
+        width: { type: 'number' },
+        height: { type: 'number' },
+        credit: { type: 'string', description: 'Ex. "Pierre-Yves Beaudouin, CC BY-SA 4.0".' },
+        creditUrl: { type: 'string', description: 'Lien vers la page du fichier (licence complète).' },
+      },
+      additionalProperties: false,
+    },
+    wikipedia: {
+      type: 'object',
+      description: 'Optionnel — lien et résumé sourcés depuis Wikipédia.',
+      required: ['url', 'extract'],
+      properties: {
+        url: { type: 'string' },
+        extract: { type: 'string' },
+      },
+      additionalProperties: false,
+    },
   },
   additionalProperties: false,
 } as const
@@ -199,4 +222,6 @@ export const CHEESE_FIELD_DOCS: CheeseFieldDoc[] = [
   { key: 'galerie', type: 'string[]', required: true, description: 'Libellés des photos (pas de fichiers image), non vide.' },
   { key: 'map', type: '[number, number]', required: true, description: '[x, y] normalisés 0-100 sur la silhouette France.' },
   { key: 'regionId', type: 'string', required: false, description: 'Optionnel si le fichier fournit "region" (voir enveloppe) ou est fusionné dans une région existante.' },
+  { key: 'image', type: '{ url, width, height, credit, creditUrl }', required: false, description: 'Photo principale (ex. Wikimedia Commons). Tous les sous-champs sont requis si l\'objet est présent.' },
+  { key: 'wikipedia', type: '{ url, extract }', required: false, description: 'Lien et résumé Wikipédia.' },
 ]

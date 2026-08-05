@@ -35,6 +35,18 @@
 .favButton {
   right: 16px;
 }
+.imageCredit {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 10px;
+  color: var(--color-neutral-100);
+  background: color-mix(in srgb, black 45%, transparent);
+  padding: 3px 8px;
+  border-radius: 999px;
+  text-decoration: none;
+  backdrop-filter: blur(4px);
+}
 
 .thumbs {
   display: flex;
@@ -255,6 +267,28 @@
   line-height: 1.65;
   margin: 0 0 18px;
   color: var(--color-neutral-800);
+}
+
+.wikipediaCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 26px;
+}
+.wikipediaExtract {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-neutral-700);
+  margin: 0 0 10px;
+}
+.wikipediaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent-700);
+  text-decoration: none;
 }
 
 .anecdote {
