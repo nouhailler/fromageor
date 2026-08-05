@@ -195,6 +195,9 @@ export function validateCheeseRecord(
   if (raw.wikipedia !== undefined && !isCheeseWikipedia(raw.wikipedia)) {
     errors.push('"wikipedia" doit être un objet { url, extract }')
   }
+  if (raw.galleryImages !== undefined && !(Array.isArray(raw.galleryImages) && raw.galleryImages.every(isCheeseImage))) {
+    errors.push('"galleryImages" doit être un tableau de { url, width, height, credit, creditUrl }')
+  }
 
   if (errors.length > 0) {
     return { ok: false, error: { index, id, errors } }
@@ -235,6 +238,7 @@ export function validateCheeseRecord(
     regionId: regionId as string,
     image: isCheeseImage(raw.image) ? raw.image : undefined,
     wikipedia: isCheeseWikipedia(raw.wikipedia) ? raw.wikipedia : undefined,
+    galleryImages: Array.isArray(raw.galleryImages) && raw.galleryImages.every(isCheeseImage) ? raw.galleryImages : undefined,
   }
   return { ok: true, cheese }
 }

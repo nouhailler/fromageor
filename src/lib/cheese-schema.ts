@@ -4,6 +4,20 @@
 // safe to show verbatim in the UI and in docs.
 import type { Cheese, Region } from '../data/cheese.types'
 
+/** Shared shape for `image` and each entry of `galleryImages`. */
+const CHEESE_IMAGE_JSON_SCHEMA = {
+  type: 'object',
+  required: ['url', 'width', 'height', 'credit', 'creditUrl'],
+  properties: {
+    url: { type: 'string' },
+    width: { type: 'number' },
+    height: { type: 'number' },
+    credit: { type: 'string', description: 'Ex. "Pierre-Yves Beaudouin, CC BY-SA 4.0".' },
+    creditUrl: { type: 'string', description: 'Lien vers la page du fichier (licence complète).' },
+  },
+  additionalProperties: false,
+} as const
+
 /** JSON Schema (2020-12) for a single cheese record. `regionId` is optional
  *  here (unlike the internal Cheese type) — the importer fills it in from
  *  the wrapping `region.id` when omitted. */
@@ -82,17 +96,8 @@ export const CHEESE_JSON_SCHEMA = {
     },
     regionId: { type: 'string', description: 'Optionnel dans le fichier importé : hérite de `region.id` (format enveloppé) si omis.' },
     image: {
-      type: 'object',
+      ...CHEESE_IMAGE_JSON_SCHEMA,
       description: 'Optionnel — photo principale (généralement sourcée depuis Wikimedia Commons via scripts/enrich-wikipedia.mjs).',
-      required: ['url', 'width', 'height', 'credit', 'creditUrl'],
-      properties: {
-        url: { type: 'string' },
-        width: { type: 'number' },
-        height: { type: 'number' },
-        credit: { type: 'string', description: 'Ex. "Pierre-Yves Beaudouin, CC BY-SA 4.0".' },
-        creditUrl: { type: 'string', description: 'Lien vers la page du fichier (licence complète).' },
-      },
-      additionalProperties: false,
     },
     wikipedia: {
       type: 'object',
@@ -103,6 +108,11 @@ export const CHEESE_JSON_SCHEMA = {
         extract: { type: 'string' },
       },
       additionalProperties: false,
+    },
+    galleryImages: {
+      type: 'array',
+      items: CHEESE_IMAGE_JSON_SCHEMA,
+      description: 'Optionnel — photos supplémentaires (même origine que "image"), affichées dans les vignettes avec des libellés génériques.',
     },
   },
   additionalProperties: false,
@@ -224,4 +234,5 @@ export const CHEESE_FIELD_DOCS: CheeseFieldDoc[] = [
   { key: 'regionId', type: 'string', required: false, description: 'Optionnel si le fichier fournit "region" (voir enveloppe) ou est fusionné dans une région existante.' },
   { key: 'image', type: '{ url, width, height, credit, creditUrl }', required: false, description: 'Photo principale (ex. Wikimedia Commons). Tous les sous-champs sont requis si l\'objet est présent.' },
   { key: 'wikipedia', type: '{ url, extract }', required: false, description: 'Lien et résumé Wikipédia.' },
+  { key: 'galleryImages', type: '{ url, width, height, credit, creditUrl }[]', required: false, description: 'Photos supplémentaires pour les vignettes (libellés génériques, pas de correspondance garantie avec "galerie").' },
 ]
