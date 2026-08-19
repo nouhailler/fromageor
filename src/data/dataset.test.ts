@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { ALL_CHEESES } from './dataset'
 import { CHEESES } from './cheeses'
-import { EXTRA_CHEESES } from './cheeses-extra'
+import { EXTRA_CHEESES, EXTRA_REGION_OVERRIDES } from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
 import { REGIONS } from './regions'
@@ -133,6 +133,19 @@ describe('ALL_CHEESES', () => {
     'P’tit Bleu de Bretagne',
   ])('trouve « %s » dans la base (Bretagne)', (nom) => {
     expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('applique les rattachements régionaux corrigés aux entrées générées', () => {
+    const connues = new Set(REGIONS.map((r) => r.id))
+    for (const [id, override] of Object.entries(EXTRA_REGION_OVERRIDES)) {
+      const cheese = ALL_CHEESES.find((c) => c.id === id)
+      expect(cheese, `fromage ${id} introuvable`).toBeDefined()
+      expect(connues.has(override.regionId)).toBe(true)
+      expect(cheese?.regionId).toBe(override.regionId)
+      if (override.dept) expect(cheese?.dept).toBe(override.dept)
+      // Une entrée corrigée ne doit plus se dire « limitrophe » de sa région.
+      expect(cheese?.dept).not.toMatch(/limitrophe/i)
+    }
   })
 
   it('rattache les 12 fromages bretons à leur région, aucun sous AOP', () => {

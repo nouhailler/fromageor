@@ -314,3 +314,18 @@ export const EXTRA_ALT_NAMES: Record<string, string[]> = {
   // Nom complet de l'appellation, tel qu'il figure au cahier des charges.
   'bleu-gex': ['Bleu de Gex Haut-Jura'],
 }
+
+/** Rattachements corrigés sur des entrées du jeu généré. Le handoff ne couvrait
+ *  qu'Auvergne-Rhône-Alpes et y avait classé des fromages qui n'en sont pas —
+ *  leurs `dept` portaient la mention « limitrophe ». Appliqués dans dataset.ts,
+ *  pour ne pas éditer un fichier que `npm run import-cheeses` réécrit. */
+export const EXTRA_REGION_OVERRIDES: Record<string, { regionId: string; dept?: string }> = {
+  // Le Charolais AOP est produit en Saône-et-Loire, Loire, Rhône et Allier ;
+  // son cœur historique et sa commune de référence sont bourguignons.
+  charolais: { regionId: 'bourgogne-franche-comte', dept: 'Saône-et-Loire / Rhône (71/69)' },
+  // Fromage du Mâconnais et du Charolais, donc de Saône-et-Loire.
+  'bouton-culotte': { regionId: 'bourgogne-franche-comte', dept: 'Saône-et-Loire (71)' },
+  // L'AOP Mont d'Or est strictement doubiste ; la mention Haute-Savoie du
+  // handoff renvoie au vacherin savoyard, qui n'est pas la même appellation.
+  'mont-dor': { regionId: 'bourgogne-franche-comte' },
+}

@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Trois régions couvertes : **Auvergne-Rhône-Alpes** (56 fromages), **Bourgogne-Franche-Comté** (15) et **Bretagne** (12), soit 83 fiches — l'ossature UI/données accepte d'autres régions à la suite.
+Trois régions couvertes : **Auvergne-Rhône-Alpes** (53 fromages), **Bourgogne-Franche-Comté** (18) et **Bretagne** (12), soit 83 fiches — l'ossature UI/données accepte d'autres régions à la suite.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -102,7 +102,7 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | Fichier | Écrit par | Contenu |
 | --- | --- | --- |
 | `cheeses.ts` | `import-cheeses.mjs` | Les 50 fromages du handoff |
-| `cheeses-extra.ts` | **à la main** | Les fromages d'Auvergne-Rhône-Alpes ajoutés depuis (6) + les noms alternatifs greffés sur des entrées générées |
+| `cheeses-extra.ts` | **à la main** | Les fromages d'Auvergne-Rhône-Alpes ajoutés depuis (6), les noms alternatifs greffés sur des entrées générées, et les rattachements régionaux corrigés |
 | `cheeses-bourgogne-franche-comte.ts` | **à la main** | Les 15 fromages de Bourgogne-Franche-Comté |
 | `cheeses-bretagne.ts` | **à la main** | Les 12 fromages de Bretagne — aucun sous AOP, la région n'en compte pas |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
