@@ -18,7 +18,10 @@ Accueil · Fiche détaillée · Recherche · Carte de France · Favoris multi-li
 
 ## Démarrer
 
+Node **>= 22.12** est requis (jsdom 30, utilisé par les tests, en dépend ; un `.nvmrc` est fourni) :
+
 ```bash
+nvm use            # Node 22
 npm install
 npm run dev        # serveur de dev
 npm run build       # build de production (+ typecheck)
