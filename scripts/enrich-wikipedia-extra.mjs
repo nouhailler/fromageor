@@ -39,7 +39,8 @@ async function main() {
   const idArg = process.argv.includes('--id') ? process.argv[process.argv.indexOf('--id') + 1] : null
   const { EXTRA_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-extra.ts'))
   const { BFC_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-bourgogne-franche-comte.ts'))
-  const manuels = [...EXTRA_CHEESES, ...BFC_CHEESES]
+  const { BRETAGNE_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-bretagne.ts'))
+  const manuels = [...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES]
 
   // Avec --id on ne retouche qu'une entrée : on repart de l'existant pour ne
   // pas effacer les autres.
@@ -51,7 +52,10 @@ async function main() {
     if (enriched.image) entry.image = enriched.image
     if (enriched.wikipedia) entry.wikipedia = enriched.wikipedia
     if (enriched.galleryImages?.length) entry.galleryImages = enriched.galleryImages
+    // Une entrée vide efface l'ancienne : une correction du script peut faire
+    // disparaître un appariement erroné, il ne doit pas survivre dans le fichier.
     if (Object.keys(entry).length) media[cheese.id] = entry
+    else delete media[cheese.id]
     await new Promise((r) => setTimeout(r, 200))
   }
 

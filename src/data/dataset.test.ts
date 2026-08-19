@@ -3,6 +3,7 @@ import { ALL_CHEESES } from './dataset'
 import { CHEESES } from './cheeses'
 import { EXTRA_CHEESES } from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
+import { BRETAGNE_CHEESES } from './cheeses-bretagne'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 
@@ -17,7 +18,7 @@ function norm(value: string) {
     .trim()
 }
 
-const AJOUTS = [...EXTRA_CHEESES, ...BFC_CHEESES]
+const AJOUTS = [...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES]
 
 describe('ALL_CHEESES', () => {
   it('ne contient aucun identifiant en double', () => {
@@ -115,6 +116,32 @@ describe('ALL_CHEESES', () => {
     'Pierre-Qui-Vire',
   ])('trouve « %s » dans la base (Bourgogne-Franche-Comté)', (nom) => {
     expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it.each([
+    'Tome des Rhuys',
+    'Curé Nantais',
+    'Abbaye de La Joie-Notre-Dame',
+    'Abbaye de Timadeuc',
+    'Tomme de Bretagne',
+    'Menez-Hom',
+    'Ti Pavez',
+    'Petit Prince d’Armorique',
+    'Tome du Pays de Rohan',
+    'Chèvre du Trieux',
+    'Brebis d’Arrée',
+    'P’tit Bleu de Bretagne',
+  ])('trouve « %s » dans la base (Bretagne)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les 12 fromages bretons à leur région, aucun sous AOP', () => {
+    expect(BRETAGNE_CHEESES).toHaveLength(12)
+    for (const cheese of BRETAGNE_CHEESES) {
+      expect(cheese.regionId).toBe('bretagne')
+      // La Bretagne ne compte aucun fromage AOP.
+      expect(cheese.aop).toBe(false)
+    }
   })
 
   it('rattache les 15 fromages bourguignons et comtois à leur région', () => {

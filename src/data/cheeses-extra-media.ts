@@ -687,5 +687,133 @@ export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
         "creditUrl": "https://commons.wikimedia.org/wiki/File:Fromage%20de%20l'abbaye%20de%20la%20Pierre-qui-vire.jpg"
       }
     ]
+  },
+  "tome-rhuys": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Salon_de_l%27agriculture_2011_-_tome_de_Rhuys_-_02.jpg/960px-Salon_de_l%27agriculture_2011_-_tome_de_Rhuys_-_02.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Thesupermat, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Salon_de_l'agriculture_2011_-_tome_de_Rhuys_-_02.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Tome_de_Rhuys",
+      "extract": "Tome de Rhuys est une marque commerciale apposée sur un fromage fabriqué par Isabelle Guillon et Gurvan Bourvellec éleveurs de vaches de race Bretonne pie noir dans la commune de Sarzeau dans la presqu'île de Rhuys, département du Morbihan. C'est un fromage fermier au lait cru français."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Salon_de_l%27agriculture_2011_-_tome_de_Rhuys_-_01.jpg/960px-Salon_de_l%27agriculture_2011_-_tome_de_Rhuys_-_01.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Salon%20de%20l'agriculture%202011%20-%20tome%20de%20Rhuys%20-%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Salon_de_l%27agriculture_2011_-_tome_de_Rhuys_-_02.jpg/960px-Salon_de_l%27agriculture_2011_-_tome_de_Rhuys_-_02.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Salon%20de%20l'agriculture%202011%20-%20tome%20de%20Rhuys%20-%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Tome_de_Rhuys.jpg/960px-Tome_de_Rhuys.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Thomon, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Tome%20de%20Rhuys.jpg"
+      }
+    ]
+  },
+  "cure-nantais": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Cur%C3%A9_nantais.JPG/960px-Cur%C3%A9_nantais.JPG",
+      "width": 800,
+      "height": 600,
+      "credit": "Rehtse, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Cur%C3%A9_nantais.JPG"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Le_Cur%C3%A9_Nantais",
+      "extract": "Le Curé Nantais est une marque commerciale apposée sur une série de fromages français, transformés à Pornic (Loire-Atlantique) par l'usine Le Curé Nantais, filiale de Olga. Depuis novembre 2024 le Curé Nantais a ete racheté par les établissements Beillevaire de Machecoul ainsi que la Fromagerie de la Houssaye dans le pays d' Auge suite a la cessation de l' activité fromagerie lait de vache conventionnel du groupe Olga. C'est un fromage à pâte molle à croûte lavée fabriqué avec du lait cru de vac"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Cur%C3%A9_nantais_01.jpg/960px-Cur%C3%A9_nantais_01.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Arnaud 25, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Cur%C3%A9%20nantais%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Cur%C3%A9_nantais.JPG/960px-Cur%C3%A9_nantais.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Rehtse, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Cur%C3%A9%20nantais.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Le_cur%C3%A9_nantais.jpg/960px-Le_cur%C3%A9_nantais.jpg",
+        "width": 800,
+        "height": 811,
+        "credit": "Thomon, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Le%20cur%C3%A9%20nantais.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Tranche_Cur%C3%A9_nantais_2.jpg/960px-Tranche_Cur%C3%A9_nantais_2.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Rehtse, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Tranche%20Cur%C3%A9%20nantais%202.jpg"
+      }
+    ]
+  },
+  "joie-notre-dame": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Trappiste_de_Camp%C3%A9n%C3%A9ac",
+      "extract": "Le trappiste de Campénéac est un fromage préparé par les moines de l'abbaye de la Joie Notre-Dame, à Campénéac, dans le Morbihan. Il s'agit d'un fromage à pâte pressée non cuite, élabore à partir de lait de vache."
+    }
+  },
+  "timadeuc": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Fromages_de_Timadeuc.jpg/960px-Fromages_de_Timadeuc.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Salsero35, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Fromages_de_Timadeuc.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Trappe_de_Timadeuc",
+      "extract": "Trappe de Timadeuc est la marque commerciale d'un fromage industriel français au lait de vache à pâte pressée non cuite. Il est fabriqué dans les usines Triballat Noyal et affiné dans les locaux de la communauté monastique de l'abbaye Notre-Dame de Timadeuc, qui en possède la marque, dans le Morbihan. La marque Trappe de Timadeuc est accompagnée de la marque Monastic."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Abbaye_de_Timadeuc_1910.jpg/960px-Abbaye_de_Timadeuc_1910.jpg",
+        "width": 800,
+        "height": 499,
+        "credit": "Unknown authorUnknown author, Public domain",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Abbaye%20de%20Timadeuc%201910.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Abbaye_de_Timadeuc_B%C3%A2timents.JPG/960px-Abbaye_de_Timadeuc_B%C3%A2timents.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Loïc LLH (Loïc Lehuen), CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Abbaye%20de%20Timadeuc%20B%C3%A2timents.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Abbaye_de_Timadeuc_d%C3%A9but_XXe.jpg/960px-Abbaye_de_Timadeuc_d%C3%A9but_XXe.jpg",
+        "width": 800,
+        "height": 480,
+        "credit": "Unknown authorUnknown author, Public domain",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Abbaye%20de%20Timadeuc%20d%C3%A9but%20XXe.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Abbaye_de_Timadeuc.JPG/960px-Abbaye_de_Timadeuc.JPG",
+        "width": 800,
+        "height": 532,
+        "credit": "Loïc LLH (Loïc Lehuen), CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Abbaye%20de%20Timadeuc.JPG"
+      }
+    ]
   }
 }

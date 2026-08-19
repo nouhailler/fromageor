@@ -2,6 +2,7 @@ import type { Cheese } from './cheese.types'
 import { CHEESES } from './cheeses'
 import { EXTRA_CHEESES, EXTRA_ALT_NAMES } from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
+import { BRETAGNE_CHEESES } from './cheeses-bretagne'
 import { EXTRA_MEDIA } from './cheeses-extra-media'
 
 /** Le jeu de données intégré = les fromages générés depuis le handoff
@@ -18,7 +19,7 @@ export const ALL_CHEESES: Cheese[] = [
     if (!extra) return c
     return { ...c, alt: [...c.alt, ...extra.filter((n) => !c.alt.includes(n))] }
   }),
-  ...[...EXTRA_CHEESES, ...BFC_CHEESES].map((c) => {
+  ...[...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES].map((c) => {
     const media = EXTRA_MEDIA[c.id]
     return media ? { ...c, ...media } : c
   }),
