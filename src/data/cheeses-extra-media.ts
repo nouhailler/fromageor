@@ -815,5 +815,271 @@ export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
         "creditUrl": "https://commons.wikimedia.org/wiki/File:Abbaye%20de%20Timadeuc.JPG"
       }
     ]
+  },
+  "selles-sur-cher": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Selles-sur-cher_1.jpg/960px-Selles-sur-cher_1.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Myrabella, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Selles-sur-cher_1.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Selles-sur-cher",
+      "extract": "Selles-sur-cher est une appellation désignant un fromage au lait cru de chèvre. L'origine de celle-ci vient du fait historique que le principal centre de collecte et de revente de ce fromage se situait à Selles-sur-Cher en Loir-et-Cher en France. Cette appellation d'origine est reconnue depuis le décret du 21 avril 1975, modifié le 29 décembre 1986 en appellation d'origine contrôlée  et est protégée via une appellation d'origine protégée depuis 1996. Elle fait partie des douze appellations de fr"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Selles-sur-cher_01.jpg/960px-Selles-sur-cher_01.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Selles-sur-cher%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Selles-sur-cher_02.jpg/960px-Selles-sur-cher_02.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Selles-sur-cher%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Selles-sur-cher_03.jpg/960px-Selles-sur-cher_03.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Selles-sur-cher%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Selles-sur-cher_04.jpg/960px-Selles-sur-cher_04.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Selles-sur-cher%2004.jpg"
+      }
+    ]
+  },
+  "sainte-maure-touraine": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Sainte-Maure_de_touraine_01.jpg/960px-Sainte-Maure_de_touraine_01.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Sainte-Maure_de_touraine_01.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Sainte-maure-de-touraine",
+      "extract": "Le sainte-maure de touraine est un fromage de chèvre de la région Centre-Val de Loire, en France. Cette appellation d'origine doit son existence à la commune homonyme Sainte-Maure-de-Touraine. L'appellation Sainte-maure-de-touraine est protégée par un label régional depuis 1978, puis depuis le 29 juin 1990, par une appellation d'origine protégée."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Sainte-Maure_de_touraine_01.jpg/960px-Sainte-Maure_de_touraine_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Sainte-Maure%20de%20touraine%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Sainte-Maure_de_touraine_02.jpg/960px-Sainte-Maure_de_touraine_02.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Sainte-Maure%20de%20touraine%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Sainte-Maure_de_touraine_03.jpg/960px-Sainte-Maure_de_touraine_03.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Sainte-Maure%20de%20touraine%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sainte-Maure_de_touraine_04.jpg/960px-Sainte-Maure_de_touraine_04.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Sainte-Maure%20de%20touraine%2004.jpg"
+      }
+    ]
+  },
+  "valencay": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Valen%C3%A7ay_04.jpg/960px-Valen%C3%A7ay_04.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Valen%C3%A7ay_04.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Valen%C3%A7ay_(fromage)",
+      "extract": "Valençay est une appellation d'origine désignant un fromage de chèvre au lait cru du Berry, et de la région Centre-Val de Loire, en France. Elle reprend le nom de la commune homonyme. Sa meilleure période de consommation s'étend de juin à septembre."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Valen%C3%A7ay_01.jpg/960px-Valen%C3%A7ay_01.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Valen%C3%A7ay%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Valen%C3%A7ay_02.jpg/960px-Valen%C3%A7ay_02.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Valen%C3%A7ay%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Valen%C3%A7ay_03.jpg/960px-Valen%C3%A7ay_03.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Valen%C3%A7ay%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Valen%C3%A7ay_04.jpg/960px-Valen%C3%A7ay_04.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Valen%C3%A7ay%2004.jpg"
+      }
+    ]
+  },
+  "pouligny-saint-pierre": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Pouligny-saint-pierre_%28fromage%29_03.jpg/960px-Pouligny-saint-pierre_%28fromage%29_03.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Pouligny-saint-pierre_(fromage)_03.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Pouligny-saint-pierre",
+      "extract": "Le Pouligny-Saint-Pierre est un fromage de chèvre berrichon, plus précisément du département de l'Indre, en région Centre-Val de Loire, en France. Il porte le nom de la commune homonyme. Il est protégé par une appellation d'origine contrôlée, depuis février 1972 et par une appellation d'origine protégée, depuis le 29 octobre 2009."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Pouligny-saint-pierre_%28fromage%29_01.jpg/960px-Pouligny-saint-pierre_%28fromage%29_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pouligny-saint-pierre%20(fromage)%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pouligny-saint-pierre_%28fromage%29_02.jpg/960px-Pouligny-saint-pierre_%28fromage%29_02.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pouligny-saint-pierre%20(fromage)%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Pouligny-saint-pierre_%28fromage%29_03.jpg/960px-Pouligny-saint-pierre_%28fromage%29_03.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pouligny-saint-pierre%20(fromage)%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Pouligny-saint-pierre_%28fromage%29_04.jpg/960px-Pouligny-saint-pierre_%28fromage%29_04.jpg",
+        "width": 800,
+        "height": 1200,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pouligny-saint-pierre%20(fromage)%2004.jpg"
+      }
+    ]
+  },
+  "crottin-chavignol": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Crottin_02.jpg/960px-Crottin_02.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Crottin_02.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Crottin_de_Chavignol",
+      "extract": "Le crottin de Chavignol est un fromage de chèvre français originaire du village berrichon de Chavignol situé dans le département du Cher, la région Centre-Val de Loire et la région naturelle du Sancerrois. Il bénéficie d'une appellation d'origine contrôlée (AOC) depuis 1976 et de l'appellation d'origine protégée (AOP) depuis 1996. Le Syndicat du crottin de Chavignol est une association à laquelle adhèrent les éleveurs et fromagers de l'AOP."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Crottin_01.jpg/960px-Crottin_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Crottin%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Crottin_02.jpg/960px-Crottin_02.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Crottin%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Crottin_03.jpg/960px-Crottin_03.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Crottin%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Crottin_04.jpg/960px-Crottin_04.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Crottin%2004.jpg"
+      }
+    ]
+  },
+  "olivet-cendre": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Olivet_cendre-2009.jpg/960px-Olivet_cendre-2009.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Tamorlan, CC BY 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Olivet_cendre-2009.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Olivet_(fromage)",
+      "extract": "Fromage d'Olivet est une appellation d'origine qui désignait un fromage au lait de vache originaire de la micro-région d'Olivet située dans le département du Loiret en France."
+    }
+  },
+  "olivet-foin": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Olivet_cendre-2009.jpg/960px-Olivet_cendre-2009.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Tamorlan, CC BY 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Olivet_cendre-2009.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Olivet_(fromage)",
+      "extract": "Fromage d'Olivet est une appellation d'origine qui désignait un fromage au lait de vache originaire de la micro-région d'Olivet située dans le département du Loiret en France."
+    }
+  },
+  "couronne-lochoise": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Couronne_lochoise.jpg/960px-Couronne_lochoise.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Thomon, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Couronne_lochoise.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Couronne_Lochoise",
+      "extract": "Couronne Lochoise  est une des six marques commerciales appartenant à l'entreprise d'exploitation agricole Fréval. Elle est apposée sur un fromage fermier à pâte molle à croûte fleurie de lait cru de chèvre fabriqué à la ferme de La Biche, commune de Betz-le-Château en Indre-et-Loire en France."
+    }
+  },
+  "frinault": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Frinault",
+      "extract": "Le Frinault est un fromage français au lait de vache produit dans les environs d'Orléans, dans le département du Loiret et la région Centre-Val de Loire. Le fromage se décline sous trois formes, le Frinault, le Frinault bleu appelé aussi Frinault cendré et le Frinault sec."
+    }
+  },
+  "pithiviers-foin": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Pithiviers_au_foin",
+      "extract": "Le Pithiviers au foin, appelé aussi Bondaroy au foin  est un fromage français, produit à Pithiviers, dans la région du Centre-Val de Loire, dans le département du Loiret. Sa fabrication est encore artisanale."
+    }
   }
 }

@@ -3,6 +3,7 @@ import { CHEESES } from './cheeses'
 import { EXTRA_CHEESES, EXTRA_ALT_NAMES, EXTRA_REGION_OVERRIDES } from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
+import { CVL_CHEESES } from './cheeses-centre-val-de-loire'
 import { EXTRA_MEDIA } from './cheeses-extra-media'
 
 /** Le jeu de données intégré = les fromages générés depuis le handoff
@@ -24,7 +25,7 @@ export const ALL_CHEESES: Cheese[] = [
       ...region,
     }
   }),
-  ...[...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES].map((c) => {
+  ...[...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES, ...CVL_CHEESES].map((c) => {
     const media = EXTRA_MEDIA[c.id]
     return media ? { ...c, ...media } : c
   }),

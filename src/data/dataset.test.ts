@@ -4,6 +4,7 @@ import { CHEESES } from './cheeses'
 import { EXTRA_CHEESES, EXTRA_REGION_OVERRIDES } from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
+import { CVL_CHEESES } from './cheeses-centre-val-de-loire'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 
@@ -18,7 +19,7 @@ function norm(value: string) {
     .trim()
 }
 
-const AJOUTS = [...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES]
+const AJOUTS = [...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES, ...CVL_CHEESES]
 
 describe('ALL_CHEESES', () => {
   it('ne contient aucun identifiant en double', () => {
@@ -133,6 +134,41 @@ describe('ALL_CHEESES', () => {
     'P’tit Bleu de Bretagne',
   ])('trouve « %s » dans la base (Bretagne)', (nom) => {
     expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it.each([
+    'Selles-sur-Cher',
+    'Sainte-Maure de Touraine',
+    'Valençay',
+    'Pouligny-Saint-Pierre',
+    'Crottin de Chavignol',
+    'Olivet cendré',
+    'Olivet au foin',
+    'Couronne lochoise',
+    'Bûchette de Sainte-Maure',
+    'Trèfle du Perche',
+    'Frinault',
+    'Cendré de la Tour',
+    'Pithiviers au foin',
+  ])('trouve « %s » dans la base (Centre-Val de Loire)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages ligériens à leur région, dont les cinq AOP caprines', () => {
+    expect(CVL_CHEESES).toHaveLength(13)
+    for (const cheese of CVL_CHEESES) {
+      expect(cheese.regionId).toBe('centre-val-de-loire')
+    }
+    const aop = CVL_CHEESES.filter((c) => c.aop)
+    expect(aop.map((c) => c.nom).sort()).toEqual([
+      'Crottin de Chavignol',
+      'Pouligny-Saint-Pierre',
+      'Sainte-Maure de Touraine',
+      'Selles-sur-Cher',
+      'Valençay',
+    ])
+    // Les cinq AOP ligériennes sont toutes des fromages de chèvre.
+    for (const cheese of aop) expect(cheese.lait).toBe('Chèvre')
   })
 
   it('applique les rattachements régionaux corrigés aux entrées générées', () => {
