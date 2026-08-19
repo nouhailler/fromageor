@@ -876,7 +876,7 @@ export const CHEESES: Cheese[] = [
     ],
     "regionId": "auvergne-rhone-alpes",
     "wikipedia": {
-      "url": "https://fr.wikipedia.org/wiki/Brillat-savarin_(marque_fromag%C3%A8re)",
+      "url": "https://fr.wikipedia.org/wiki/Brillat-Savarin_(fromage)",
       "extract": "Brillat-Savarin est la marque commerciale d'usage collectif d'un fromage français créé en 1890 par la famille Dubuc près de Forges-les-Eaux (Seine-Maritime) sous la marque privée originelle « Excelsior ». Dans les années 1930, Henri Androuët, un crémier parisien, le commercialise et utilise « Brillat-Savarin » comme surmarque en référence au magistrat et célèbre gastronome Jean Anthelme Brillat-Savarin. Sa meilleure période de consommation s'étend d'avril à octobre."
     },
     "image": {

@@ -154,7 +154,7 @@ async function fetchArticleByTitle(title) {
   const qs = new URLSearchParams({
     action: 'query',
     format: 'json',
-    prop: 'pageimages|extracts|info',
+    prop: 'pageimages|extracts|info|pageprops',
     exintro: '1',
     explaintext: '1',
     piprop: 'name|thumbnail',
@@ -168,6 +168,10 @@ async function fetchArticleByTitle(title) {
   if (!pages) return null
   const page = Object.values(pages)[0]
   if (!page || page.missing !== undefined || !page.extract) return null
+  // L'API marque les pages d'homonymie ; certaines énumèrent leurs sens sans
+  // aucune des tournures que DISAMBIGUATION_RE sait reconnaître (« Le
+  // maroilles, fromage… ; Maroilles, commune… »).
+  if (page.pageprops?.disambiguation !== undefined) return null
   return page
 }
 
@@ -206,7 +210,11 @@ async function lookupArticle(cheeseName, altNames) {
   const directCandidates = [cheeseName, `${cheeseName} (fromage)`, ...altNames]
   for (const title of directCandidates) {
     const page = await fetchArticleByTitle(title)
-    if (page && isCheeseArticle(page.extract)) return toArticle(page)
+    // Le titre résolu est vérifié comme ceux de la recherche : l'API suit les
+    // redirections, et « Vieux-Lille (fromage) » atterrit sur l'article du
+    // Maroilles, dont le résumé et la photo ne sont pas ceux du Vieux-Lille.
+    if (!page || !titleMatchesCheeseName(page.title, cheeseName, altNames)) continue
+    if (isCheeseArticle(page.extract)) return toArticle(page)
   }
 
   for (const name of [cheeseName, ...altNames]) {

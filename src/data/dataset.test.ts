@@ -6,6 +6,8 @@ import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
 import { CVL_CHEESES } from './cheeses-centre-val-de-loire'
 import { NORMANDIE_CHEESES } from './cheeses-normandie'
+import { HDF_CHEESES } from './cheeses-hauts-de-france'
+import { CORSE_CHEESES } from './cheeses-corse'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 
@@ -26,6 +28,8 @@ const AJOUTS = [
   ...BRETAGNE_CHEESES,
   ...CVL_CHEESES,
   ...NORMANDIE_CHEESES,
+  ...HDF_CHEESES,
+  ...CORSE_CHEESES,
 ]
 
 describe('ALL_CHEESES', () => {
@@ -213,6 +217,68 @@ describe('ALL_CHEESES', () => {
       expect(cheese.lait).toBe('Vache')
       expect(cheese.famille).toMatch(/^Pâte molle/)
     }
+  })
+
+  it.each([
+    'Maroilles',
+    'Mimolette',
+    'Boule de Lille',
+    'Vieux-Lille',
+    'Rollot',
+    'Boulette d’Avesnes',
+    'Dauphin',
+    'Bergues',
+    'Mont des Cats',
+    'Sire de Créquy',
+    'Baguette de Thiérache',
+    'Vieux Boulogne',
+    'Crayeux de Roncq',
+    'Cœur d’Arras',
+    'Fleur d’Audresselles',
+    'Sablé de Wissant',
+    'Tome des Trois Monts',
+    'Fort de Béthune',
+    'Manicamp',
+    'Tricorne de Picardie',
+    'Mimolette extra-vieille',
+    'Gris de Lille',
+  ])('trouve « %s » dans la base (Hauts-de-France)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages du Nord à leur région, le Maroilles étant la seule AOP', () => {
+    expect(HDF_CHEESES).toHaveLength(18)
+    for (const cheese of HDF_CHEESES) {
+      expect(cheese.regionId).toBe('hauts-de-france')
+    }
+    expect(HDF_CHEESES.filter((c) => c.aop).map((c) => c.nom)).toEqual(['Maroilles'])
+  })
+
+  it.each([
+    'Brocciu',
+    'Brocciu Passu',
+    'Niolo',
+    'Bastelicacciu',
+    'Calinzana',
+    'Sartinesi',
+    'Venaco',
+    'Brin d’Amour',
+    'Fleur du Maquis',
+    'Tomme corse',
+    'Au lait de maquis',
+    'Casgiu Merzu',
+  ])('trouve « %s » dans la base (Corse)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages corses à leur région, le Brocciu étant la seule AOP', () => {
+    expect(CORSE_CHEESES).toHaveLength(10)
+    for (const cheese of CORSE_CHEESES) {
+      expect(cheese.regionId).toBe('corse')
+      // L'île est un terroir ovin : aucune de ces fiches n'est au lait de vache.
+      expect(cheese.lait).toBe('Brebis')
+    }
+    expect(CORSE_CHEESES.filter((c) => c.aop).map((c) => c.nom)).toEqual(['Brocciu'])
   })
 
   it('applique les rattachements régionaux corrigés aux entrées générées', () => {

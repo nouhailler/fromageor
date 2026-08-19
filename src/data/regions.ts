@@ -6,4 +6,6 @@ export const REGIONS: Region[] = [
   { id: 'bretagne', name: 'Bretagne' },
   { id: 'centre-val-de-loire', name: 'Centre-Val de Loire' },
   { id: 'normandie', name: 'Normandie' },
+  { id: 'hauts-de-france', name: 'Hauts-de-France' },
+  { id: 'corse', name: 'Corse' },
 ]

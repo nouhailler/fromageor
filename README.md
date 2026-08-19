@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Cinq régions couvertes : **Auvergne-Rhône-Alpes** (53 fromages), **Bourgogne-Franche-Comté** (18), **Centre-Val de Loire** (13), **Bretagne** (12) et **Normandie** (13), soit 109 fiches — l'ossature UI/données accepte d'autres régions à la suite.
+Sept régions couvertes : **Auvergne-Rhône-Alpes** (53 fromages), **Bourgogne-Franche-Comté** (18), **Centre-Val de Loire** (13), **Normandie** (13), **Hauts-de-France** (18), **Bretagne** (12) et **Corse** (10), soit 137 fiches — l'ossature UI/données accepte d'autres régions à la suite.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -107,6 +107,8 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-bretagne.ts` | **à la main** | Les 12 fromages de Bretagne — aucun sous AOP, la région n'en compte pas |
 | `cheeses-centre-val-de-loire.ts` | **à la main** | Les 13 fromages du Centre-Val de Loire, dont les 5 AOP caprines du Val de Loire |
 | `cheeses-normandie.ts` | **à la main** | Les 13 fromages de Normandie, dont les 4 AOP à pâte molle |
+| `cheeses-hauts-de-france.ts` | **à la main** | Les 18 fromages des Hauts-de-France, autour du Maroilles, seule AOP de la région |
+| `cheeses-corse.ts` | **à la main** | Les 10 fromages de Corse, du Brocciu AOP aux cinq familles fermières |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
