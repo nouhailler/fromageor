@@ -11,90 +11,16 @@ export interface CheeseMedia {
 
 export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
   "tome-bauges": {
-    "image": {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Tome_des_Bauges.jpg/960px-Tome_des_Bauges.jpg",
-      "width": 800,
-      "height": 600,
-      "credit": "Mit-Mit, Public domain",
-      "creditUrl": "https://commons.wikimedia.org/wiki/File:Tome_des_Bauges.jpg"
-    },
     "wikipedia": {
       "url": "https://fr.wikipedia.org/wiki/Tome_des_Bauges",
       "extract": "La tome des Bauges est un fromage au lait de vache produit en France. Elle doit son nom au mot \"toma\" qui signifie, en patois savoyard, \"fromage fabriqué dans les alpages\", ainsi qu'au lieu de sa fabrication le massif des Bauges. Il s'agit d'un fromage au lait cru entier ou partiellement écrémé, à pâte pressée non cuite, salée et à croûte fleurie de 18 à 20 cm de diamètre et 3 à 5 cm de hauteur pour 1,1 à 1,4 kg. Sa pâte est de couleur ivoire à jaune et sa croûte grise."
-    },
-    "galleryImages": [
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Tome_des_Bauges.jpg/960px-Tome_des_Bauges.jpg",
-        "width": 800,
-        "height": 600,
-        "credit": "Mit-Mit, Public domain",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Tome%20des%20Bauges.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/.Tome_des_Bauges.jpg/960px-.Tome_des_Bauges.jpg",
-        "width": 800,
-        "height": 1191,
-        "credit": "Marianne Casamance, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:.Tome%20des%20Bauges.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Abbaye_de_Tami%C3%A9_et_tome_des_Bauges.jpg/960px-Abbaye_de_Tami%C3%A9_et_tome_des_Bauges.jpg",
-        "width": 800,
-        "height": 533,
-        "credit": "Nicolas Vigier from Paris, France, CC BY 2.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Abbaye%20de%20Tami%C3%A9%20et%20tome%20des%20Bauges.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Matouille_Savoyarde.jpg",
-        "width": 800,
-        "height": 992,
-        "credit": "Flaburgan, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Matouille%20Savoyarde.jpg"
-      }
-    ]
+    }
   },
   "emmental-savoie": {
-    "image": {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Emmental_de_Savoie_02.jpg/960px-Emmental_de_Savoie_02.jpg",
-      "width": 800,
-      "height": 533,
-      "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
-      "creditUrl": "https://commons.wikimedia.org/wiki/File:Emmental_de_Savoie_02.jpg"
-    },
     "wikipedia": {
       "url": "https://fr.wikipedia.org/wiki/Emmental_de_Savoie",
       "extract": "L'emmental de Savoie est un fromage de vache au lait cru fabriqué en France dans les départements alpins de la Savoie et de la Haute-Savoie. Il fait partie de la famille des fromages à pâte pressée cuite. Le nom de ce fromage français est une indication géographique protégée. Il est parfois appelé à tort « gruyère »."
-    },
-    "galleryImages": [
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Emmental_de_Savoie_01.jpg/960px-Emmental_de_Savoie_01.jpg",
-        "width": 800,
-        "height": 533,
-        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Emmental%20de%20Savoie%2001.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Emmental_de_Savoie_02.jpg/960px-Emmental_de_Savoie_02.jpg",
-        "width": 800,
-        "height": 533,
-        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Emmental%20de%20Savoie%2002.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Emmental_de_Savoie_03.jpg/960px-Emmental_de_Savoie_03.jpg",
-        "width": 800,
-        "height": 533,
-        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Emmental%20de%20Savoie%2003.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Emmental_de_Savoie_04.jpg/960px-Emmental_de_Savoie_04.jpg",
-        "width": 800,
-        "height": 533,
-        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Emmental%20de%20Savoie%2004.jpg"
-      }
-    ]
+    }
   },
   "emmental-est-central": {
     "wikipedia": {
@@ -1080,6 +1006,258 @@ export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
     "wikipedia": {
       "url": "https://fr.wikipedia.org/wiki/Pithiviers_au_foin",
       "extract": "Le Pithiviers au foin, appelé aussi Bondaroy au foin  est un fromage français, produit à Pithiviers, dans la région du Centre-Val de Loire, dans le département du Loiret. Sa fabrication est encore artisanale."
+    }
+  },
+  "camembert-normandie": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Camembert_de_Normandie_%28AOP%29_10.jpg/960px-Camembert_de_Normandie_%28AOP%29_10.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Camembert_de_Normandie_(AOP)_10.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Camembert_de_Normandie",
+      "extract": "Le camembert de Normandie est un fromage au lait cru de vache, à pâte molle légèrement salée et à croûte fleurie dont le lait cru est produit et transformé en Normandie. Depuis 1982, il est protégé en France par une appellation d'origine contrôlée (AOC), et dans l'ensemble des pays de l'Union européenne par une appellation d'origine protégée (AOP), qui le distingue de camemberts ne répondant pas au même cahier des charges. Le nom provient du village de Camembert, dans l'Orne, où le fromage aurai"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Camembert_de_Normandie_%28AOP%29_01.jpg/960px-Camembert_de_Normandie_%28AOP%29_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Camembert%20de%20Normandie%20(AOP)%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Camembert_de_Normandie_%28AOP%29_02.jpg/960px-Camembert_de_Normandie_%28AOP%29_02.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Camembert%20de%20Normandie%20(AOP)%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Camembert_de_Normandie_%28AOP%29_03.jpg/960px-Camembert_de_Normandie_%28AOP%29_03.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Camembert%20de%20Normandie%20(AOP)%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Camembert_de_Normandie_%28AOP%29_04.jpg/960px-Camembert_de_Normandie_%28AOP%29_04.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Camembert%20de%20Normandie%20(AOP)%2004.jpg"
+      }
+    ]
+  },
+  "livarot": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Livarot_%28fromage%29_02.jpg/960px-Livarot_%28fromage%29_02.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Livarot_(fromage)_02.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Livarot_(fromage)",
+      "extract": "Le livarot est un fromage à pâte molle à croûte lavée fabriqué en France en Normandie dans le pays d'Auge. Il bénéficie d'une AOC depuis 1975 et d'une AOP depuis 1996. Sa meilleure période de consommation s'étend de mai à septembre."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Livarot_%28fromage%29_01.jpg/960px-Livarot_%28fromage%29_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Livarot%20(fromage)%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Livarot_%28fromage%29_02.jpg/960px-Livarot_%28fromage%29_02.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Livarot%20(fromage)%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Livarot_%28fromage%29_03.jpg/960px-Livarot_%28fromage%29_03.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Livarot%20(fromage)%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Livarot_%28fromage%29_04.jpg/960px-Livarot_%28fromage%29_04.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Livarot%20(fromage)%2004.jpg"
+      }
+    ]
+  },
+  "pont-leveque": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pont-l%27%C3%89v%C3%AAque_03.jpg/960px-Pont-l%27%C3%89v%C3%AAque_03.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Pont-l'%C3%89v%C3%AAque_03.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Pont-l%27%C3%A9v%C3%AAque",
+      "extract": "Le pont-l’évêque est un fromage à pâte molle à croûte lavée de lait de vache produit et affiné en France sur le territoire de la Normandie historique. Il est protégé par une appellation d'origine. Sa meilleure période de consommation s'étend de juin à mars."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Pont-l%27%C3%89v%C3%AAque_01.jpg/960px-Pont-l%27%C3%89v%C3%AAque_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pont-l'%C3%89v%C3%AAque%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Pont-l%27%C3%89v%C3%AAque_02.jpg/960px-Pont-l%27%C3%89v%C3%AAque_02.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pont-l'%C3%89v%C3%AAque%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pont-l%27%C3%89v%C3%AAque_03.jpg/960px-Pont-l%27%C3%89v%C3%AAque_03.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pont-l'%C3%89v%C3%AAque%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Pont-l%27%C3%89v%C3%AAque_04.jpg/960px-Pont-l%27%C3%89v%C3%AAque_04.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pont-l'%C3%89v%C3%AAque%2004.jpg"
+      }
+    ]
+  },
+  "neufchatel": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/C%C5%93urs_de_Neufch%C3%A2tel_01.jpg/960px-C%C5%93urs_de_Neufch%C3%A2tel_01.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:C%C5%93urs_de_Neufch%C3%A2tel_01.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Neufch%C3%A2tel_(fromage)",
+      "extract": "Le neufchâtel est un fromage français fabriqué dans le pays de Bray, dans 134 communes aux alentours de Neufchâtel-en-Bray. Cette appellation d'origine est préservée par une appellation d'origine contrôlée depuis 1969. La forme en cœur est typique de ce fromage, mais les formes en briquette, bonde, double bonde, carré et triple cœur sont également enregistrées dans le cahier des charges de la protection. La race des vaches et leur alimentation (pâturage au moins six mois par an), ainsi que la fa"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Anselin_kaas.JPG/960px-Anselin_kaas.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Queeste, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Anselin%20kaas.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Anselin.JPG/960px-Anselin.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Queeste, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Anselin.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Carte_Neufch%C3%A2tel_zone_appellation.png/960px-Carte_Neufch%C3%A2tel_zone_appellation.png",
+        "width": 800,
+        "height": 964,
+        "credit": "Weft, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Carte%20Neufch%C3%A2tel%20zone%20appellation.png"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Cheeses_%282%29%2C_illustration_from_The_Encyclopedia_of_Food_by_Artemas_Ward.jpg/960px-Cheeses_%282%29%2C_illustration_from_The_Encyclopedia_of_Food_by_Artemas_Ward.jpg",
+        "width": 800,
+        "height": 1238,
+        "credit": "Artemas Ward, Public domain",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Cheeses%20(2)%2C%20illustration%20from%20The%20Encyclopedia%20of%20Food%20by%20Artemas%20Ward.jpg"
+      }
+    ]
+  },
+  "pave-auge": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Pav%C3%A9_d%27Auge",
+      "extract": "Pavé d'Auge ou carré d'Auge sont des appellations désignant un fromage français de lait de vache. Ce sont des appellations d'origine augeronne, pays de la Normandie historique. L'appellation pavé de Moyaux peut se rencontrer du fait qu'à une époque relativement récente, ce fromage n'était plus produit commercialement qu'à Moyaux dans le Calvados par quelques familles d'agriculteurs."
+    }
+  },
+  "petit-suisse": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Petit-suisse_assiette.jpg/960px-Petit-suisse_assiette.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Chtfn, CC BY 2.5",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit-suisse_assiette.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Petit-suisse",
+      "extract": "Le petit-suisse est un fromage français de Picardie, contrairement à ce que laisse croire son appellation. C'est un fromage blanc, non salé, de consistance onctueuse, à base de lait de vache enrichi de crème de lait de vache, d’une masse moyenne de 60 g, qui se présente enveloppé sous forme d’un cylindre de 5 cm de haut et 3 cm de diamètre. Sa teneur en lipides est voisine de 10 g pour 100 g de produit soit 40 à 60 % de matière grasse sur extrait sec."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Petit-suisse_assiette.jpg/960px-Petit-suisse_assiette.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Chtfn, CC BY 2.5",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit-suisse%20assiette.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Petit-suisse_en_coupelle.jpg/960px-Petit-suisse_en_coupelle.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Iamericat, CC BY 2.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit-suisse%20en%20coupelle.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Petit-suisse_pot.jpg/960px-Petit-suisse_pot.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Chtfn, CC BY 2.5",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit-suisse%20pot.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Lot_de_petits_suisses_2.JPG/960px-Lot_de_petits_suisses_2.JPG",
+        "width": 800,
+        "height": 533,
+        "credit": "Marianne Casamance, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Lot%20de%20petits%20suisses%202.JPG"
+      }
+    ]
+  },
+  "trappe-bricquebec": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Trappe_de_Bricquebec",
+      "extract": "Trappe de Bricquebec est la marque commerciale d'un fromage fabriqué par Les Maîtres Laitiers du Cotentin dans la Manche en Normandie. Il est fabriqué sur une base de lait pasteurisé de vache, à pâte pressée non cuite, de 45 % de matières grasses, d’un poids moyen de 250 grammes, qui se présente sous forme d’une petite meule de 22 cm de diamètre."
+    }
+  },
+  "la-bouille": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Bouille_(fromage)",
+      "extract": "La bouille est un fromage inventé à la fin du XIXe siècle par Mme Dupuis à La Bouille dans la Seine-Maritime. C’est un fromage double crème à base de lait de vache, à pâte molle à croûte fleurie, de 60 % de matières grasses, d’un poids moyen de 500 grammes, qui se présente sous forme d’un cylindre de 7 cm de diamètre."
+    }
+  },
+  "carre-de-bray": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Carr%C3%A9_de_Bray",
+      "extract": "Le carré de Bray est un fromage du pays de Bray, surtout produit dans la région de Gournay-en-Bray. Il est identifié comme un fromage typique de Normandie."
+    }
+  },
+  "excelsior": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Excelsior_ou_D%C3%A9lice_des_gourmets%2C_rebaptis%C3%A9_brillat-savarin_dans_les_ann%C3%A9es_1930.jpg/960px-Excelsior_ou_D%C3%A9lice_des_gourmets%2C_rebaptis%C3%A9_brillat-savarin_dans_les_ann%C3%A9es_1930.jpg",
+      "width": 800,
+      "height": 783,
+      "credit": "Unknown authorUnknown author end century 18th, Public domain",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Excelsior_ou_D%C3%A9lice_des_gourmets%2C_rebaptis%C3%A9_brillat-savarin_dans_les_ann%C3%A9es_1930.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Excelsior_(marque_fromag%C3%A8re)",
+      "extract": "Excelsior était une marque commerciale accompagnant un fromage fabriqué au XIXe siècle dans la région de Forges-les-Eaux par la famille Dubuc et auquel un crémier parisien, Henri Androuët, a donné le nom de brillat-savarin. C’était un fromage double crème à base de lait de vache, à croûte blanche duveteuse aux reflets légèrement jaunes, contenant 72 % de matières grasses, d’un poids moyen de 450  grammes, qui se présente sous forme d’un cylindre de 13 cm de diamètre sur 3,5 cm d'épaisseur."
     }
   }
 }

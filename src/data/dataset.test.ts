@@ -5,6 +5,7 @@ import { EXTRA_CHEESES, EXTRA_REGION_OVERRIDES } from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
 import { CVL_CHEESES } from './cheeses-centre-val-de-loire'
+import { NORMANDIE_CHEESES } from './cheeses-normandie'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 
@@ -19,7 +20,13 @@ function norm(value: string) {
     .trim()
 }
 
-const AJOUTS = [...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES, ...CVL_CHEESES]
+const AJOUTS = [
+  ...EXTRA_CHEESES,
+  ...BFC_CHEESES,
+  ...BRETAGNE_CHEESES,
+  ...CVL_CHEESES,
+  ...NORMANDIE_CHEESES,
+]
 
 describe('ALL_CHEESES', () => {
   it('ne contient aucun identifiant en double', () => {
@@ -169,6 +176,43 @@ describe('ALL_CHEESES', () => {
     ])
     // Les cinq AOP ligériennes sont toutes des fromages de chèvre.
     for (const cheese of aop) expect(cheese.lait).toBe('Chèvre')
+  })
+
+  it.each([
+    'Camembert de Normandie',
+    'Livarot',
+    'Pont-l’Évêque',
+    'Neufchâtel',
+    'Pavé d’Auge',
+    'Petit-Suisse',
+    'Trappe de Bricquebec',
+    'Fromage de Monsieur',
+    'La Bouille',
+    'Carré de Bray',
+    'Brique du Cotentin',
+    'Excelsior',
+    'Coutances',
+  ])('trouve « %s » dans la base (Normandie)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages normands à leur région, dont les quatre AOP', () => {
+    expect(NORMANDIE_CHEESES).toHaveLength(13)
+    for (const cheese of NORMANDIE_CHEESES) {
+      expect(cheese.regionId).toBe('normandie')
+    }
+    const aop = NORMANDIE_CHEESES.filter((c) => c.aop)
+    expect(aop.map((c) => c.nom).sort()).toEqual([
+      'Camembert de Normandie',
+      'Livarot',
+      'Neufchâtel',
+      'Pont-l’Évêque',
+    ])
+    // Les quatre AOP normandes sont toutes des pâtes molles au lait de vache.
+    for (const cheese of aop) {
+      expect(cheese.lait).toBe('Vache')
+      expect(cheese.famille).toMatch(/^Pâte molle/)
+    }
   })
 
   it('applique les rattachements régionaux corrigés aux entrées générées', () => {

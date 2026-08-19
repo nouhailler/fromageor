@@ -74,13 +74,14 @@ function stripUtm(u) {
 
 const DISAMBIGUATION_RE = /(peut désigner|peut faire référence|peut se référer|page d.homonymie|est un prénom|est un patronyme|est un toponyme|nom de lieu|un nom de famille)/i
 const CHEESE_RE = /\bfromag|\blaitier|\blaitière/i
-// Beaucoup de fromages partagent leur nom avec autre chose — le village dont
-// ils viennent, la race qui donne le lait — et ces articles-là mentionnent
-// « fromage » ou « laitière » dès leur première phrase (« Époisses est une
-// commune […] connue pour son fromage »), ce qui suffisait à les faire passer
-// pour l'article du fromage. On les écarte sur leur sujet grammatical.
+// Beaucoup de fromages partagent leur nom avec autre chose : le village dont
+// ils viennent, la race qui donne le lait, la recette qui les emploie. Ces
+// articles-là mentionnent « fromage » ou « laitière » dès leur première phrase
+// (« Époisses est une commune […] connue pour son fromage », « Le croque-
+// monsieur est un sandwich […] de fromage »), ce qui suffisait à les faire
+// passer pour l'article du fromage. On les écarte sur leur sujet grammatical.
 const NON_CHEESE_SUBJECT_RE =
-  /\b(est|était) une? (commune|ancienne commune|ville|localité|race|ancienne race|abbaye|entreprise|société|marque de)\b/i
+  /\b(est|était) une? (commune|ancienne commune|ville|localité|race|ancienne race|abbaye|entreprise|société|marque de|sandwich|plat|recette|gâteau|tarte|soupe)\b/i
 const STOPWORDS = new Set([
   'de', 'du', 'des', 'la', 'le', 'les', 'un', 'une', 'et', 'd', 'l', 'au', 'aux',
   'fromage', 'fromages', 'tomme', 'tommette', 'tome',

@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Quatre régions couvertes : **Auvergne-Rhône-Alpes** (53 fromages), **Bourgogne-Franche-Comté** (18), **Centre-Val de Loire** (13) et **Bretagne** (12), soit 96 fiches — l'ossature UI/données accepte d'autres régions à la suite.
+Cinq régions couvertes : **Auvergne-Rhône-Alpes** (53 fromages), **Bourgogne-Franche-Comté** (18), **Centre-Val de Loire** (13), **Bretagne** (12) et **Normandie** (13), soit 109 fiches — l'ossature UI/données accepte d'autres régions à la suite.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -106,13 +106,14 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-bourgogne-franche-comte.ts` | **à la main** | Les 15 fromages de Bourgogne-Franche-Comté |
 | `cheeses-bretagne.ts` | **à la main** | Les 12 fromages de Bretagne — aucun sous AOP, la région n'en compte pas |
 | `cheeses-centre-val-de-loire.ts` | **à la main** | Les 13 fromages du Centre-Val de Loire, dont les 5 AOP caprines du Val de Loire |
+| `cheeses-normandie.ts` | **à la main** | Les 13 fromages de Normandie, dont les 4 AOP à pâte molle |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
 
 ### ➕ Ajouter un fromage
 
-1. Ajouter l'entrée dans le fichier de sa région (`cheeses-extra.ts`, `cheeses-bourgogne-franche-comte.ts`, `cheeses-bretagne.ts`, `cheeses-centre-val-de-loire.ts`, ou un nouveau fichier déclaré dans `dataset.ts`). Le type `Cheese` liste les champs attendus.
+1. Ajouter l'entrée dans le fichier de sa région (un `cheeses-<région>.ts`, ou un nouveau fichier déclaré dans `dataset.ts` et dans `scripts/enrich-wikipedia-extra.mjs`). Le type `Cheese` liste les champs attendus.
 2. Renseigner `map: [x, y]` dans l'espace de `FR_XY` — la projection réelle, pas les coordonnées approximatives du handoff : les ajouts n'ont pas d'entrée dans `fr-map.ts` et retombent sur ce champ. Loin des fromages existants (tous à l'est), se caler sur les sommets de `franceOutline.ts` et vérifier que le point tombe bien à l'intérieur du contour.
 3. `npm run enrich-wikipedia-extra` pour récupérer photo et résumé.
 4. `npm run test` — `src/data/dataset.test.ts` refuse tout identifiant ou nom en double, vérifie la région et les bornes de la carte.
