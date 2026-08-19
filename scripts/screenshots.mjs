@@ -37,8 +37,22 @@ async function fromDrawer(label) {
 }
 
 async function shot(name) {
-  // Laisse les photos Wikimedia et les transitions se poser.
   await page.waitForLoadState('networkidle')
+  // `networkidle` ne suffit pas pour les photos Wikimedia : elles sont
+  // demandées après l'hydratation et arrivent parfois après coup, ce qui
+  // donnait des captures aux vignettes vides. On attend leur décodage.
+  try {
+    await page.waitForFunction(
+      () => Array.from(document.images).every((img) => img.complete && img.naturalWidth > 0),
+      null,
+      { timeout: 15000 },
+    )
+  } catch {
+    const manquantes = await page.evaluate(
+      () => document.images.length - Array.from(document.images).filter((i) => i.naturalWidth > 0).length,
+    )
+    console.warn(`  ! ${name} : ${manquantes} image(s) non chargée(s) — capture quand même`)
+  }
   await page.waitForTimeout(400)
   await frame.screenshot({ path: join(OUT, `${name}.png`) })
   console.log(`docs/screenshots/${name}.png`)
