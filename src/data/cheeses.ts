@@ -366,44 +366,44 @@ export const CHEESES: Cheese[] = [
     ],
     "regionId": "auvergne-rhone-alpes",
     "wikipedia": {
-      "url": "https://fr.wikipedia.org/wiki/Saint-Nectaire",
-      "extract": "Saint-Nectaire est une commune française située dans le département du Puy-de-Dôme, en région Auvergne-Rhône-Alpes. Elle doit son nom à son église, consacrée à Saint Nectaire (Nectaire d'Auvergne, IIIe et IVe siècles). Saint-Nectaire a donné son nom au célèbre fromage, le saint-nectaire."
+      "url": "https://fr.wikipedia.org/wiki/Saint-nectaire",
+      "extract": "Saint-nectaire est une appellation d'origine désignant un fromage français de lait de vache fabriqué dans la micro-région des monts Dore, pays à cheval sur les départements du Cantal et du Puy-de-Dôme en France et s’étend sur une surface de 1 800 km2 à une altitude comprise entre 700 et 1 500 m (50 communes dans le Puy de Dôme et 19 dans le Cantal). Le savoir-faire des artisans du saint-nectaire a été reconnu par le ministère de la Culture et est inscrit à l'inventaire du patrimoine culturel imm"
     },
     "image": {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Saint-Nectaire_Vue_g%C3%A9n%C3%A9rale10.JPG/960px-Saint-Nectaire_Vue_g%C3%A9n%C3%A9rale10.JPG",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Saint-Nectaire.jpg/960px-Saint-Nectaire.jpg",
       "width": 800,
       "height": 600,
-      "credit": "Torsade de Pointes, CC0",
-      "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-Nectaire_Vue_g%C3%A9n%C3%A9rale10.JPG"
+      "credit": "Homer Ectus, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-Nectaire.jpg"
     },
     "galleryImages": [
       {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Saint-Nectaire_%28Puy-de-D%C3%B4me%29_202105_1.jpg/960px-Saint-Nectaire_%28Puy-de-D%C3%B4me%29_202105_1.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Saint-nectaire_%281%29.jpg/960px-Saint-nectaire_%281%29.jpg",
         "width": 800,
         "height": 600,
-        "credit": "Pierre Tribhou, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-Nectaire%20(Puy-de-D%C3%B4me)%20202105%201.jpg"
+        "credit": "(:Julien:), CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-nectaire%20(1).jpg"
       },
       {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Saint-Nectaire_-_Vue_sud-ouest_village_depuis_l%27%C3%A9glise_%28ao%C3%BBt_2025%29.jpg/960px-Saint-Nectaire_-_Vue_sud-ouest_village_depuis_l%27%C3%A9glise_%28ao%C3%BBt_2025%29.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Saint-nectaire_%282%29.jpg/960px-Saint-nectaire_%282%29.jpg",
         "width": 800,
         "height": 600,
-        "credit": "Sebleouf, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-Nectaire%20-%20Vue%20sud-ouest%20village%20depuis%20l'%C3%A9glise%20(ao%C3%BBt%202025).jpg"
+        "credit": "(:Julien:), CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-nectaire%20(2).jpg"
       },
       {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Saint-Nectaire_01_vue_g%C3%A9n%C3%A9rale.JPG/960px-Saint-Nectaire_01_vue_g%C3%A9n%C3%A9rale.JPG",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Saint-nectaire_%283%29.jpg/960px-Saint-nectaire_%283%29.jpg",
         "width": 800,
         "height": 600,
-        "credit": "Daieuxetdailleurs, CC BY-SA 3.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-Nectaire%2001%20vue%20g%C3%A9n%C3%A9rale.JPG"
+        "credit": "(:Julien:), CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-nectaire%20(3).jpg"
       },
       {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Saint-Nectaire_02_vue_g%C3%A9n%C3%A9rale.JPG/960px-Saint-Nectaire_02_vue_g%C3%A9n%C3%A9rale.JPG",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Saint-nectaire_%284%29.jpg/960px-Saint-nectaire_%284%29.jpg",
         "width": 800,
         "height": 600,
-        "credit": "Daieuxetdailleurs, CC BY-SA 3.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-Nectaire%2002%20vue%20g%C3%A9n%C3%A9rale.JPG"
+        "credit": "(:Julien:), CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-nectaire%20(4).jpg"
       }
     ]
   },

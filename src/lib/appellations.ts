@@ -6,12 +6,15 @@ import type { Cheese } from '../data/cheese.types'
 
 export type AppellationLabel = 'AOP' | 'IGP' | 'Label Rouge' | 'Bio'
 
+/** L'IGP est déduite du nom, faute de champ dédié dans les données du handoff.
+ *  Cette liste couvre les IGP réellement portées par des fromages de la base. */
+const IGP_NAMES =
+  /(tomme|raclette|emmental) de savoie|emmental fran[çc]ais est-central|soumaintrain|cancoillotte/i
+
 export function appellationsOf(c: Cheese): AppellationLabel[] {
   const labels: AppellationLabel[] = []
   if (c.aop) labels.push('AOP')
-  if (/(tomme|raclette|emmental) de savoie/i.test(c.nom) || /emmental fran[çc]ais est-central/i.test(c.nom)) {
-    labels.push('IGP')
-  }
+  if (IGP_NAMES.test(c.nom)) labels.push('IGP')
   if (!c.aop && /press[ée]+e? non cuite/i.test(c.famille || '') && c.intensite >= 3) {
     labels.push('Label Rouge')
   }

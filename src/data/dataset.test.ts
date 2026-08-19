@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { ALL_CHEESES } from './dataset'
 import { CHEESES } from './cheeses'
 import { EXTRA_CHEESES } from './cheeses-extra'
+import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 
@@ -16,6 +17,8 @@ function norm(value: string) {
     .trim()
 }
 
+const AJOUTS = [...EXTRA_CHEESES, ...BFC_CHEESES]
+
 describe('ALL_CHEESES', () => {
   it('ne contient aucun identifiant en double', () => {
     const ids = ALL_CHEESES.map((c) => c.id)
@@ -29,7 +32,7 @@ describe('ALL_CHEESES', () => {
 
   it("ne réutilise aucun nom du jeu généré comme nom alternatif d'un ajout", () => {
     const generes = new Set(CHEESES.map((c) => norm(c.nom)))
-    const collisions = EXTRA_CHEESES.flatMap((c) => [c.nom, ...c.alt])
+    const collisions = AJOUTS.flatMap((c) => [c.nom, ...c.alt])
       .map(norm)
       .filter((n) => generes.has(n))
     expect(collisions).toEqual([])
@@ -37,13 +40,13 @@ describe('ALL_CHEESES', () => {
 
   it('rattache chaque ajout à une région connue', () => {
     const connues = new Set(REGIONS.map((r) => r.id))
-    for (const cheese of EXTRA_CHEESES) {
+    for (const cheese of AJOUTS) {
       expect(connues.has(cheese.regionId)).toBe(true)
     }
   })
 
   it('place chaque ajout sur la carte, dans les bornes de la silhouette', () => {
-    for (const cheese of EXTRA_CHEESES) {
+    for (const cheese of AJOUTS) {
       const [x, y] = cheese.map
       expect(x).toBeGreaterThan(0)
       expect(x).toBeLessThan(100)
@@ -83,7 +86,41 @@ describe('ALL_CHEESES', () => {
     'Ramequin',
     'Cervelle de canut',
     'Tomme du Bourbonnais',
-  ])('trouve « %s » dans la base', (nom) => {
+  ])('trouve « %s » dans la base (Auvergne-Rhône-Alpes)', (nom) => {
     expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it.each([
+    'Comté',
+    'Époisses',
+    "Mont d'Or",
+    'Vacherin du Haut-Doubs',
+    'Morbier',
+    'Bleu de Gex Haut-Jura',
+    'Chaource',
+    'Charolais',
+    'Mâconnais',
+    'Langres',
+    'Cancoillotte',
+    'Soumaintrain',
+    'Brillat-Savarin',
+    'Saint-Florentin',
+    'Aisy cendré',
+    'Trou du Cru',
+    'Affidélice',
+    'Ami du Chambertin',
+    'Raclette de Savoie',
+    'P’tit Gaugry',
+    'Bouton de Culotte',
+    'Pierre-Qui-Vire',
+  ])('trouve « %s » dans la base (Bourgogne-Franche-Comté)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les 15 fromages bourguignons et comtois à leur région', () => {
+    expect(BFC_CHEESES).toHaveLength(15)
+    for (const cheese of BFC_CHEESES) {
+      expect(cheese.regionId).toBe('bourgogne-franche-comte')
+    }
   })
 })

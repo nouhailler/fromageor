@@ -10,7 +10,7 @@ import styles from './HomeScreen.module.css'
 
 export function HomeScreen() {
   const { actions } = useAppState()
-  const { deco, featured, allDots, seasonName, seasonal, popular } = useCollections()
+  const { deco, featured, allDots, seasonName, seasonal, popular, regions } = useCollections()
 
   return (
     <div>
@@ -21,7 +21,9 @@ export function HomeScreen() {
           <br />
           de France
         </h1>
-        <div className={styles.subtitle}>{deco.length} fromages · Auvergne-Rhône-Alpes</div>
+        <div className={styles.subtitle}>
+          {deco.length} fromages · {regions.length === 1 ? regions[0].name : `${regions.length} régions`}
+        </div>
       </StickyHeader>
 
       <div className={styles.content}>

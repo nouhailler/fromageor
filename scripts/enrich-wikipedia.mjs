@@ -74,6 +74,11 @@ function stripUtm(u) {
 
 const DISAMBIGUATION_RE = /(peut désigner|peut faire référence|peut se référer|page d.homonymie|est un prénom|est un patronyme|est un toponyme|nom de lieu|un nom de famille)/i
 const CHEESE_RE = /\bfromag|\blaitier|\blaitière/i
+// Beaucoup de fromages portent le nom de leur village : l'article de la commune
+// mentionne alors « fromage » dès son premier paragraphe (« Époisses est une
+// commune […] connue pour son fromage »), ce qui suffisait à le faire passer
+// pour l'article du fromage.
+const SETTLEMENT_RE = /\b(est|était) une (commune|ancienne commune|ville|localité)\b/i
 const STOPWORDS = new Set([
   'de', 'du', 'des', 'la', 'le', 'les', 'un', 'une', 'et', 'd', 'l', 'au', 'aux',
   'fromage', 'fromages', 'tomme', 'tommette', 'tome',
@@ -96,10 +101,12 @@ function paragraphLines(extract) {
 function isCheeseArticle(extract) {
   const lines = paragraphLines(extract)
   if (lines.length === 0) return false
+  if (SETTLEMENT_RE.test(lines[0])) return false
   if (!DISAMBIGUATION_RE.test(lines[0]) && CHEESE_RE.test(lines[0])) return true
   if (lines.length === 2) {
     const [l0, l1] = lines
     if (DISAMBIGUATION_RE.test(l0) || DISAMBIGUATION_RE.test(l1)) return false
+    if (SETTLEMENT_RE.test(l0) || SETTLEMENT_RE.test(l1)) return false
     if (l0.endsWith(':') || l1.endsWith(':')) return false
     return CHEESE_RE.test(l0) || CHEESE_RE.test(l1)
   }

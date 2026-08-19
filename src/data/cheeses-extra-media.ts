@@ -187,5 +187,505 @@ export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
         "creditUrl": "https://commons.wikimedia.org/wiki/File:Saucisson%20lyonnais%20et%20cervelle%20de%20canut%20Aux%20Gogniols%20(Lyon)%20ao%C3%BBt%202023.jpg"
       }
     ]
+  },
+  "comte": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Comte_AOP.jpg/960px-Comte_AOP.jpg",
+      "width": 800,
+      "height": 507,
+      "credit": "Myrabella, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Comte_AOP.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Comt%C3%A9_(fromage)",
+      "extract": "Comté est l'appellation d'origine d'un fromage français transformé principalement en Bourgogne-Franche-Comté, mais aussi en Auvergne-Rhône-Alpes, et bénéficiant d'une AOC depuis 1958 et d'une AOP depuis 1996. Son aire de production s'étend sur la partie française du massif jurassien, dans les départements du Jura, du Doubs, et dans la moitié est de l'Ain. Elle englobe également une commune de Haute-Savoie et quelques-unes de Saône-et-Loire. C'est un fromage de lait cru de vache, à pâte pressée c"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Comte_%284202805826%29.jpg/960px-Comte_%284202805826%29.jpg",
+        "width": 800,
+        "height": 534,
+        "credit": "Arnold Gatilao from Oakland, CA, USA, CC BY 2.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Comte%20(4202805826).jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Comte_%28cheese%29.jpg/960px-Comte_%28cheese%29.jpg",
+        "width": 800,
+        "height": 534,
+        "credit": "Snufkin7, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Comte%20(cheese).jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Comte_AOP.jpg/960px-Comte_AOP.jpg",
+        "width": 800,
+        "height": 507,
+        "credit": "Myrabella, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Comte%20AOP.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Comt%C3%A9_%28cheese%29.jpg/960px-Comt%C3%A9_%28cheese%29.jpg",
+        "width": 800,
+        "height": 494,
+        "credit": "Vonvon, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Comt%C3%A9%20(cheese).jpg"
+      }
+    ]
+  },
+  "epoisses": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/%C3%89poisses_Gaugry_03.jpg/960px-%C3%89poisses_Gaugry_03.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:%C3%89poisses_Gaugry_03.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/%C3%89poisses_(fromage)",
+      "extract": "L'époisses est un fromage à pâte molle à croûte lavée produit en Bourgogne. Ce fromage bénéficie d'une AOC depuis 1991 et d'une AOP depuis 1996. Son aire d'appellation couvre environ la moitié nord-ouest de la Côte-d'Or, deux cantons de la Haute-Marne et trois cantons de l'Yonne. Son nom lui vient du village d'Époisses, situé dans l'ouest de ce territoire."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Epoisses_Bourgogne_cheese_and_wine.jpg/960px-Epoisses_Bourgogne_cheese_and_wine.jpg",
+        "width": 800,
+        "height": 989,
+        "credit": "Traaf., CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Epoisses%20Bourgogne%20cheese%20and%20wine.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Epoisses_de_Bourgogne_%283963523704%29.jpg/960px-Epoisses_de_Bourgogne_%283963523704%29.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Karen from 1, CC BY 2.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Epoisses%20de%20Bourgogne%20(3963523704).jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Epoisses_et_l%27Ami_du_Chambertin.JPG/960px-Epoisses_et_l%27Ami_du_Chambertin.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Arnaud 25, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Epoisses%20et%20l'Ami%20du%20Chambertin.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Epoisses_et_pain.jpg/960px-Epoisses_et_pain.jpg",
+        "width": 800,
+        "height": 534,
+        "credit": "Olivier Lemoine (https://Photo-Terroir.fr), CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Epoisses%20et%20pain.jpg"
+      }
+    ]
+  },
+  "morbier": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Morbier",
+      "extract": "Le morbier est un fromage à pâte pressée non cuite franc-comtois. Une morbier, ou horloge comtoise, est une horloge à pendule."
+    }
+  },
+  "chaource": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Chaource_%28fromage%29_01.jpg/960px-Chaource_%28fromage%29_01.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource_(fromage)_01.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Chaource_(fromage)",
+      "extract": "Le chaource est un fromage à pâte molle à croûte fleurie à prédominance lactique. Il est exclusivement fabriqué avec du lait de vache entier dont la composition n’est pas modifiée (il ne subit ni ajout ni soustraction de matières grasses ou de protéines). Sa pâte, salée, a une teneur en matière sèche d’au moins 40 % et contient au moins 48 % de matière grasse dans l’extrait sec. Son nom provient du village de Chaource dans l'Aube qui est l'épicentre de son émergence historique. Ce fromage bénéfi"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Chaource_%28fromage%29_01.jpg/960px-Chaource_%28fromage%29_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Chaource_%28fromage%29_02.jpg/960px-Chaource_%28fromage%29_02.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Chaource_%28fromage%29_03.jpg/960px-Chaource_%28fromage%29_03.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Chaource_%28fromage%29_04.jpg/960px-Chaource_%28fromage%29_04.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2004.jpg"
+      }
+    ]
+  },
+  "maconnais": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Wikicheese_-_M%C3%A2connais_-_20150417_-_001.jpg/960px-Wikicheese_-_M%C3%A2connais_-_20150417_-_001.jpg",
+      "width": 800,
+      "height": 499,
+      "credit": "Thesupermat, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese_-_M%C3%A2connais_-_20150417_-_001.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/M%C3%A2connais_(fromage)",
+      "extract": "Le mâconnais est un fromage français fabriqué en Saône et Loire. Il s'agit d'un fromage au lait de chêvre cru, tirant son nom de la région du Mâconnais entourant Mâcon. Il est protégé à l'échelle européenne par une appellation d'origine protégée depuis 2010."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/M%C3%A2connais_%28cheese%29_-_Photo_2.jpg/960px-M%C3%A2connais_%28cheese%29_-_Photo_2.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Lyokoï, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:M%C3%A2connais%20(cheese)%20-%20Photo%202.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/M%C3%A2connais_%28Fromage%29_-_Photo_1.jpg/960px-M%C3%A2connais_%28Fromage%29_-_Photo_1.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Lyokoï, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:M%C3%A2connais%20(Fromage)%20-%20Photo%201.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Wikicheese_-_M%C3%A2connais_-_20150417_-_001.jpg/960px-Wikicheese_-_M%C3%A2connais_-_20150417_-_001.jpg",
+        "width": 800,
+        "height": 499,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20M%C3%A2connais%20-%2020150417%20-%20001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Wikicheese_-_M%C3%A2connais_-_20150417_-_002.jpg/960px-Wikicheese_-_M%C3%A2connais_-_20150417_-_002.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20M%C3%A2connais%20-%2020150417%20-%20002.jpg"
+      }
+    ]
+  },
+  "langres": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Langres_fromage_AOP_coupe.jpg/960px-Langres_fromage_AOP_coupe.jpg",
+      "width": 800,
+      "height": 640,
+      "credit": "Myrabella, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres_fromage_AOP_coupe.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Langres_(fromage)",
+      "extract": "Le langres est un fromage français au lait de vache, à pâte molle à croûte lavée de la région Grand Est, bénéficiant d'une AOC depuis 1991 et d'une AOP depuis 2009. Il est originaire du plateau de Langres. Sa meilleure période de consommation s'étend de mai à décembre."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Langres_%28cheese%29.jpg/960px-Langres_%28cheese%29.jpg",
+        "width": 800,
+        "height": 596,
+        "credit": "Zubro, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20(cheese).jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Langres_cheese.jpg",
+        "width": 800,
+        "height": 777,
+        "credit": "en:user:Glevey, GFDL",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20cheese.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Langres_cut.jpg/960px-Langres_cut.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Tangopaso, Public domain",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20cut.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Langres_fromage_AOP_coupe.jpg/960px-Langres_fromage_AOP_coupe.jpg",
+        "width": 800,
+        "height": 640,
+        "credit": "Myrabella, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20fromage%20AOP%20coupe.jpg"
+      }
+    ]
+  },
+  "cancoillotte": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Cancoillotte_001.jpg/960px-Cancoillotte_001.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Arnaud 25, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Cancoillotte_001.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Cancoillotte",
+      "extract": "La cancoillotte (prononcé [kɑ̃kwajɔt]  ou [kɑ̃kɔjɔt] ) est une spécialité fromagère principalement fabriquée en Franche-Comté. Elle est obtenue à partir d'un mélange de metton (lait écrémé caillé, ce qu'il reste du lait une fois que la crème en a été retirée) et d'eau, additionné de beurre en fin de préparation. Cette spécialité fromagère typique de la cuisine franc-comtoise est maigre. Son taux de matières grasses, variant de 8 à 12 %, vient du beurre ajouté lors de la fonte. Elle obtient sa re"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Cancoillotte_001.jpg/960px-Cancoillotte_001.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Arnaud 25, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Cancoillotte%20001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Cancoillotte_002.JPG/960px-Cancoillotte_002.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Arnaud 25, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Cancoillotte%20002.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Cancoillotte_003.jpg/960px-Cancoillotte_003.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Arnaud 25, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Cancoillotte%20003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Cancoillotte_01_09.jpg/960px-Cancoillotte_01_09.jpg",
+        "width": 800,
+        "height": 532,
+        "credit": "Хрюша, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Cancoillotte%2001%2009.jpg"
+      }
+    ]
+  },
+  "soumaintrain": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Soumaintrain",
+      "extract": "Soumaintrain, un fromage ; Soumaintrain, une commune française, située dans le département de l'Yonne."
+    }
+  },
+  "saint-florentin": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Saint-florentin.jpg/960px-Saint-florentin.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Thomon, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-florentin.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Saint-florentin",
+      "extract": "Saint-florentin est l'appellation d'origine d'un fromage au lait cru ou pasteurisé de vache , à pâte molle non pressée et non cuite, à croûte lavée, originaire du village de Chailley à côté de Saint-Florentin dans le département de l'Yonne."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Saint-Florentin.jpg",
+        "width": 800,
+        "height": 701,
+        "credit": "Pivino, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Saint-Florentin.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Fromage_saint-florentin.jpg/960px-Fromage_saint-florentin.jpg",
+        "width": 800,
+        "height": 659,
+        "credit": "Chaumot, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Fromage%20saint-florentin.jpg"
+      }
+    ]
+  },
+  "aisy-cendre": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/WikiCheese_-_Aisy_cendr%C3%A9_02.jpg/960px-WikiCheese_-_Aisy_cendr%C3%A9_02.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:WikiCheese_-_Aisy_cendr%C3%A9_02.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Aisy_Cendr%C3%A9",
+      "extract": "Aisy Cendré est une marque commerciale appartenant au groupe Berthaut et apposée sur un fromage au lait pasteurisé de vache. C'est un fromage à pâte molle à croûte lavée recouvert de cendre  fabriqué dans la commune d'Époisses dans le département de la Côte-d'Or en France. Il tire son nom de la commune d'Aisy-sous-Thil ou de celle d'Aisy-sur-Armançon."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Aisy_cendr%C3%A9_-_Photo_1.jpg/960px-Aisy_cendr%C3%A9_-_Photo_1.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Lyokoï, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Aisy%20cendr%C3%A9%20-%20Photo%201.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Aisy_cendr%C3%A9_-_Photo_2.jpg/960px-Aisy_cendr%C3%A9_-_Photo_2.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Lyokoï, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Aisy%20cendr%C3%A9%20-%20Photo%202.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/WikiCheese_-_Aisy_cendr%C3%A9_01.jpg/960px-WikiCheese_-_Aisy_cendr%C3%A9_01.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:WikiCheese%20-%20Aisy%20cendr%C3%A9%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/WikiCheese_-_Aisy_cendr%C3%A9_02.jpg/960px-WikiCheese_-_Aisy_cendr%C3%A9_02.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:WikiCheese%20-%20Aisy%20cendr%C3%A9%2002.jpg"
+      }
+    ]
+  },
+  "trou-du-cru": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Le_Trou_Du_Cru.jpg/960px-Le_Trou_Du_Cru.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Tristan Ferne from UK, CC BY 2.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Le_Trou_Du_Cru.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Le_Trou_du_Cru",
+      "extract": "Le Trou du Cru est une marque commerciale française désignant un fromage industriel de lait pasteurisé de vache créé au début des années 1980 et appartenant au groupe Berthaut. C'est un fromage à pâte molle à croûte lavée, moulé dans une petite taille (environ 60 grammes), affiné avec du marc de Bourgogne durant environ 3 semaines. Il est fabriqué dans la commune d'Époisses dans la Côte-d'Or en France."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Trou_du_Cru.jpg/960px-Trou_du_Cru.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Tangopaso, Public domain",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Trou%20du%20Cru.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Le_Trou_Du_Cru.jpg/960px-Le_Trou_Du_Cru.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Tristan Ferne from UK, CC BY 2.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Le%20Trou%20Du%20Cru.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Photo_Fromage_Trou_du_cru.JPG/960px-Photo_Fromage_Trou_du_cru.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "NickFR, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Photo%20Fromage%20Trou%20du%20cru.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/WikiCheese_-_Trou_du_cru_01.jpg/960px-WikiCheese_-_Trou_du_cru_01.jpg",
+        "width": 800,
+        "height": 544,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:WikiCheese%20-%20Trou%20du%20cru%2001.jpg"
+      }
+    ]
+  },
+  "ami-chambertin": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Ami_du_Chambertin.jpg/960px-Ami_du_Chambertin.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Popo le Chien, CC0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Ami_du_Chambertin.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/L%27Ami_du_Chambertin",
+      "extract": "L’Ami du Chambertin est un fromage à pâte molle à croûte lavée ayant la forme d'un cylindre de neuf centimètres de diamètre et de quatre centimètres de haut. Créé en 1950 par Raymond Gaugry, c'est une marque commerciale déposée. Elle fait référence au chambertin. Ce fromage industriel est fabriqué par la fromagerie Gaugry à Brochon en Côte-d'Or. Cette fromagerie fabrique également de l'époisses."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Ami_du_Chambertin.jpg/960px-Ami_du_Chambertin.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Popo le Chien, CC0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Ami%20du%20Chambertin.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Epoisses_et_l%27Ami_du_Chambertin.JPG/960px-Epoisses_et_l%27Ami_du_Chambertin.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Arnaud 25, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Epoisses%20et%20l'Ami%20du%20Chambertin.JPG"
+      }
+    ]
+  },
+  "ptit-gaugry": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Petit_Gaugry_05.jpg/960px-Petit_Gaugry_05.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit_Gaugry_05.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Petit_Gaugry",
+      "extract": "Petit Gaugry est une marque commerciale déposée utilisée par un fromage à pâte molle à croûte lavée. Cette marque et le fromage attaché ont été créés en 1950 par Raymond Gaugry. Ce fromage industriel est fabriqué par la Fromagerie Gaugry à Brochon en Côte-d'Or."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Petit_Gaugry_01.jpg/960px-Petit_Gaugry_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit%20Gaugry%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Petit_Gaugry_02.jpg/960px-Petit_Gaugry_02.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit%20Gaugry%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Petit_Gaugry_03.jpg/960px-Petit_Gaugry_03.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit%20Gaugry%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Petit_Gaugry_04.jpg/960px-Petit_Gaugry_04.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Petit%20Gaugry%2004.jpg"
+      }
+    ]
+  },
+  "pierre-qui-vire": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Pierre-qui-vire-coupe-440x380.jpg",
+      "width": 440,
+      "height": 380,
+      "credit": "fromagerie-tourrette, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Pierre-qui-vire-coupe-440x380.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Abbaye_de_la_Pierre-qui-Vire_(fromage)",
+      "extract": "L'abbaye de la Pierre-qui-Vire est un fromage français qui tire son nom de l'Abbaye Sainte-Marie de la Pierre-qui-Vire (Yonne), dans le Morvan."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Pierre-qui-vire_fromage.jpg/960px-Pierre-qui-vire_fromage.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Thomon, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pierre-qui-vire%20fromage.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Pierre-qui-vire-440x380.jpg",
+        "width": 800,
+        "height": 691,
+        "credit": "fromagerie-tourrette, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Pierre-qui-vire-440x380.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Fromage_de_l%27abbaye_de_la_Pierre-qui-Vire.jpg/960px-Fromage_de_l%27abbaye_de_la_Pierre-qui-Vire.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Thomon, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Fromage%20de%20l'abbaye%20de%20la%20Pierre-qui-Vire.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Fromage_de_l%27abbaye_de_la_Pierre-qui-vire.jpg/960px-Fromage_de_l%27abbaye_de_la_Pierre-qui-vire.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Thomon, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Fromage%20de%20l'abbaye%20de%20la%20Pierre-qui-vire.jpg"
+      }
+    ]
   }
 }

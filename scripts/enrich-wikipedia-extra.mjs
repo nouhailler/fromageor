@@ -30,12 +30,21 @@ export interface CheeseMedia {
 
 export const EXTRA_MEDIA: Record<string, CheeseMedia> = `
 
+function readExistingMedia() {
+  const text = fs.readFileSync(mediaPath, 'utf8')
+  return JSON.parse(text.slice(text.indexOf('= {') + 2))
+}
+
 async function main() {
   const idArg = process.argv.includes('--id') ? process.argv[process.argv.indexOf('--id') + 1] : null
   const { EXTRA_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-extra.ts'))
+  const { BFC_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-bourgogne-franche-comte.ts'))
+  const manuels = [...EXTRA_CHEESES, ...BFC_CHEESES]
 
-  const media = {}
-  for (const cheese of EXTRA_CHEESES) {
+  // Avec --id on ne retouche qu'une entrée : on repart de l'existant pour ne
+  // pas effacer les autres.
+  const media = idArg && fs.existsSync(mediaPath) ? readExistingMedia() : {}
+  for (const cheese of manuels) {
     if (idArg && cheese.id !== idArg) continue
     const enriched = await enrichCheese(cheese)
     const entry = {}
@@ -49,7 +58,7 @@ async function main() {
   fs.writeFileSync(mediaPath, `${HEADER}${JSON.stringify(media, null, 2)}\n`)
   const withPhoto = Object.values(media).filter((m) => m.image).length
   console.log(
-    `\nÉcrit ${path.relative(repoRoot, mediaPath)} : ${Object.keys(media).length}/${EXTRA_CHEESES.length} fromages enrichis, dont ${withPhoto} avec photo.`,
+    `\nÉcrit ${path.relative(repoRoot, mediaPath)} : ${Object.keys(media).length}/${manuels.length} fromages enrichis, dont ${withPhoto} avec photo.`,
   )
 }
 
