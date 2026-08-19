@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Ce lot couvre la région **Auvergne-Rhône-Alpes** (50 fromages) et pose l'ossature UI/données pour ajouter d'autres régions ensuite.
+Ce lot couvre la région **Auvergne-Rhône-Alpes** (56 fromages) et pose l'ossature UI/données pour ajouter d'autres régions ensuite.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -91,10 +91,28 @@ npm run dev        # serveur de dev
 | `npm run lint` | oxlint |
 | `npm run import-cheeses` | Régénère `src/data/{cheeses,fr-map}.ts` depuis un dossier de handoff (voir `scripts/import-cheeses.mjs`) |
 | `npm run enrich-wikipedia` | Enrichit `src/data/cheeses.ts` avec photo + résumé Wikipédia (voir `scripts/enrich-wikipedia.mjs`) |
+| `npm run enrich-wikipedia-extra` | Même chose pour les fromages ajoutés à la main → `src/data/cheeses-extra-media.ts` |
 
 ## 🧀 Données
 
 `src/data/cheeses.ts` et `src/data/fr-map.ts` sont générés automatiquement depuis les fichiers `cheeses.js` / `fr-map.js` du dossier de handoff de design via `scripts/import-cheeses.mjs` — voir ce script pour ajouter une nouvelle région.
+
+Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`), consommé par `useCheeseDatabase` :
+
+| Fichier | Écrit par | Contenu |
+| --- | --- | --- |
+| `cheeses.ts` | `import-cheeses.mjs` | Les 50 fromages du handoff |
+| `cheeses-extra.ts` | **à la main** | Les fromages ajoutés depuis (6 aujourd'hui) + les noms alternatifs greffés sur des entrées générées |
+| `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia des ajouts, tenus à part pour garder le fichier écrit à la main lisible |
+
+Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
+
+### ➕ Ajouter un fromage
+
+1. Ajouter l'entrée dans `src/data/cheeses-extra.ts` (le type `Cheese` liste les champs attendus).
+2. Renseigner `map: [x, y]` dans l'espace de `FR_XY` — la projection réelle, pas les coordonnées approximatives du handoff : les ajouts n'ont pas d'entrée dans `fr-map.ts` et retombent sur ce champ.
+3. `npm run enrich-wikipedia-extra` pour récupérer photo et résumé.
+4. `npm run test` — `src/data/dataset.test.ts` refuse tout identifiant ou nom en double, vérifie la région et les bornes de la carte.
 
 ### 📷 Enrichissement Wikipédia (photo + résumé)
 

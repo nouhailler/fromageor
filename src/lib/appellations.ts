@@ -9,7 +9,9 @@ export type AppellationLabel = 'AOP' | 'IGP' | 'Label Rouge' | 'Bio'
 export function appellationsOf(c: Cheese): AppellationLabel[] {
   const labels: AppellationLabel[] = []
   if (c.aop) labels.push('AOP')
-  if (/(tomme|raclette) de savoie/i.test(c.nom)) labels.push('IGP')
+  if (/(tomme|raclette|emmental) de savoie/i.test(c.nom) || /emmental fran[çc]ais est-central/i.test(c.nom)) {
+    labels.push('IGP')
+  }
   if (!c.aop && /press[ée]+e? non cuite/i.test(c.famille || '') && c.intensite >= 3) {
     labels.push('Label Rouge')
   }

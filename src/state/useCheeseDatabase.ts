@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import { CHEESES } from '../data/cheeses'
+import { ALL_CHEESES } from '../data/dataset'
 import { REGIONS } from '../data/regions'
 import type { Cheese, Region } from '../data/cheese.types'
 import {
@@ -20,7 +20,7 @@ export function useCheeseDatabase() {
   const [importedCheeses, setImportedCheeses] = useState<Cheese[]>(() => loadImportedCheeses())
   const [importedRegions, setImportedRegions] = useState<Region[]>(() => loadImportedRegions())
 
-  const cheeses = useMemo(() => mergeCheeses(CHEESES, importedCheeses), [importedCheeses])
+  const cheeses = useMemo(() => mergeCheeses(ALL_CHEESES, importedCheeses), [importedCheeses])
   const regions = useMemo(() => mergeRegions(REGIONS, importedRegions), [importedRegions])
 
   const commitImport = useCallback((newCheeses: Cheese[], newRegion?: Region) => {

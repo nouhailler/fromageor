@@ -417,4 +417,9 @@ async function main() {
   )
 }
 
-main()
+/** Réutilisé par enrich-wikipedia-extra.mjs, qui enrichit les fromages
+ *  ajoutés à la main (src/data/cheeses-extra.ts) au lieu du jeu généré. */
+export { enrichCheese }
+
+// N'exécute la passe complète que lancé directement, pas à l'import.
+if (process.argv[1] === url.fileURLToPath(import.meta.url)) main()
