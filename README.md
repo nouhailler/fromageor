@@ -1,22 +1,77 @@
+<div align="center">
+
+<img src="public/logo.svg" alt="Logo Fromages de France" width="104" height="104">
+
 # Fromages de France
 
-Application mobile (PWA) de découverte des fromages français. Ce lot couvre la région **Auvergne-Rhône-Alpes** (50 fromages) et pose l'ossature UI/données pour ajouter d'autres régions ensuite.
+**Encyclopédie du terroir fromager français.**
+Une application mobile (PWA) pour explorer, filtrer et collectionner les fromages, région par région.
+
+[![React](https://img.shields.io/badge/React-19-c67139?style=flat-square&logo=react&logoColor=white)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8-c67139?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-c67139?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vitest](https://img.shields.io/badge/Vitest-37%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
+[![PWA](https://img.shields.io/badge/PWA-installable-7a8a5e?style=flat-square&logo=pwa&logoColor=white)](#-logo--icônes)
+[![Node](https://img.shields.io/badge/Node-%E2%89%A5%2022.12-7a8a5e?style=flat-square&logo=nodedotjs&logoColor=white)](.nvmrc)
+[![Netlify](https://img.shields.io/badge/Netlify-fromageor.netlify.app-8c491a?style=flat-square&logo=netlify&logoColor=white)](https://fromageor.netlify.app)
+
+</div>
+
+---
+
+Ce lot couvre la région **Auvergne-Rhône-Alpes** (50 fromages) et pose l'ossature UI/données pour ajouter d'autres régions ensuite.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
-## Écrans
+## 📸 Aperçu
 
-Accueil · Fiche détaillée · Recherche · Carte de France · Favoris multi-listes · Accords mets & boissons · Découpe · Calendrier des saisons · Appellations · Encyclopédie · Menu latéral (drawer).
+|                        🏠 Accueil                        |                       🧀 Fiche détaillée                       |                       🗺️ Carte de France                      |
+| :------------------------------------------------------: | :------------------------------------------------------------: | :-----------------------------------------------------------: |
+| <img src="docs/screenshots/accueil.png" alt="Écran d'accueil" width="240"> | <img src="docs/screenshots/fiche.png" alt="Fiche détaillée d'un fromage" width="240"> | <img src="docs/screenshots/carte.png" alt="Carte de France des fromages" width="240"> |
+|                      **🔍 Recherche**                      |                         **❤️ Favoris**                         |                      **☰ Menu latéral**                      |
+| <img src="docs/screenshots/recherche.png" alt="Recherche plein texte" width="240"> | <img src="docs/screenshots/favoris.png" alt="Listes de favoris" width="240"> | <img src="docs/screenshots/menu.png" alt="Menu latéral" width="240"> |
 
-## Stack
+<details>
+<summary><b>Voir les six autres écrans</b> — accords, découpe, calendrier, appellations, encyclopédie, import/export</summary>
 
-- React 19 + Vite + TypeScript
-- CSS Modules + jetons du design system Organic (`src/styles/tokens.css`)
-- `lucide-react` pour les icônes standards, icônes/diagrammes SVG portés à l'identique du handoff pour les glyphes propres au design
-- PWA (`vite-plugin-pwa`), polices Caprasimo/Figtree self-hostées (`@fontsource/*`)
-- Vitest pour les tests de la logique métier (`src/lib/`)
+<br>
 
-## Démarrer
+|                    🍷 Accords mets & boissons                   |                          🔪 Découpe                         |                     📅 Calendrier des saisons                    |
+| :-------------------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------------------------------: |
+| <img src="docs/screenshots/accords.png" alt="Accords mets et boissons" width="240"> | <img src="docs/screenshots/decoupe.png" alt="Guide de découpe" width="240"> | <img src="docs/screenshots/calendrier.png" alt="Calendrier des saisons" width="240"> |
+|                       **🏅 Appellations**                       |                     **📖 Encyclopédie**                     |                      **💾 Import / Export**                      |
+| <img src="docs/screenshots/appellations.png" alt="Appellations" width="240"> | <img src="docs/screenshots/encyclopedie.png" alt="Encyclopédie" width="240"> | <img src="docs/screenshots/import-export.png" alt="Import / Export de la base" width="240"> |
+
+</details>
+
+> Les captures sont régénérées par `scripts/screenshots.mjs` (voir [🎨 Logo & icônes](#-logo--icônes)).
+
+## 🧭 Écrans
+
+| Écran | Rôle |
+| --- | --- |
+| 🏠 **Accueil** | Fromage à la une, carte miniature, sélections de saison et populaires |
+| 🧀 **Fiche détaillée** | Photo Wikimedia, intensité, notes aromatiques, carte d'identité, accords |
+| 🗺️ **Carte de France** | Points par département, filtres AOP / lait / pâte |
+| 🔍 **Recherche** | Plein texte sur nom, notes, région, appellation + filtres lait |
+| ❤️ **Favoris** | Listes multiples, création et suppression, ajout depuis n'importe quelle fiche |
+| 🍷 **Accords mets & boissons** | Suggestions automatiques par famille (vins, bières, cidres, miel…) |
+| 🔪 **Découpe** | Le bon geste selon la forme du fromage |
+| 📅 **Calendrier des saisons** | Les fromages à leur apogée, mois par mois |
+| 🏅 **Appellations** | AOP, IGP, Label Rouge, Bio |
+| 📖 **Encyclopédie** | Articles de fond : histoire, fabrication, affinage, races laitières |
+| 💾 **Import / Export** | Sauvegarde et extension de la base depuis l'interface |
+| ☰ **Menu latéral** | Navigation transverse + compteur par région |
+
+## 🧱 Stack
+
+- ⚛️ **React 19 + Vite + TypeScript**
+- 🎨 **CSS Modules** + jetons du design system Organic (`src/styles/tokens.css`)
+- 🖼️ `lucide-react` pour les icônes standards, icônes/diagrammes SVG portés à l'identique du handoff pour les glyphes propres au design
+- 📱 **PWA** (`vite-plugin-pwa`), polices Caprasimo/Figtree self-hostées (`@fontsource/*`)
+- ✅ **Vitest** pour les tests de la logique métier (`src/lib/`)
+
+## 🚀 Démarrer
 
 Node **>= 22.12** est requis (jsdom 30, utilisé par les tests, en dépend ; un `.nvmrc` est fourni) :
 
@@ -24,39 +79,73 @@ Node **>= 22.12** est requis (jsdom 30, utilisé par les tests, en dépend ; un 
 nvm use            # Node 22
 npm install
 npm run dev        # serveur de dev
-npm run build       # build de production (+ typecheck)
-npm run typecheck
-npm run test         # tests unitaires (Vitest)
-npm run import-cheeses  # régénère src/data/{cheeses,fr-map}.ts depuis un dossier de handoff (voir scripts/import-cheeses.mjs)
-npm run enrich-wikipedia  # enrichit src/data/cheeses.ts avec photo + résumé Wikipédia (voir scripts/enrich-wikipedia.mjs)
 ```
 
-## Données
+| Commande | Ce qu'elle fait |
+| --- | --- |
+| `npm run dev` | Serveur de développement (http://localhost:5173) |
+| `npm run build` | Build de production (+ typecheck) |
+| `npm run preview` | Sert le build de production (http://localhost:4173) |
+| `npm run typecheck` | Vérification des types seule |
+| `npm run test` | Tests unitaires (Vitest) |
+| `npm run lint` | oxlint |
+| `npm run import-cheeses` | Régénère `src/data/{cheeses,fr-map}.ts` depuis un dossier de handoff (voir `scripts/import-cheeses.mjs`) |
+| `npm run enrich-wikipedia` | Enrichit `src/data/cheeses.ts` avec photo + résumé Wikipédia (voir `scripts/enrich-wikipedia.mjs`) |
+
+## 🧀 Données
 
 `src/data/cheeses.ts` et `src/data/fr-map.ts` sont générés automatiquement depuis les fichiers `cheeses.js` / `fr-map.js` du dossier de handoff de design via `scripts/import-cheeses.mjs` — voir ce script pour ajouter une nouvelle région.
 
-### Enrichissement Wikipédia (photo + résumé)
+### 📷 Enrichissement Wikipédia (photo + résumé)
 
 `scripts/enrich-wikipedia.mjs` complète chaque fromage avec un champ `image` (photo + crédit, sourcée sur Wikimedia Commons) et un champ `wikipedia` (résumé + lien), tous deux optionnels sur le type `Cheese`. Il interroge l'API de Wikipédia en français par nom (puis noms alternatifs, puis `<nom> (fromage)`, puis une recherche plein texte en dernier recours), et rejette les correspondances qui ne sont pas réellement des articles de fromage (pages d'homonymie, communes du même nom, etc.).
 
-- **Ré-exécuter après un import** : `import-cheeses.mjs` régénère `cheeses.ts` depuis le handoff et efface donc cet enrichissement — relancer `npm run enrich-wikipedia` ensuite.
-- Idempotent : ne re-télécharge pas les fromages déjà enrichis (`--force` pour tout re-télécharger, `--id <id>` pour un seul fromage).
-- Les photos restent hébergées sur `upload.wikimedia.org` (pas de copie locale) ; l'écran Fiche affiche le crédit (auteur + licence) en lien vers la page Commons du fichier.
+- ⚠️ **Ré-exécuter après un import** : `import-cheeses.mjs` régénère `cheeses.ts` depuis le handoff et efface donc cet enrichissement — relancer `npm run enrich-wikipedia` ensuite.
+- ♻️ Idempotent : ne re-télécharge pas les fromages déjà enrichis (`--force` pour tout re-télécharger, `--id <id>` pour un seul fromage).
+- 🔗 Les photos restent hébergées sur `upload.wikimedia.org` (pas de copie locale) ; l'écran Fiche affiche le crédit (auteur + licence) en lien vers la page Commons du fichier.
 
-## Logique métier
+## 🎨 Logo & icônes
+
+<img src="public/logo.svg" alt="" width="56" height="56" align="left" hspace="12">
+
+Le logo est une **part de meule** crème sur fond terracotta, dessinée avec les couleurs du design system Organic (`--color-accent` `#c67139`, `--color-neutral-100` `#f9f4ed`). Il tient dans un carré arrondi et reste lisible jusqu'à 16 px.
+
+<br clear="left">
+
+| Fichier | Usage |
+| --- | --- |
+| `public/logo.svg` | Marque de référence (README, docs) |
+| `public/favicon.svg` | Favicon — variante à deux ouvertures, plus lisible en 16 px |
+| `public/pwa-icon.svg` | Icône PWA `purpose: any` |
+| `public/pwa-icon-maskable.svg` | Icône PWA `purpose: maskable` (marque dans la zone sûre de 80 %) |
+| `public/apple-touch-icon.png` | 180×180 — iOS ignore les icônes SVG |
+| `public/pwa-icon-{192,512}.png`, `public/pwa-icon-maskable-512.png` | Replis PNG déclarés dans le manifeste pour les lanceurs Android |
+
+Les PNG sont **dérivés des SVG** : après avoir modifié un SVG, relancer le rendu plutôt que de les retoucher à la main. Les deux scripts utilitaires s'appuient sur Playwright, volontairement **hors dépendances du projet** (outillage ponctuel) :
+
+```bash
+npx playwright@1.62.1 install chromium              # une seule fois
+
+npx -p playwright@1.62.1 node scripts/render-icons.mjs   # SVG → PNG
+
+npm run preview                                      # dans un autre terminal
+npx -p playwright@1.62.1 node scripts/screenshots.mjs http://localhost:4173
+```
+
+## 🧮 Logique métier
 
 Portée fidèlement dans `src/lib/` depuis le prototype de référence : parsing des saisons (`season.ts`), suggestions d'accords (`accords.ts`), appellations (`appellations.ts`), recherche plein texte (`search.ts`), favoris multi-listes avec migration (`favorites-storage.ts`).
 
-## Import / Export de la base de fromages
+## 💾 Import / Export de la base de fromages
 
 Un écran dédié (accessible depuis le menu latéral) permet de sauvegarder et d'étendre la base de fromages depuis l'interface :
 
-- **Export** du jeu de données actif au format JSON, ou téléchargement d'un exemple de gabarit pré-rempli.
-- **Import** JSON (collé ou depuis un fichier), avec validation champ par champ avant application.
-- Les données importées sont stockées dans une surcouche `localStorage`, fusionnée par-dessus les données intégrées (upsert par `id`) sans jamais modifier le jeu de données embarqué — voir `useCheeseDatabase`.
-- Accepte un simple tableau de fromages ou un objet `{ region?, cheeses[] }`, ce qui permet à un import d'enregistrer une nouvelle région.
-- Schéma et validation : `src/lib/cheese-schema.ts`, `src/lib/cheese-import-export.ts` (testés).
+- 📤 **Export** du jeu de données actif au format JSON, ou téléchargement d'un exemple de gabarit pré-rempli.
+- 📥 **Import** JSON (collé ou depuis un fichier), avec validation champ par champ avant application.
+- 🗄️ Les données importées sont stockées dans une surcouche `localStorage`, fusionnée par-dessus les données intégrées (upsert par `id`) sans jamais modifier le jeu de données embarqué — voir `useCheeseDatabase`.
+- 🌍 Accepte un simple tableau de fromages ou un objet `{ region?, cheeses[] }`, ce qui permet à un import d'enregistrer une nouvelle région.
+- 📐 Schéma et validation : `src/lib/cheese-schema.ts`, `src/lib/cheese-import-export.ts` (testés).
 
-## Déploiement
+## ☁️ Déploiement
 
-Le site est déployé sur Netlify : [fromageor.netlify.app](https://fromageor.netlify.app). La configuration (commande de build, dossier de publication, en-têtes de cache) se trouve dans `netlify.toml`.
+Le site est déployé sur Netlify : **[fromageor.netlify.app](https://fromageor.netlify.app)**. La configuration (commande de build, dossier de publication, en-têtes de cache) se trouve dans `netlify.toml`.

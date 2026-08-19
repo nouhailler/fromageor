@@ -1,7 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Fromages de France">
+  <title>Fromages de France</title>
   <rect width="512" height="512" fill="#c67139"/>
-  <path d="M196 216 L316 216 L350 320 Q353 336 337 336 L175 336 Q159 336 162 320 Z" fill="#f9f4ed"/>
-  <circle cx="222" cy="288" r="10" fill="#c67139"/>
-  <circle cx="270" cy="258" r="7" fill="#c67139"/>
-  <circle cx="298" cy="296" r="9" fill="#c67139"/>
+  <g transform="translate(256 256) scale(0.72) translate(-256 -256)">
+    <path d="M256 146 L118.8 328.1 A 228 228 0 0 0 393.2 328.1 Z"
+          fill="#f9f4ed" stroke="#f9f4ed" stroke-width="26" stroke-linejoin="round"/>
+    <circle cx="212" cy="272" r="19" fill="#c67139"/>
+    <circle cx="288" cy="236" r="13" fill="#c67139"/>
+    <circle cx="308" cy="308" r="16" fill="#c67139"/>
+  </g>
 </svg>
