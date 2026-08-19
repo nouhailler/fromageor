@@ -317,49 +317,6 @@ export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
       }
     ]
   },
-  "chaource": {
-    "image": {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Chaource_%28fromage%29_01.jpg/960px-Chaource_%28fromage%29_01.jpg",
-      "width": 800,
-      "height": 450,
-      "credit": "Coyau, CC BY-SA 3.0",
-      "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource_(fromage)_01.jpg"
-    },
-    "wikipedia": {
-      "url": "https://fr.wikipedia.org/wiki/Chaource_(fromage)",
-      "extract": "Le chaource est un fromage à pâte molle à croûte fleurie à prédominance lactique. Il est exclusivement fabriqué avec du lait de vache entier dont la composition n’est pas modifiée (il ne subit ni ajout ni soustraction de matières grasses ou de protéines). Sa pâte, salée, a une teneur en matière sèche d’au moins 40 % et contient au moins 48 % de matière grasse dans l’extrait sec. Son nom provient du village de Chaource dans l'Aube qui est l'épicentre de son émergence historique. Ce fromage bénéfi"
-    },
-    "galleryImages": [
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Chaource_%28fromage%29_01.jpg/960px-Chaource_%28fromage%29_01.jpg",
-        "width": 800,
-        "height": 450,
-        "credit": "Coyau, CC BY-SA 3.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2001.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Chaource_%28fromage%29_02.jpg/960px-Chaource_%28fromage%29_02.jpg",
-        "width": 800,
-        "height": 533,
-        "credit": "Coyau, CC BY-SA 3.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2002.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Chaource_%28fromage%29_03.jpg/960px-Chaource_%28fromage%29_03.jpg",
-        "width": 800,
-        "height": 533,
-        "credit": "Coyau, CC BY-SA 3.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2003.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Chaource_%28fromage%29_04.jpg/960px-Chaource_%28fromage%29_04.jpg",
-        "width": 800,
-        "height": 533,
-        "credit": "Coyau, CC BY-SA 3.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2004.jpg"
-      }
-    ]
-  },
   "maconnais": {
     "image": {
       "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Wikicheese_-_M%C3%A2connais_-_20150417_-_001.jpg/960px-Wikicheese_-_M%C3%A2connais_-_20150417_-_001.jpg",
@@ -400,49 +357,6 @@ export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
         "height": 533,
         "credit": "Thesupermat, CC BY-SA 4.0",
         "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20M%C3%A2connais%20-%2020150417%20-%20002.jpg"
-      }
-    ]
-  },
-  "langres": {
-    "image": {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Langres_fromage_AOP_coupe.jpg/960px-Langres_fromage_AOP_coupe.jpg",
-      "width": 800,
-      "height": 640,
-      "credit": "Myrabella, CC BY-SA 4.0",
-      "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres_fromage_AOP_coupe.jpg"
-    },
-    "wikipedia": {
-      "url": "https://fr.wikipedia.org/wiki/Langres_(fromage)",
-      "extract": "Le langres est un fromage français au lait de vache, à pâte molle à croûte lavée de la région Grand Est, bénéficiant d'une AOC depuis 1991 et d'une AOP depuis 2009. Il est originaire du plateau de Langres. Sa meilleure période de consommation s'étend de mai à décembre."
-    },
-    "galleryImages": [
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Langres_%28cheese%29.jpg/960px-Langres_%28cheese%29.jpg",
-        "width": 800,
-        "height": 596,
-        "credit": "Zubro, CC BY-SA 3.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20(cheese).jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Langres_cheese.jpg",
-        "width": 800,
-        "height": 777,
-        "credit": "en:user:Glevey, GFDL",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20cheese.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Langres_cut.jpg/960px-Langres_cut.jpg",
-        "width": 800,
-        "height": 600,
-        "credit": "Tangopaso, Public domain",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20cut.jpg"
-      },
-      {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Langres_fromage_AOP_coupe.jpg/960px-Langres_fromage_AOP_coupe.jpg",
-        "width": 800,
-        "height": 640,
-        "credit": "Myrabella, CC BY-SA 4.0",
-        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20fromage%20AOP%20coupe.jpg"
       }
     ]
   },
@@ -1960,6 +1874,562 @@ export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
         "height": 754,
         "credit": "vpagnouf, CC BY-SA 2.0",
         "creditUrl": "https://commons.wikimedia.org/wiki/File:Pot%20de%20casgi%C3%B9%20merzu.jpg"
+      }
+    ]
+  },
+  "munster": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Munster_01.jpg/960px-Munster_01.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Munster_01.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Munster_(fromage)",
+      "extract": "Le munster ou munster-géromé (ou encore Minschterkäs au nord pas de calais ou Minschterkaas en patois) est un fromage à pâte molle fabriqué à partir de lait de vache  dans le nord-est de la France. Son appellation est protégée en France depuis 1969 par une appellation d'origine contrôlée (AOC) et dans l'ensemble des pays de l'Union européenne depuis 1996 par une appellation d'origine protégée (AOP)."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Munster_%28cheese%29.JPG/960px-Munster_%28cheese%29.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Arnaud 25, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Munster%20(cheese).JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Munster_01.jpg/960px-Munster_01.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Munster%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Munster_02.jpg/960px-Munster_02.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Munster%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Munster_03.jpg/960px-Munster_03.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Pierre-Yves Beaudouin, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Munster%2003.jpg"
+      }
+    ]
+  },
+  "bargkass": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Bargkass_de_la_ferme_de_la_Chapelle_des_V%C3%A9s_01.jpg/960px-Bargkass_de_la_ferme_de_la_Chapelle_des_V%C3%A9s_01.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Florian Cuny, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Bargkass_de_la_ferme_de_la_Chapelle_des_V%C3%A9s_01.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Bargkass",
+      "extract": "Le Bargkass, également orthographié Bergkäs, Barkas, Barkass ou Barikass, est un fromage français à pâte pressée, non cuite, originaire des Vosges. Il est fabriqué dans les villages de montagne alsaciens et vosgiens. Ses autres noms sont  : tomme des Vosges et vachelin."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Bargkass_de_la_ferme_de_la_Chapelle_des_V%C3%A9s_01.jpg/960px-Bargkass_de_la_ferme_de_la_Chapelle_des_V%C3%A9s_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Florian Cuny, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Bargkass%20de%20la%20ferme%20de%20la%20Chapelle%20des%20V%C3%A9s%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Bargkass_de_la_ferme_de_la_Chapelle_des_V%C3%A9s_02.jpg/960px-Bargkass_de_la_ferme_de_la_Chapelle_des_V%C3%A9s_02.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Florian Cuny, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Bargkass%20de%20la%20ferme%20de%20la%20Chapelle%20des%20V%C3%A9s%2002.jpg"
+      }
+    ]
+  },
+  "brouere": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/BROUERE_ERMITAGE.jpg/960px-BROUERE_ERMITAGE.jpg",
+      "width": 800,
+      "height": 643,
+      "credit": "Ermitage, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:BROUERE_ERMITAGE.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Brou%C3%A8re",
+      "extract": "Le brouère est un fromage français, originaire de la Lorraine. Il est fabriqué par la fromagerie de l'Ermitage à Bulgnéville (près de Vittel)."
+    }
+  },
+  "bibeleskaes": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Bibeleskaes.jpg/960px-Bibeleskaes.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Gokimines, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Bibeleskaes.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Bibelesk%C3%A6s",
+      "extract": "Le bibeleskäs (en bas-alémanique du nord et en francique lorrain ; bibbalakaas en bas-alémanique du sud et en haut-alémanique ; Bibeleskäse en allemand standard, littéralement « fromage de poussin ») est une spécialité culinaire issue de la cuisine alémanique, à base de fromage blanc ou de caillé de lait, traditionnellement consommée en Alsace et en Moselle. Le bibeleskäs est élaboré à partir de caillé égoutté ou de fromage blanc, parfois détendu avec de la crème fraîche, puis assaisonné de sel"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Assiette_lorraine.jpg/960px-Assiette_lorraine.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Arnaud 25, CC0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Assiette%20lorraine.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Bibbelisk%C3%A4s.jpg/960px-Bibbelisk%C3%A4s.jpg",
+        "width": 800,
+        "height": 793,
+        "credit": "Andreas Schwarzkopf, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Bibbelisk%C3%A4s.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Bibelesk%C3%A4s_auf_R%C3%B6sti_%281%29.JPG/960px-Bibelesk%C3%A4s_auf_R%C3%B6sti_%281%29.JPG",
+        "width": 800,
+        "height": 520,
+        "credit": "Dr. Bernd Gross, CC BY-SA 3.0 de",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Bibelesk%C3%A4s%20auf%20R%C3%B6sti%20(1).JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Bibelesk%C3%A4s_mit_gebackenen_Kartoffeln.jpg/960px-Bibelesk%C3%A4s_mit_gebackenen_Kartoffeln.jpg",
+        "width": 800,
+        "height": 475,
+        "credit": "Dr. Bernd Gross, CC BY-SA 3.0 de",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Bibelesk%C3%A4s%20mit%20gebackenen%20Kartoffeln.jpg"
+      }
+    ]
+  },
+  "carre-est": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Carr%C3%A9_de_l%27Est.jpg/960px-Carr%C3%A9_de_l%27Est.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "No machine-readable author provided. Richieman assumed (based on copyright claims)., Public domain",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Carr%C3%A9_de_l'Est.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Carr%C3%A9_de_l%27Est",
+      "extract": "Le Carré de l'Est est un fromage français, originaire de la Lorraine. Sa forme carrée lui a donné son nom. C'est un petit fromage à base de lait de vache, à pâte molle à croûte fleurie ou lavée, d'un poids moyen de 330 grammes."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Carredelest-FleursdesChamps-88-A-I.jpg",
+        "width": 800,
+        "height": 791,
+        "credit": "Anael Hagner, CC BY 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Carredelest-FleursdesChamps-88-A-I.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Carredelest-Kaas-Lauvalliere-45.jpg",
+        "width": 800,
+        "height": 780,
+        "credit": "Anael Hagner, CC BY 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Carredelest-Kaas-Lauvalliere-45.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Carredelest-LeDabo-50.JPG",
+        "width": 800,
+        "height": 792,
+        "credit": "Anael Hagner, CC BY 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Carredelest-LeDabo-50.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Carredelest-LeWaldeck-50.jpg",
+        "width": 800,
+        "height": 822,
+        "credit": "Anael Hagner, CC BY 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Carredelest-LeWaldeck-50.jpg"
+      }
+    ]
+  },
+  "arrigny": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Arrigny_(fromage)",
+      "extract": "L'Arrigny est un fromage français, produit en Champagne-Ardenne, il porte le nom de la commune de la Marne (51) qui le produisait."
+    }
+  },
+  "chaource": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Chaource_%28fromage%29_01.jpg/960px-Chaource_%28fromage%29_01.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource_(fromage)_01.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Chaource_(fromage)",
+      "extract": "Le chaource est un fromage à pâte molle à croûte fleurie à prédominance lactique. Il est exclusivement fabriqué avec du lait de vache entier dont la composition n’est pas modifiée (il ne subit ni ajout ni soustraction de matières grasses ou de protéines). Sa pâte, salée, a une teneur en matière sèche d’au moins 40 % et contient au moins 48 % de matière grasse dans l’extrait sec. Son nom provient du village de Chaource dans l'Aube qui est l'épicentre de son émergence historique. Ce fromage bénéfi"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Chaource_%28fromage%29_01.jpg/960px-Chaource_%28fromage%29_01.jpg",
+        "width": 800,
+        "height": 450,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Chaource_%28fromage%29_02.jpg/960px-Chaource_%28fromage%29_02.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Chaource_%28fromage%29_03.jpg/960px-Chaource_%28fromage%29_03.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2003.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Chaource_%28fromage%29_04.jpg/960px-Chaource_%28fromage%29_04.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Coyau, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chaource%20(fromage)%2004.jpg"
+      }
+    ]
+  },
+  "langres": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Langres_fromage_AOP_coupe.jpg/960px-Langres_fromage_AOP_coupe.jpg",
+      "width": 800,
+      "height": 640,
+      "credit": "Myrabella, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres_fromage_AOP_coupe.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Langres_(fromage)",
+      "extract": "Le langres est un fromage français au lait de vache, à pâte molle à croûte lavée de la région Grand Est, bénéficiant d'une AOC depuis 1991 et d'une AOP depuis 2009. Il est originaire du plateau de Langres. Sa meilleure période de consommation s'étend de mai à décembre."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Langres_%28cheese%29.jpg/960px-Langres_%28cheese%29.jpg",
+        "width": 800,
+        "height": 596,
+        "credit": "Zubro, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20(cheese).jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Langres_cheese.jpg",
+        "width": 800,
+        "height": 777,
+        "credit": "en:user:Glevey, GFDL",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20cheese.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Langres_cut.jpg/960px-Langres_cut.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Tangopaso, Public domain",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20cut.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Langres_fromage_AOP_coupe.jpg/960px-Langres_fromage_AOP_coupe.jpg",
+        "width": 800,
+        "height": 640,
+        "credit": "Myrabella, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Langres%20fromage%20AOP%20coupe.jpg"
+      }
+    ]
+  },
+  "brie-meaux": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Brie_01.jpg/960px-Brie_01.jpg",
+      "width": 800,
+      "height": 450,
+      "credit": "Coyau, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie_01.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Brie_de_Meaux",
+      "extract": "Le brie de Meaux est un fromage au lait cru dont l'appellation d'origine est préservée commercialement via une AOC depuis 1980. Son aire de production s'étend des plaines briardes jusqu'à la Meuse. Son appellation vient de la région de la Brie et de la commune de Meaux en France. Sa meilleure période de consommation s'étend de juillet à mars."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Brie_de_Meaux_and_french_baguette.jpg/960px-Brie_de_Meaux_and_french_baguette.jpg",
+        "width": 800,
+        "height": 1042,
+        "credit": "LllC, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20de%20Meaux%20and%20french%20baguette.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Brie_de_Meaux_au_march%C3%A9.jpg/960px-Brie_de_Meaux_au_march%C3%A9.jpg",
+        "width": 800,
+        "height": 676,
+        "credit": "Dinkum, CC0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20de%20Meaux%20au%20march%C3%A9.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Brie_de_Meaux_bo%C3%AEte_19.03.2012.jpg/960px-Brie_de_Meaux_bo%C3%AEte_19.03.2012.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Abaddon1337, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20de%20Meaux%20bo%C3%AEte%2019.03.2012.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Brie_de_Meaux_bo%C3%AEte_ouverte_19.03.2012.jpg/960px-Brie_de_Meaux_bo%C3%AEte_ouverte_19.03.2012.jpg",
+        "width": 800,
+        "height": 1067,
+        "credit": "Abaddon1337, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20de%20Meaux%20bo%C3%AEte%20ouverte%2019.03.2012.jpg"
+      }
+    ]
+  },
+  "brie-melun": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikicheese_-_Brie_de_Melun_-_20150515_-_015.jpg/960px-Wikicheese_-_Brie_de_Melun_-_20150515_-_015.jpg",
+      "width": 800,
+      "height": 447,
+      "credit": "Thesupermat, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese_-_Brie_de_Melun_-_20150515_-_015.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Brie_de_Melun",
+      "extract": "Le brie de Melun est un fromage au lait cru fabriqué en France à partir de lait de vache. Il bénéficie d'une appellation d'origine contrôlée depuis 1980 et d'une appellation d'origine protégée depuis 2009. Bien que l'histoire des fromages de la région reste largement méconnue, il est parfois considéré comme l’ancêtre de tous les bries. Il tient son nom de la région naturelle de la Brie et de la plaine de Melun dans le département de Seine-et-Marne en France. Sa meilleure période de consommation"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Brie_de_Melun.jpg",
+        "width": 800,
+        "height": 599,
+        "credit": "Myrabella, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20de%20Melun.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Brie_de_melun.jpg/960px-Brie_de_melun.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Shonagon, CC0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20de%20melun.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Wikicheese_-_Brie_de_Melun_-_20150515_-_001.jpg/960px-Wikicheese_-_Brie_de_Melun_-_20150515_-_001.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20Brie%20de%20Melun%20-%2020150515%20-%20001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Wikicheese_-_Brie_de_Melun_-_20150515_-_002.jpg/960px-Wikicheese_-_Brie_de_Melun_-_20150515_-_002.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20Brie%20de%20Melun%20-%2020150515%20-%20002.jpg"
+      }
+    ]
+  },
+  "coulommiers": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Coulommiers_lait_cru.jpg/960px-Coulommiers_lait_cru.jpg",
+      "width": 800,
+      "height": 531,
+      "credit": "Myrabella, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Coulommiers_lait_cru.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Coulommiers_(fromage)",
+      "extract": "Le coulommiers est un fromage au lait de vache, à pâte molle, non pressée et non cuite, composé de 45 à 50 % de matières grasses originaire de Coulommiers, apparenté au brie, même s'il n'est plus produit dans la ville depuis longtemps. Sa consommation s'étend de mars à juillet."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Coulommiers_%28Cheese%29.jpg/960px-Coulommiers_%28Cheese%29.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Snufkin7, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Coulommiers%20(Cheese).jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Coulommiers_lait_cru.jpg/960px-Coulommiers_lait_cru.jpg",
+        "width": 800,
+        "height": 531,
+        "credit": "Myrabella, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Coulommiers%20lait%20cru.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Coulommiers_Seine-et-Marne_boite.jpg/960px-Coulommiers_Seine-et-Marne_boite.jpg",
+        "width": 800,
+        "height": 531,
+        "credit": "Myrabella, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Coulommiers%20Seine-et-Marne%20boite.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Brie_de_Coulommiers.jpg/960px-Brie_de_Coulommiers.jpg",
+        "width": 800,
+        "height": 531,
+        "credit": "Myrabella, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20de%20Coulommiers.jpg"
+      }
+    ]
+  },
+  "brie-montereau": {
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Brie_de_Montereau",
+      "extract": "Le brie de Montereau, de son vrai nom « ville-saint-jacques », est un fromage de la région d'Île-de-France et plus précisément de la Brie. Il ressemble au coulommiers par la taille et au brie de Melun par le goût. Il est fabriqué dans la région de Montereau-Fault-Yonne. Il mesure 18 centimètres de diamètre, pour deux centimètres et demi d'épaisseur et pèse 400 grammes. Il se consomme au bout de six semaines d'affinage."
+    }
+  },
+  "brie-nangis": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Wikicheese_-_Brie_de_Nangis_-_20150515_-_013.jpg/960px-Wikicheese_-_Brie_de_Nangis_-_20150515_-_013.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Thesupermat, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese_-_Brie_de_Nangis_-_20150515_-_013.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Brie_de_Nangis",
+      "extract": "Le brie de Nangis ou fromage de Nangis est un fromage du pays de Brie française et plus particulièrement du terroir attaché à la commune actuelle de Nangis dans le département de Seine-et-Marne en France. La production commerciale du véritable brie de Nangis a été abandonnée"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Brie_de_Nangis.jpg/960px-Brie_de_Nangis.jpg",
+        "width": 800,
+        "height": 815,
+        "credit": "Myrabella, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20de%20Nangis.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikicheese_-_Brie_de_Nangis_-_20150515_-_001.jpg/960px-Wikicheese_-_Brie_de_Nangis_-_20150515_-_001.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20Brie%20de%20Nangis%20-%2020150515%20-%20001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Wikicheese_-_Brie_de_Nangis_-_20150515_-_002.jpg/960px-Wikicheese_-_Brie_de_Nangis_-_20150515_-_002.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20Brie%20de%20Nangis%20-%2020150515%20-%20002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Wikicheese_-_Brie_de_Nangis_-_20150515_-_003.jpg/960px-Wikicheese_-_Brie_de_Nangis_-_20150515_-_003.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20Brie%20de%20Nangis%20-%2020150515%20-%20003.jpg"
+      }
+    ]
+  },
+  "brie-noir": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Brie_noir.jpg/960px-Brie_noir.jpg",
+      "width": 800,
+      "height": 531,
+      "credit": "Myrabella, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie_noir.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Brie_noir",
+      "extract": "Le brie noir est un fromage français : c'est le nom donné au brie qui a été affiné pendant plusieurs mois. Sa couleur a évolué et est passée du jaune clair au beige puis au marron. Autrefois, le brie excédentaire se consommait ainsi et on en trouve encore sur les marchés briards."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Brie_noir_small.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Christian888, CC BY 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20noir%20small.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Brie_noir_wikicheese.jpg/960px-Brie_noir_wikicheese.jpg",
+        "width": 800,
+        "height": 654,
+        "credit": "Shonagon, CC0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20noir%20wikicheese.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Brie_noir.JPG/960px-Brie_noir.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "christian888, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20noir.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Brie_noir.jpg/960px-Brie_noir.jpg",
+        "width": 800,
+        "height": 531,
+        "credit": "Myrabella, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Brie%20noir.jpg"
+      }
+    ]
+  },
+  "fougerus": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Wikicheese_-_Fougerus_-_20160123_-_001.jpg/960px-Wikicheese_-_Fougerus_-_20160123_-_001.jpg",
+      "width": 800,
+      "height": 533,
+      "credit": "Thesupermat, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese_-_Fougerus_-_20160123_-_001.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Fougerus",
+      "extract": "Le Fougerus est un fromage français de type brie (à pâte molle et à croûte fleurie) qui ressemble à un coulommiers. Il est créé en 1957 par le fromager Rouzaire pour faire écho au fromage de Chevru, quasiment disparu depuis."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Fougerus_lors_de_Wikicheese_du_23_janvier_2016.JPG/960px-Fougerus_lors_de_Wikicheese_du_23_janvier_2016.JPG",
+        "width": 800,
+        "height": 536,
+        "credit": "X-Javier, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Fougerus%20lors%20de%20Wikicheese%20du%2023%20janvier%202016.JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Wikicheese_-_Fougerus_-_20160123_-_001.jpg/960px-Wikicheese_-_Fougerus_-_20160123_-_001.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20Fougerus%20-%2020160123%20-%20001.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Wikicheese_-_Fougerus_-_20160123_-_002.jpg/960px-Wikicheese_-_Fougerus_-_20160123_-_002.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20Fougerus%20-%2020160123%20-%20002.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Wikicheese_-_Fougerus_-_20160123_-_003.jpg/960px-Wikicheese_-_Fougerus_-_20160123_-_003.jpg",
+        "width": 800,
+        "height": 533,
+        "credit": "Thesupermat, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Wikicheese%20-%20Fougerus%20-%2020160123%20-%20003.jpg"
+      }
+    ]
+  },
+  "fontainebleau": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Fontainebleau_avec_du_brownie.jpg/960px-Fontainebleau_avec_du_brownie.jpg",
+      "width": 800,
+      "height": 1067,
+      "credit": "Assassas77, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Fontainebleau_avec_du_brownie.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Fontainebleau_(fromage)",
+      "extract": "Le fontainebleau est une spécialité fromagère originaire de la ville de Fontainebleau dont la recette n'est pas déposée et peut donc varier. Elle peut donc être exclusivement à base de crème fraîche ou base de fromage blanc frais de lait de vache et de crème fouettée. D'une teneur en matières grasses de 60 %, sa durée de conservation est limitée à deux jours pour la version fraîche uniquement à base de crème. Le fontainebleau se présente sous la forme d'un fromage crémeux surmonté d'une mousse b"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Fontainebleau_avec_du_brownie.jpg/960px-Fontainebleau_avec_du_brownie.jpg",
+        "width": 800,
+        "height": 1067,
+        "credit": "Assassas77, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Fontainebleau%20avec%20du%20brownie.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/2026-03-29_16-28-54_-_Coulommiers_-_Foire_aux_fromages_et_aux_vins.jpg/960px-2026-03-29_16-28-54_-_Coulommiers_-_Foire_aux_fromages_et_aux_vins.jpg",
+        "width": 800,
+        "height": 1067,
+        "credit": "Baidax, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:2026-03-29%2016-28-54%20-%20Coulommiers%20-%20Foire%20aux%20fromages%20et%20aux%20vins.jpg"
       }
     ]
   }

@@ -8,6 +8,8 @@ import { CVL_CHEESES } from './cheeses-centre-val-de-loire'
 import { NORMANDIE_CHEESES } from './cheeses-normandie'
 import { HDF_CHEESES } from './cheeses-hauts-de-france'
 import { CORSE_CHEESES } from './cheeses-corse'
+import { GRAND_EST_CHEESES } from './cheeses-grand-est'
+import { IDF_CHEESES } from './cheeses-ile-de-france'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 
@@ -30,6 +32,8 @@ const AJOUTS = [
   ...NORMANDIE_CHEESES,
   ...HDF_CHEESES,
   ...CORSE_CHEESES,
+  ...GRAND_EST_CHEESES,
+  ...IDF_CHEESES,
 ]
 
 describe('ALL_CHEESES', () => {
@@ -281,6 +285,66 @@ describe('ALL_CHEESES', () => {
     expect(CORSE_CHEESES.filter((c) => c.aop).map((c) => c.nom)).toEqual(['Brocciu'])
   })
 
+  it.each([
+    'Munster',
+    'Munster-Géromé',
+    'Bargkass',
+    'Cœur de Massif',
+    'Brouère',
+    'Tomme d’Alsace',
+    'Bibeleskaes',
+    'Carré de l’Est',
+    'Coussaie',
+    'Chèvre de la Woëvre',
+    'Arrigny',
+    'Chaource',
+    'Langres',
+  ])('trouve « %s » dans la base (Grand Est)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages du Grand Est à leur région, dont trois AOP', () => {
+    // 12 depuis que les deux bries sont passés en Île-de-France.
+    expect(GRAND_EST_CHEESES).toHaveLength(12)
+    for (const cheese of GRAND_EST_CHEESES) {
+      expect(cheese.regionId).toBe('grand-est')
+    }
+    expect(GRAND_EST_CHEESES.filter((c) => c.aop).map((c) => c.nom).sort()).toEqual([
+      'Chaource',
+      'Langres',
+      'Munster',
+    ])
+  })
+
+  it.each([
+    'Brie de Meaux',
+    'Brie de Melun',
+    'Fromage de Meaux',
+    'Coulommiers',
+    'Brie de Montereau',
+    'Ville-Saint-Jacques',
+    'Brie de Nangis',
+    'Brie noir',
+    'Fougerus',
+    'Fontainebleau',
+    'Chevrotin de la Houssaye',
+    'Toit de Paris',
+    'Chèvre d’Île-de-France',
+  ])('trouve « %s » dans la base (Île-de-France)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages franciliens à leur région, dont les deux bries AOP', () => {
+    expect(IDF_CHEESES).toHaveLength(11)
+    for (const cheese of IDF_CHEESES) {
+      expect(cheese.regionId).toBe('ile-de-france')
+    }
+    expect(IDF_CHEESES.filter((c) => c.aop).map((c) => c.nom).sort()).toEqual([
+      'Brie de Meaux',
+      'Brie de Melun',
+    ])
+  })
+
   it('applique les rattachements régionaux corrigés aux entrées générées', () => {
     const connues = new Set(REGIONS.map((r) => r.id))
     for (const [id, override] of Object.entries(EXTRA_REGION_OVERRIDES)) {
@@ -303,8 +367,9 @@ describe('ALL_CHEESES', () => {
     }
   })
 
-  it('rattache les 15 fromages bourguignons et comtois à leur région', () => {
-    expect(BFC_CHEESES).toHaveLength(15)
+  it('rattache les fromages bourguignons et comtois à leur région', () => {
+    // 13 depuis que le Chaource et le Langres sont passés au Grand Est.
+    expect(BFC_CHEESES).toHaveLength(13)
     for (const cheese of BFC_CHEESES) {
       expect(cheese.regionId).toBe('bourgogne-franche-comte')
     }

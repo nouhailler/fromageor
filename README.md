@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Sept régions couvertes : **Auvergne-Rhône-Alpes** (53 fromages), **Bourgogne-Franche-Comté** (18), **Centre-Val de Loire** (13), **Normandie** (13), **Hauts-de-France** (18), **Bretagne** (12) et **Corse** (10), soit 137 fiches — l'ossature UI/données accepte d'autres régions à la suite.
+Neuf régions couvertes : **Auvergne-Rhône-Alpes** (53 fromages), **Hauts-de-France** (18), **Bourgogne-Franche-Comté** (16), **Centre-Val de Loire** (13), **Normandie** (13), **Grand Est** (12), **Bretagne** (12), **Île-de-France** (11) et **Corse** (10), soit 158 fiches — l'ossature UI/données accepte d'autres régions à la suite.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -109,6 +109,8 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-normandie.ts` | **à la main** | Les 13 fromages de Normandie, dont les 4 AOP à pâte molle |
 | `cheeses-hauts-de-france.ts` | **à la main** | Les 18 fromages des Hauts-de-France, autour du Maroilles, seule AOP de la région |
 | `cheeses-corse.ts` | **à la main** | Les 10 fromages de Corse, du Brocciu AOP aux cinq familles fermières |
+| `cheeses-grand-est.ts` | **à la main** | Les 12 fromages du Grand Est — Munster, les pâtes pressées vosgiennes, plus le Chaource et le Langres rapatriés depuis la Bourgogne |
+| `cheeses-ile-de-france.ts` | **à la main** | Les 11 fromages d'Île-de-France — le pays de Brie, ses deux AOP rapatriées depuis le Grand Est et leur descendance |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
