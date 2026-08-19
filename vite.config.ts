@@ -9,6 +9,9 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      // L'enregistrement est fait à la main dans src/pwa.ts, qui y greffe
+      // les vérifications périodiques et le rechargement.
+      injectRegister: null,
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
         name: 'Fromages de France',

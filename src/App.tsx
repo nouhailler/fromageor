@@ -16,6 +16,7 @@ import { EncyclopediaScreen } from './components/screens/EncyclopediaScreen'
 import { ImportExportScreen } from './components/screens/ImportExportScreen'
 import { Drawer } from './components/screens/Drawer'
 import { FavoritesSheet } from './components/screens/FavoritesSheet'
+import { UpdateNotice } from './components/ui/UpdateNotice'
 
 function TabContent() {
   const { state } = useAppState()
@@ -54,6 +55,7 @@ function AppShell() {
       {state.importExport && <ImportExportScreen />}
       {state.menuOpen && <Drawer />}
       <FavoritesSheet />
+      <UpdateNotice />
     </PhoneFrame>
   )
 }

@@ -68,7 +68,7 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 - ⚛️ **React 19 + Vite + TypeScript**
 - 🎨 **CSS Modules** + jetons du design system Organic (`src/styles/tokens.css`)
 - 🖼️ `lucide-react` pour les icônes standards, icônes/diagrammes SVG portés à l'identique du handoff pour les glyphes propres au design
-- 📱 **PWA** (`vite-plugin-pwa`), polices Caprasimo/Figtree self-hostées (`@fontsource/*`)
+- 📱 **PWA** (`vite-plugin-pwa`) avec mise à jour automatique, polices Caprasimo/Figtree self-hostées (`@fontsource/*`)
 - ✅ **Vitest** pour les tests de la logique métier (`src/lib/`)
 
 ## 🚀 Démarrer
@@ -159,6 +159,22 @@ npx -p playwright@1.62.1 node scripts/render-icons.mjs   # SVG → PNG
 npm run preview                                      # dans un autre terminal
 npx -p playwright@1.62.1 node scripts/screenshots.mjs http://localhost:4173
 ```
+
+## 🔄 Mise à jour automatique
+
+L'application vérifie d'elle-même qu'une nouvelle version a été déployée, l'installe et redémarre — sans rien demander à l'utilisateur.
+
+| Quand | Quoi |
+| --- | --- |
+| Toutes les **30 min**, au **retour au premier plan**, au **retour du réseau** | `registration.update()` : le navigateur va voir si `sw.js` a changé |
+| Une nouvelle version est trouvée | Le service worker (`registerType: 'autoUpdate'`) l'installe et prend la main tout seul |
+| La nouvelle version s'active | Onglet actif → bandeau « Nouvelle version installée » pendant 4 s, puis rechargement. Onglet en arrière-plan → rechargement immédiat, personne ne regarde |
+
+- **Sans rechargement, rien ne change à l'écran** : le service worker sert bien les nouveaux fichiers, mais l'interface déjà chargée en mémoire reste l'ancienne. C'est ce rechargement que `src/pwa.ts` cadence.
+- Le rechargement est **piloté par le projet**, pas par le plugin : fournir `onNeedReload` à `registerSW` débranche le rechargement immédiat que `vite-plugin-pwa` déclencherait sinon dès l'activation. C'est aussi ce qui évite un rechargement parasite à la toute première visite, quand le service worker s'installe.
+- **Garde-fou anti-boucle** : deux rechargements à moins de 10 minutes d'intervalle sont ignorés — un déploiement cassé ne peut pas faire clignoter l'application indéfiniment. Passé ce délai, une app laissée ouverte suit bien les déploiements suivants.
+- `netlify.toml` sert déjà `/sw.js` en `max-age=0, must-revalidate` : sans cela, le navigateur ne verrait jamais la nouvelle version.
+- La logique de décision (`quand vérifier`, `quand recharger`) vit dans `src/lib/app-update.ts`, testée sans navigateur ; `src/pwa.ts` ne fait que la brancher sur les vraies API.
 
 ## 🧮 Logique métier
 
