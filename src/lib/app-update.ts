@@ -28,6 +28,11 @@ export const MIN_RELOAD_INTERVAL_MS = 10 * 60 * 1000
 /** Clé de session portant l'horodatage du dernier rechargement de mise à jour. */
 export const LAST_RELOAD_KEY = 'fromages-maj-rechargee-le'
 
+/** Clé locale portant l'horodatage de la dernière vérification aboutie.
+ *  Contrairement au rechargement, elle survit à la fermeture de l'app : elle
+ *  sert à montrer à l'utilisateur que les contrôles ont bien lieu. */
+export const LAST_CHECK_KEY = 'fromages-maj-verifiee-le'
+
 interface Listenable {
   addEventListener(type: string, handler: () => void): void
   removeEventListener(type: string, handler: () => void): void
@@ -100,4 +105,55 @@ export function planReload({
   }
   if (!visible) return { kind: 'now' }
   return { kind: 'after', ms: noticeMs }
+}
+
+/** Issue d'une vérification déclenchée à la main depuis l'écran
+ *  Import / Export. */
+export type UpdateCheckResult =
+  /** Une nouvelle version a été trouvée : le rechargement suit. */
+  | 'update-found'
+  /** Le serveur n'a rien de plus récent. */
+  | 'up-to-date'
+  /** Appareil hors ligne : rien à vérifier. */
+  | 'offline'
+  /** Pas de service worker (mode développement, navigation privée stricte,
+   *  navigateur sans support) : il n'y a pas de mise à jour à chercher. */
+  | 'unsupported'
+  /** Le serveur n'a pas répondu correctement. */
+  | 'error'
+
+/** Le strict nécessaire d'un ServiceWorkerRegistration, pour pouvoir tester
+ *  la décision sans navigateur. */
+export interface UpdatableRegistration {
+  readonly installing: unknown | null
+  readonly waiting: unknown | null
+  update(): Promise<unknown>
+}
+
+export interface ManualCheckContext {
+  registration: UpdatableRegistration | null
+  online: boolean
+  /** Une nouvelle version a-t-elle déjà pris la main pendant la session ?
+   *  `registration.update()` peut résoudre après que le nouveau worker s'est
+   *  activé (skipWaiting) : `installing` et `waiting` sont alors déjà vides,
+   *  et ce drapeau est la seule trace de la mise à jour. */
+  alreadySeen: boolean
+}
+
+/** Vérifie s'il existe une version plus récente et dit ce qu'il en est.
+ *  Ne recharge rien : le rechargement reste piloté par `onNeedReload`. */
+export async function runUpdateCheck({
+  registration,
+  online,
+  alreadySeen,
+}: ManualCheckContext): Promise<UpdateCheckResult> {
+  if (!registration) return 'unsupported'
+  if (!online) return 'offline'
+  try {
+    await registration.update()
+  } catch {
+    return 'error'
+  }
+  if (alreadySeen || registration.installing || registration.waiting) return 'update-found'
+  return 'up-to-date'
 }

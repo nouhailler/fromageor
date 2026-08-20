@@ -12,6 +12,7 @@ import {
   type ValidationResult,
 } from '../../lib/cheese-import-export'
 import { EXAMPLE_CHEESE, EXAMPLE_REGION, CHEESE_FIELD_DOCS } from '../../lib/cheese-schema'
+import { VersionCard } from '../ui/VersionCard'
 import styles from './ImportExportScreen.module.css'
 
 function downloadTextFile(filename: string, content: string) {
@@ -96,6 +97,8 @@ export function ImportExportScreen() {
       </OverlayHeader>
 
       <div className={styles.content}>
+        <VersionCard />
+
         <div className={styles.card}>
           <h2 className={styles.sectionTitle}>Exporter</h2>
           <div className={styles.hint}>

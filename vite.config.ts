@@ -1,10 +1,28 @@
 /// <reference types="vitest/config" />
+import { execSync } from 'node:child_process'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
+/** Identité du build, figée à la compilation et lisible dans l'application
+ *  (écran Import / Export). Sans elle, impossible de dire à l'utilisateur
+ *  quelle version tourne sur son téléphone ni de quand elle date. */
+function buildCommit(): string {
+  try {
+    return execSync('git rev-parse --short HEAD', { encoding: 'utf8' }).trim()
+  } catch {
+    // Archive sans dépôt git, ou git absent de l'image de build : la date
+    // du build suffit à identifier la version.
+    return 'inconnu'
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
+  define: {
+    __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+    __BUILD_COMMIT__: JSON.stringify(buildCommit()),
+  },
   plugins: [
     react(),
     VitePWA({

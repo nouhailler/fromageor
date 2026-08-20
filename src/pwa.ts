@@ -3,16 +3,25 @@
 // où elle est testée.
 import { registerSW } from 'virtual:pwa-register'
 import {
+  LAST_CHECK_KEY,
   LAST_RELOAD_KEY,
   planReload,
+  runUpdateCheck,
   startUpdateChecks,
   type ReloadPlan,
+  type UpdateCheckResult,
 } from './lib/app-update'
 
 type UpdateListener = () => void
 
 const listeners = new Set<UpdateListener>()
 let updatePending = false
+/** Une nouvelle version a-t-elle pris la main depuis le démarrage ? Distinct
+ *  de `updatePending`, qui ne vaut que pour le bandeau : une mise à jour
+ *  appliquée immédiatement, ou écartée par le garde-fou anti-boucle, ne
+ *  l'allume pas mais compte bien comme une version trouvée. */
+let updateSeen = false
+let swRegistration: ServiceWorkerRegistration | null = null
 
 /** Prévient l'interface qu'une nouvelle version vient de prendre la main et
  *  que la page va se recharger. Renvoie la fonction de désabonnement. */
@@ -32,6 +41,47 @@ export function isUpdatePending() {
 function announceUpdate() {
   updatePending = true
   for (const listener of listeners) listener()
+}
+
+/** Horodatage de la dernière vérification aboutie, `null` si aucune. */
+export function readLastCheckAt(): number | null {
+  try {
+    const raw = localStorage.getItem(LAST_CHECK_KEY)
+    if (!raw) return null
+    const value = Number(raw)
+    return Number.isFinite(value) ? value : null
+  } catch {
+    return null
+  }
+}
+
+function markChecked() {
+  try {
+    localStorage.setItem(LAST_CHECK_KEY, String(Date.now()))
+  } catch {
+    // Stockage indisponible : on perd l'affichage « dernière vérification »,
+    // pas la vérification elle-même.
+  }
+}
+
+/** Vérification déclenchée par l'utilisateur depuis l'écran Import / Export.
+ *  Le rechargement, lui, reste piloté par `onNeedReload`. */
+export async function checkForUpdate(): Promise<UpdateCheckResult> {
+  // Une demande explicite l'emporte sur le garde-fou anti-boucle : si une
+  // version vient d'être installée, l'utilisateur qui appuie sur le bouton
+  // veut la voir, pas se faire répondre « trop tôt ».
+  try {
+    sessionStorage.removeItem(LAST_RELOAD_KEY)
+  } catch {
+    // Sans sessionStorage, il n'y avait de toute façon pas de garde-fou.
+  }
+  const result = await runUpdateCheck({
+    registration: swRegistration,
+    online: navigator.onLine,
+    alreadySeen: updateSeen,
+  })
+  if (result === 'up-to-date' || result === 'update-found') markChecked()
+  return result
 }
 
 function readLastReloadAt(): number | null {
@@ -77,6 +127,7 @@ export function setupAutoUpdate() {
     // rechargement nous revient. Il n'est appelé que sur une vraie mise à
     // jour, jamais à la première installation du service worker.
     onNeedReload() {
+      updateSeen = true
       applyPlan(
         planReload({
           visible: document.visibilityState === 'visible',
@@ -87,12 +138,16 @@ export function setupAutoUpdate() {
     },
     onRegisteredSW(_swUrl, registration) {
       if (!registration) return
+      swRegistration = registration
       startUpdateChecks(
         () => {
-          registration.update().catch(() => {
-            // Hors ligne ou serveur injoignable : la prochaine vérification
-            // réessaiera, inutile de bruiter la console.
-          })
+          registration
+            .update()
+            .then(markChecked)
+            .catch(() => {
+              // Hors ligne ou serveur injoignable : la prochaine vérification
+              // réessaiera, inutile de bruiter la console.
+            })
         },
         { win: window, doc: document },
       )

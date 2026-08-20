@@ -4,7 +4,9 @@ import {
   RELOAD_NOTICE_MS,
   UPDATE_CHECK_INTERVAL_MS,
   planReload,
+  runUpdateCheck,
   startUpdateChecks,
+  type UpdatableRegistration,
   type UpdateCheckHost,
   type VisibilityHost,
 } from './app-update'
@@ -143,5 +145,62 @@ describe('planReload', () => {
         minIntervalMs: 1000,
       }),
     ).toEqual({ kind: 'after', ms: 1500 })
+  })
+})
+
+/** Enregistrement de service worker factice : `update()` est la seule
+ *  méthode qui nous intéresse, et l'état d'installation se règle à la main. */
+function fakeRegistration(
+  options: { installing?: boolean; waiting?: boolean; fails?: boolean } = {},
+): UpdatableRegistration & { updates: number } {
+  return {
+    updates: 0,
+    installing: options.installing ? {} : null,
+    waiting: options.waiting ? {} : null,
+    update() {
+      this.updates++
+      return options.fails ? Promise.reject(new Error('réseau')) : Promise.resolve({})
+    },
+  }
+}
+
+describe('runUpdateCheck', () => {
+  it('signale une nouvelle version quand un worker est en cours d\'installation', async () => {
+    const registration = fakeRegistration({ installing: true })
+    const result = await runUpdateCheck({ registration, online: true, alreadySeen: false })
+    expect(result).toBe('update-found')
+    expect(registration.updates).toBe(1)
+  })
+
+  it('signale une nouvelle version quand un worker attend son tour', async () => {
+    const registration = fakeRegistration({ waiting: true })
+    expect(await runUpdateCheck({ registration, online: true, alreadySeen: false })).toBe('update-found')
+  })
+
+  it('signale une nouvelle version déjà prise en main pendant la session', async () => {
+    // skipWaiting : le nouveau worker peut s'être activé avant que
+    // `update()` ne résolve, ne laissant ni `installing` ni `waiting`.
+    const registration = fakeRegistration()
+    expect(await runUpdateCheck({ registration, online: true, alreadySeen: true })).toBe('update-found')
+  })
+
+  it('confirme que tout est à jour quand rien ne bouge', async () => {
+    const registration = fakeRegistration()
+    expect(await runUpdateCheck({ registration, online: true, alreadySeen: false })).toBe('up-to-date')
+  })
+
+  it('ne va pas interroger le serveur hors ligne', async () => {
+    const registration = fakeRegistration()
+    expect(await runUpdateCheck({ registration, online: false, alreadySeen: false })).toBe('offline')
+    expect(registration.updates).toBe(0)
+  })
+
+  it('signale un serveur injoignable plutôt que de laisser filer l\'erreur', async () => {
+    const registration = fakeRegistration({ fails: true })
+    expect(await runUpdateCheck({ registration, online: true, alreadySeen: false })).toBe('error')
+  })
+
+  it('signale l\'absence de service worker', async () => {
+    expect(await runUpdateCheck({ registration: null, online: true, alreadySeen: false })).toBe('unsupported')
   })
 })

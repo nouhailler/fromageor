@@ -1,0 +1,144 @@
+/* Reprend la carte de l'écran Import / Export, dont ce bloc est voisin. */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 20px;
+  margin: 0;
+}
+
+.rows {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.key {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  min-width: 96px;
+}
+
+.value {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  /* Reste sur la ligne de son libellé et se replie à l'intérieur : sans quoi
+     la seule ligne un peu longue passe sous le libellé et casse l'alignement
+     des trois lignes. */
+  flex: 1 1 150px;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  /* Une étiquette de version ne doit jamais pousser la carte hors de l'écran. */
+  overflow-wrap: anywhere;
+}
+
+.commit {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-neutral-100);
+  background: var(--color-accent-2-700);
+  border-radius: var(--radius-pill);
+  padding: 1px 8px;
+}
+
+.since {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-neutral-700);
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border-radius: var(--radius-pill);
+  padding: 10px 18px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background: var(--color-accent);
+  color: #fff;
+}
+.button:hover:not(:disabled) {
+  background: var(--color-accent-600);
+}
+.button:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.spin {
+  animation: turn 1.4s linear infinite;
+}
+@keyframes turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    animation: none;
+  }
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.message svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ok {
+  color: var(--color-accent-2-700);
+}
+.warn {
+  color: var(--color-accent-700);
+}
+.busy {
+  color: var(--color-neutral-700);
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--color-neutral-700);
+  line-height: 1.5;
+}

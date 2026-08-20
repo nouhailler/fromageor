@@ -10,7 +10,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 [![React](https://img.shields.io/badge/React-19-c67139?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-8-c67139?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-c67139?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vitest](https://img.shields.io/badge/Vitest-37%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
+[![Vitest](https://img.shields.io/badge/Vitest-264%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
 [![PWA](https://img.shields.io/badge/PWA-installable-7a8a5e?style=flat-square&logo=pwa&logoColor=white)](#-logo--icônes)
 [![Node](https://img.shields.io/badge/Node-%E2%89%A5%2022.12-7a8a5e?style=flat-square&logo=nodedotjs&logoColor=white)](.nvmrc)
 [![Netlify](https://img.shields.io/badge/Netlify-fromageor.netlify.app-8c491a?style=flat-square&logo=netlify&logoColor=white)](https://fromageor.netlify.app)
@@ -170,6 +170,7 @@ L'application vérifie d'elle-même qu'une nouvelle version a été déployée, 
 | Quand | Quoi |
 | --- | --- |
 | Toutes les **30 min**, au **retour au premier plan**, au **retour du réseau** | `registration.update()` : le navigateur va voir si `sw.js` a changé |
+| **Bouton « Rechercher une mise à jour »** (Import / Export) | Même vérification, à la demande — et le garde-fou anti-boucle est levé pour l'occasion |
 | Une nouvelle version est trouvée | Le service worker (`registerType: 'autoUpdate'`) l'installe et prend la main tout seul |
 | La nouvelle version s'active | Onglet actif → bandeau « Nouvelle version installée » pendant 4 s, puis rechargement. Onglet en arrière-plan → rechargement immédiat, personne ne regarde |
 
@@ -178,6 +179,21 @@ L'application vérifie d'elle-même qu'une nouvelle version a été déployée, 
 - **Garde-fou anti-boucle** : deux rechargements à moins de 10 minutes d'intervalle sont ignorés — un déploiement cassé ne peut pas faire clignoter l'application indéfiniment. Passé ce délai, une app laissée ouverte suit bien les déploiements suivants.
 - `netlify.toml` sert déjà `/sw.js` en `max-age=0, must-revalidate` : sans cela, le navigateur ne verrait jamais la nouvelle version.
 - La logique de décision (`quand vérifier`, `quand recharger`) vit dans `src/lib/app-update.ts`, testée sans navigateur ; `src/pwa.ts` ne fait que la brancher sur les vraies API.
+
+### 🔢 Version installée
+
+L'écran **Import / Export** ouvre sur une carte « Version de l'application » : version, date du build, ancienneté de la dernière vérification, et un bouton pour en chercher une tout de suite. Elle répond à la question « est-ce que la mise à jour est bien arrivée sur mon téléphone ? », à laquelle rien ne permettait de répondre auparavant.
+
+| | |
+| --- | --- |
+| **Version** | `2026.08.20-1834`, dérivée de la date du build — croissante, comparable, sans numéro à incrémenter à la main. Suivie du commit git court |
+| **Mise à jour** | Date du build de la version qui tourne, dans le fuseau de l'appareil, avec son ancienneté |
+| **Vérification** | Ancienneté du dernier contrôle abouti, automatique ou manuel (`fromages-maj-verifiee-le` dans `localStorage`) |
+
+- Les deux constantes `__BUILD_TIME__` et `__BUILD_COMMIT__` sont injectées par Vite (`define`, dans `vite.config.ts`) et remplacées littéralement dans le bundle : rien n'est lu au démarrage. Leur type est déclaré dans `src/build-info.d.ts`, leur mise en forme testée dans `src/lib/app-version.ts`.
+- Un build hors dépôt git affiche `inconnu` comme commit — la date suffit à identifier la version.
+- **Une demande explicite lève le garde-fou anti-boucle** : si une version vient d'être installée mais que le rechargement a été écarté comme « trop tôt », appuyer sur le bouton la fait bien apparaître. C'était le cas de figure où une mise à jour pouvait rester invisible indéfiniment.
+- Vérifié de bout en bout contre un vrai déploiement simulé : app ouverte et contrôlée par le service worker, v2 déployée pendant qu'elle tourne, bouton pressé, « Nouvelle version trouvée », redémarrage, nouvelle étiquette de version à l'écran.
 
 ## 🧮 Logique métier
 
