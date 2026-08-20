@@ -46,6 +46,7 @@ async function main() {
   const { CORSE_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-corse.ts'))
   const { GRAND_EST_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-grand-est.ts'))
   const { IDF_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-ile-de-france.ts'))
+  const { OCCITANIE_CHEESES } = await import(path.join(repoRoot, 'src/data/cheeses-occitanie.ts'))
   const manuels = [
     ...EXTRA_CHEESES,
     ...BFC_CHEESES,
@@ -56,6 +57,7 @@ async function main() {
     ...CORSE_CHEESES,
     ...GRAND_EST_CHEESES,
     ...IDF_CHEESES,
+    ...OCCITANIE_CHEESES,
   ]
 
   // Avec --id on ne retouche qu'une entrée : on repart de l'existant pour ne

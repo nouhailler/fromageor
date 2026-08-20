@@ -10,7 +10,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 [![React](https://img.shields.io/badge/React-19-c67139?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-8-c67139?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-c67139?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vitest](https://img.shields.io/badge/Vitest-264%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
+[![Vitest](https://img.shields.io/badge/Vitest-285%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
 [![PWA](https://img.shields.io/badge/PWA-installable-7a8a5e?style=flat-square&logo=pwa&logoColor=white)](#-logo--icônes)
 [![Node](https://img.shields.io/badge/Node-%E2%89%A5%2022.12-7a8a5e?style=flat-square&logo=nodedotjs&logoColor=white)](.nvmrc)
 [![Netlify](https://img.shields.io/badge/Netlify-fromageor.netlify.app-8c491a?style=flat-square&logo=netlify&logoColor=white)](https://fromageor.netlify.app)
@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Neuf régions couvertes : **Auvergne-Rhône-Alpes** (53 fromages), **Hauts-de-France** (18), **Bourgogne-Franche-Comté** (16), **Centre-Val de Loire** (13), **Normandie** (13), **Grand Est** (12), **Bretagne** (12), **Île-de-France** (11) et **Corse** (10), soit 158 fiches — l'ossature UI/données accepte d'autres régions à la suite.
+Dix régions couvertes : **Auvergne-Rhône-Alpes** (51 fromages), **Hauts-de-France** (18), **Bourgogne-Franche-Comté** (16), **Occitanie** (14), **Centre-Val de Loire** (13), **Normandie** (13), **Bretagne** (12), **Grand Est** (12), **Île-de-France** (11) et **Corse** (10), soit 170 fiches — l'ossature UI/données accepte d'autres régions à la suite.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -114,9 +114,12 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-corse.ts` | **à la main** | Les 10 fromages de Corse, du Brocciu AOP aux cinq familles fermières |
 | `cheeses-grand-est.ts` | **à la main** | Les 12 fromages du Grand Est — Munster, les pâtes pressées vosgiennes, plus le Chaource et le Langres rapatriés depuis la Bourgogne |
 | `cheeses-ile-de-france.ts` | **à la main** | Les 11 fromages d'Île-de-France — le pays de Brie, ses deux AOP rapatriées depuis le Grand Est et leur descendance |
+| `cheeses-occitanie.ts` | **à la main** | Les 12 fromages d'Occitanie — le roquefort et la brebis des causses, les tommes de vache du Couserans, les chèvres cévenoles et quercynoises ; le bleu des Causses et le laguiole les rejoignent depuis le jeu généré |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
+
+Le champ `map` d'un fromage écrit à la main doit tomber dans l'espace projeté de `FR_XY`. Faute de disposer de la projection d'origine, les coordonnées occitanes ont été obtenues en **ajustant un modèle quadratique sur une centaine de repères déjà placés** (résidu médian 0,5 unité, soit ~5 km), puis vérifiées point-dans-polygone contre `franceOutline.ts`. Placer un point à vue donne des écarts bien plus grands.
 
 ### ➕ Ajouter un fromage
 

@@ -10,8 +10,10 @@ import { HDF_CHEESES } from './cheeses-hauts-de-france'
 import { CORSE_CHEESES } from './cheeses-corse'
 import { GRAND_EST_CHEESES } from './cheeses-grand-est'
 import { IDF_CHEESES } from './cheeses-ile-de-france'
+import { OCCITANIE_CHEESES } from './cheeses-occitanie'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
+import { appellationsOf } from '../lib/appellations'
 
 /** Comparaison « à la française » : insensible à la casse, aux accents et à la
  *  ponctuation, pour que « Tome des Bauges » et « tome-des-bauges » collent. */
@@ -34,6 +36,7 @@ const AJOUTS = [
   ...CORSE_CHEESES,
   ...GRAND_EST_CHEESES,
   ...IDF_CHEESES,
+  ...OCCITANIE_CHEESES,
 ]
 
 describe('ALL_CHEESES', () => {
@@ -343,6 +346,57 @@ describe('ALL_CHEESES', () => {
       'Brie de Meaux',
       'Brie de Melun',
     ])
+  })
+
+  it.each([
+    'Roquefort',
+    'Bleu de Roquefort',
+    'Pélardon',
+    'Rocamadour',
+    'Cabécou de Rocamadour',
+    'Tomme des Pyrénées',
+    'Bethmale',
+    'Moulis',
+    'Pérail',
+    'Pavé du Larzac',
+    'Tome fraîche de l’Aubrac',
+    'Tome d’Aligot',
+    'Trappe de Bonneval',
+    'Cathare',
+    'Passe-l’An',
+    'Bleu des Causses',
+    'Laguiole',
+  ])('trouve « %s » dans la base (Occitanie)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages occitans à leur région, dont les trois AOP écrites à la main', () => {
+    expect(OCCITANIE_CHEESES).toHaveLength(12)
+    for (const cheese of OCCITANIE_CHEESES) {
+      expect(cheese.regionId).toBe('occitanie')
+    }
+    expect(OCCITANIE_CHEESES.filter((c) => c.aop).map((c) => c.nom).sort()).toEqual([
+      'Pélardon',
+      'Rocamadour',
+      'Roquefort',
+    ])
+  })
+
+  it('compte cinq AOP occitanes une fois les deux aveyronnaises rapatriées', () => {
+    const aop = ALL_CHEESES.filter((c) => c.regionId === 'occitanie' && c.aop)
+    expect(aop.map((c) => c.nom).sort()).toEqual([
+      'Bleu des Causses',
+      'Laguiole',
+      'Pélardon',
+      'Rocamadour',
+      'Roquefort',
+    ])
+  })
+
+  it.each(['tomme-pyrenees', 'perail'])('donne son IGP à %s', (id) => {
+    const cheese = ALL_CHEESES.find((c) => c.id === id)
+    expect(cheese).toBeDefined()
+    expect(appellationsOf(cheese!)).toContain('IGP')
   })
 
   it('applique les rattachements régionaux corrigés aux entrées générées', () => {

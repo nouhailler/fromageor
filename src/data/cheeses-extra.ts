@@ -328,4 +328,8 @@ export const EXTRA_REGION_OVERRIDES: Record<string, { regionId: string; dept?: s
   // L'AOP Mont d'Or est strictement doubiste ; la mention Haute-Savoie du
   // handoff renvoie au vacherin savoyard, qui n'est pas la même appellation.
   'mont-dor': { regionId: 'bourgogne-franche-comte' },
+  // Le bleu des Causses et le laguiole sont aveyronnais, donc occitans : le
+  // handoff les rangeait en Auvergne-Rhône-Alpes faute d'y avoir la région.
+  'bleu-causses': { regionId: 'occitanie' },
+  laguiole: { regionId: 'occitanie' },
 }
