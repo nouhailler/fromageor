@@ -32,7 +32,7 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 | <img src="docs/screenshots/recherche.png" alt="Recherche plein texte" width="240"> | <img src="docs/screenshots/favoris.png" alt="Listes de favoris" width="240"> | <img src="docs/screenshots/menu.png" alt="Menu latéral" width="240"> |
 
 <details>
-<summary><b>Voir les six autres écrans</b> — accords, découpe, calendrier, appellations, encyclopédie, import/export</summary>
+<summary><b>Voir les sept autres écrans</b> — accords, découpe, calendrier, appellations, encyclopédie, import/export, mentions légales</summary>
 
 <br>
 
@@ -41,6 +41,8 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 | <img src="docs/screenshots/accords.png" alt="Accords mets et boissons" width="240"> | <img src="docs/screenshots/decoupe.png" alt="Guide de découpe" width="240"> | <img src="docs/screenshots/calendrier.png" alt="Calendrier des saisons" width="240"> |
 |                       **🏅 Appellations**                       |                     **📖 Encyclopédie**                     |                      **💾 Import / Export**                      |
 | <img src="docs/screenshots/appellations.png" alt="Appellations" width="240"> | <img src="docs/screenshots/encyclopedie.png" alt="Encyclopédie" width="240"> | <img src="docs/screenshots/import-export.png" alt="Import / Export de la base" width="240"> |
+|                     **⚖️ Mentions légales**                     |                                                             |                                                                  |
+| <img src="docs/screenshots/mentions-legales.png" alt="Mentions légales" width="240"> |  |  |
 
 </details>
 
