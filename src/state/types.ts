@@ -30,6 +30,7 @@ export interface AppState {
   encyclo: boolean
   article: string | null
   importExport: boolean
+  legal: boolean
 }
 
 export const INITIAL_APP_STATE: AppState = {
@@ -51,4 +52,5 @@ export const INITIAL_APP_STATE: AppState = {
   encyclo: false,
   article: null,
   importExport: false,
+  legal: false,
 }

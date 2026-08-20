@@ -15,6 +15,8 @@ import { AppellationsScreen } from './components/screens/AppellationsScreen'
 import { EncyclopediaScreen } from './components/screens/EncyclopediaScreen'
 import { ImportExportScreen } from './components/screens/ImportExportScreen'
 import { Drawer } from './components/screens/Drawer'
+import { LegalScreen } from './components/legal/LegalScreen'
+import { FirstLaunchNotice } from './components/legal/FirstLaunchNotice'
 import { FavoritesSheet } from './components/screens/FavoritesSheet'
 import { UpdateNotice } from './components/ui/UpdateNotice'
 
@@ -53,9 +55,11 @@ function AppShell() {
       {state.appel && <AppellationsScreen />}
       {state.encyclo && <EncyclopediaScreen />}
       {state.importExport && <ImportExportScreen />}
+      {state.legal && <LegalScreen />}
       {state.menuOpen && <Drawer />}
       <FavoritesSheet />
       <UpdateNotice />
+      <FirstLaunchNotice />
     </PhoneFrame>
   )
 }

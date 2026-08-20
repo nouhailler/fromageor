@@ -39,6 +39,8 @@ export interface AppActions {
   backToArticles: () => void
   openImportExport: () => void
   closeImportExport: () => void
+  openLegal: () => void
+  closeLegal: () => void
   openListDetail: (id: string) => void
   backToLists: () => void
   deleteCurrentList: () => void
@@ -98,6 +100,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
       openImportExport: () => dispatch({ importExport: true, menuOpen: false, selected: null }),
       closeImportExport: () => dispatch({ importExport: false }),
+
+      openLegal: () => dispatch({ legal: true, menuOpen: false, selected: null }),
+      closeLegal: () => dispatch({ legal: false }),
 
       openListDetail: (id) => dispatch({ openList: id }),
       backToLists: () => dispatch({ openList: null }),

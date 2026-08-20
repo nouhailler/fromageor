@@ -1,4 +1,4 @@
-import { X, Home, MapPin, Search, Heart, Database } from 'lucide-react'
+import { X, Home, MapPin, Search, Heart, Database, Scale } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
@@ -125,6 +125,18 @@ export function Drawer() {
             ))}
             {regions.length <= 1 && <div className={styles.regionsHint}>Autres régions à venir…</div>}
           </div>
+          <div className={styles.divider} />
+          <button
+            type="button"
+            className={styles.navItem}
+            style={{ background: 'transparent', color: 'var(--color-text)' }}
+            onClick={actions.openLegal}
+          >
+            <span className={styles.navItemIcon}>
+              <Scale size={22} strokeWidth={2.75} />
+            </span>
+            Mentions légales
+          </button>
           <div className={styles.divider} />
           <div className={styles.footer}>
             Encyclopédie du terroir fromager français. Données de démonstration — lot&nbsp;1.

@@ -61,6 +61,7 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 | 🏅 **Appellations** | AOP, IGP, Label Rouge, Bio |
 | 📖 **Encyclopédie** | Articles de fond : histoire, fabrication, affinage, races laitières |
 | 💾 **Import / Export** | Sauvegarde et extension de la base depuis l'interface |
+| ⚖️ **Mentions légales** | Avertissement, limitation de responsabilité, éditeur |
 | ☰ **Menu latéral** | Navigation transverse + compteur par région |
 
 ## 🧱 Stack
@@ -69,7 +70,7 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 - 🎨 **CSS Modules** + jetons du design system Organic (`src/styles/tokens.css`)
 - 🖼️ `lucide-react` pour les icônes standards, icônes/diagrammes SVG portés à l'identique du handoff pour les glyphes propres au design
 - 📱 **PWA** (`vite-plugin-pwa`) avec mise à jour automatique, polices Caprasimo/Figtree self-hostées (`@fontsource/*`)
-- ✅ **Vitest** pour les tests de la logique métier (`src/lib/`)
+- ✅ **Vitest** pour les tests de la logique métier (`src/lib/`) et des écrans légaux (`src/components/legal/`)
 
 ## 🚀 Démarrer
 
@@ -189,6 +190,35 @@ Un écran dédié (accessible depuis le menu latéral) permet de sauvegarder et 
 - 🗄️ Les données importées sont stockées dans une surcouche `localStorage`, fusionnée par-dessus les données intégrées (upsert par `id`) sans jamais modifier le jeu de données embarqué — voir `useCheeseDatabase`.
 - 🌍 Accepte un simple tableau de fromages ou un objet `{ region?, cheeses[] }`, ce qui permet à un import d'enregistrer une nouvelle région.
 - 📐 Schéma et validation : `src/lib/cheese-schema.ts`, `src/lib/cheese-import-export.ts` (testés).
+
+## ⚖️ Mentions légales & avertissement
+
+Un avertissement s'affiche **au tout premier lancement** ; sa validation est mémorisée localement et il ne réapparaît plus. Les mentions complètes restent accessibles en permanence depuis le **menu latéral → Mentions légales**.
+
+| Fichier | Rôle |
+| --- | --- |
+| `src/lib/legal-notice.ts` | **Tout le contenu** : titre, avertissement court, sections, éditeur, version, drapeau `USES_GEOLOCATION` |
+| `src/lib/legal-storage.ts` | Lecture / écriture / effacement de la validation dans `localStorage` |
+| `src/components/legal/FirstLaunchNotice.tsx` | Modale de premier lancement (`role="dialog"`, piège de focus, retour Android) |
+| `src/components/legal/LiabilityNotice.tsx` | Rendu des sections, partagé par la modale et l'écran |
+| `src/components/legal/LegalScreen.tsx` | Écran complet, ouvert depuis le menu (motif `OverlayScreen`) |
+| `src/components/legal/useDismissOnBack.ts` | Échap + bouton retour Android sur la vue détaillée |
+
+**Stockage** — 100 % local, aucune donnée personnelle, aucun serveur :
+
+| Clé `localStorage` | Valeur |
+| --- | --- |
+| `legal_notice_acknowledged` | `"true"` une fois l'avertissement validé |
+| `legal_notice_acknowledged_version` | Version des mentions validée, ex. `"1.0"` |
+
+- **Rejouer le premier lancement** : `npm run dev`, puis le bouton _« Réinitialiser les mentions légales (dév.) »_ en bas de l'écran Mentions légales. Il est derrière `import.meta.env.DEV` et **absent du bundle de production**. À défaut, effacer les deux clés ci-dessus dans les outils de développement du navigateur.
+- **Modifier un texte** : tout se passe dans `src/lib/legal-notice.ts` — les composants ne contiennent aucun texte juridique. Les paragraphes du texte de limitation de responsabilité sont verrouillés par `src/lib/legal-notice.test.ts` : en perdre un fait échouer les tests.
+- **Changer de version** : incrémenter `LEGAL_NOTICE_VERSION`. La politique actuelle (`needsAcknowledgement`, dans `legal-storage.ts`) **ne réaffiche pas** l'avertissement sur une simple montée de version — une retouche mineure ne doit pas re-solliciter tout le monde. La version validée étant déjà stockée, le jour où une modification importante le justifie il suffit de comparer `getAcknowledgedVersion()` à `LEGAL_NOTICE_VERSION`, sans migration.
+- **Section GPS** : `USES_GEOLOCATION` est à `false` — l'application n'utilise ni géolocalisation, ni itinéraire, ni distance (la carte de France est une silhouette SVG décorative). Le jour où ce ne sera plus vrai, passer le drapeau à `true` fait apparaître d'elle-même la section « Précision de la localisation ».
+- **Politique de confidentialité** : il n'y en a pas de séparée, l'application ne collectant aucune donnée. La section « Données personnelles » en tient lieu et sert de point d'accroche si un jour un compte, une mesure d'audience ou un formulaire l'imposent.
+- **Identité de l'éditeur** : `legalPublisher`, dans `src/lib/legal-notice.ts` — nom, contact, adresse, hébergeur et date de mise à jour.
+
+Ce système est volontairement autonome : le reprendre dans une autre PWA revient à copier `src/lib/legal-*.ts` et `src/components/legal/`, puis à réécrire le seul `legal-notice.ts`.
 
 ## ☁️ Déploiement
 

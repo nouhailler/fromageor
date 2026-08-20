@@ -27,6 +27,14 @@ const context = await browser.newContext({
   colorScheme: 'light',
 })
 
+// L'avertissement de premier lancement se met sinon devant chaque capture :
+// on le marque comme déjà lu, exactement comme le ferait un utilisateur
+// l'ayant validé (voir src/lib/legal-storage.ts).
+await context.addInitScript(() => {
+  localStorage.setItem('legal_notice_acknowledged', 'true')
+  localStorage.setItem('legal_notice_acknowledged_version', '1.0')
+})
+
 const page = await context.newPage()
 const frame = page.locator('div[class*="frame"]').first()
 
@@ -94,6 +102,7 @@ for (const [label, name] of [
   ['Appellations', 'appellations'],
   ['Encyclopédie', 'encyclopedie'],
   ['Import / Export', 'import-export'],
+  ['Mentions légales', 'mentions-legales'],
 ]) {
   await reset()
   await fromDrawer(label)
