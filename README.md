@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Dix régions couvertes : **Auvergne-Rhône-Alpes** (51 fromages), **Hauts-de-France** (18), **Bourgogne-Franche-Comté** (16), **Occitanie** (14), **Centre-Val de Loire** (13), **Normandie** (13), **Bretagne** (12), **Grand Est** (12), **Île-de-France** (11) et **Corse** (10), soit 170 fiches — l'ossature UI/données accepte d'autres régions à la suite.
+Onze régions couvertes : **Auvergne-Rhône-Alpes** (50 fromages), **Hauts-de-France** (18), **Nouvelle-Aquitaine** (19), **Bourgogne-Franche-Comté** (17), **Occitanie** (14), **Centre-Val de Loire** (13), **Normandie** (13), **Bretagne** (12), **Grand Est** (12), **Île-de-France** (11) et **Corse** (10), soit 189 fiches — l'ossature UI/données accepte d'autres régions à la suite.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -60,7 +60,7 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 | 🍷 **Accords mets & boissons** | Suggestions automatiques par famille (vins, bières, cidres, miel…) |
 | 🔪 **Découpe** | Le bon geste selon la forme du fromage |
 | 📅 **Calendrier des saisons** | Les fromages à leur apogée, mois par mois |
-| 🏅 **Appellations** | AOP, IGP, Label Rouge, Bio |
+| 🏅 **Appellations** | AOP et IGP réels ; Label Rouge et Bio déduits de la famille et de l'intensité, à titre indicatif |
 | 📖 **Encyclopédie** | Articles de fond : histoire, fabrication, affinage, races laitières |
 | 💾 **Import / Export** | Sauvegarde et extension de la base depuis l'interface |
 | ⚖️ **Mentions légales** | Avertissement, limitation de responsabilité, éditeur |
@@ -106,7 +106,7 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | --- | --- | --- |
 | `cheeses.ts` | `import-cheeses.mjs` | Les 50 fromages du handoff |
 | `cheeses-extra.ts` | **à la main** | Les fromages d'Auvergne-Rhône-Alpes ajoutés depuis (6), les noms alternatifs greffés sur des entrées générées, et les rattachements régionaux corrigés |
-| `cheeses-bourgogne-franche-comte.ts` | **à la main** | Les 15 fromages de Bourgogne-Franche-Comté |
+| `cheeses-bourgogne-franche-comte.ts` | **à la main** | Les 13 fromages de Bourgogne-Franche-Comté, rejoints par le comté, le morbier, le mont d'or et le bleu de Gex depuis le jeu généré |
 | `cheeses-bretagne.ts` | **à la main** | Les 12 fromages de Bretagne — aucun sous AOP, la région n'en compte pas |
 | `cheeses-centre-val-de-loire.ts` | **à la main** | Les 13 fromages du Centre-Val de Loire, dont les 5 AOP caprines du Val de Loire |
 | `cheeses-normandie.ts` | **à la main** | Les 13 fromages de Normandie, dont les 4 AOP à pâte molle |
@@ -115,11 +115,14 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-grand-est.ts` | **à la main** | Les 12 fromages du Grand Est — Munster, les pâtes pressées vosgiennes, plus le Chaource et le Langres rapatriés depuis la Bourgogne |
 | `cheeses-ile-de-france.ts` | **à la main** | Les 11 fromages d'Île-de-France — le pays de Brie, ses deux AOP rapatriées depuis le Grand Est et leur descendance |
 | `cheeses-occitanie.ts` | **à la main** | Les 12 fromages d'Occitanie — le roquefort et la brebis des causses, les tommes de vache du Couserans, les chèvres cévenoles et quercynoises ; le bleu des Causses et le laguiole les rejoignent depuis le jeu généré |
+| `cheeses-nouvelle-aquitaine.ts` | **à la main** | Les 19 fromages de Nouvelle-Aquitaine — les brebis du Pays basque et du Béarn autour de l'ossau-iraty, les chèvres du Poitou et des Charentes autour du chabichou, et une seule fiche pour tout le Limousin |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
 
-Le champ `map` d'un fromage écrit à la main doit tomber dans l'espace projeté de `FR_XY`. Faute de disposer de la projection d'origine, les coordonnées occitanes ont été obtenues en **ajustant un modèle quadratique sur une centaine de repères déjà placés** (résidu médian 0,5 unité, soit ~5 km), puis vérifiées point-dans-polygone contre `franceOutline.ts`. Placer un point à vue donne des écarts bien plus grands.
+Le champ `map` d'un fromage écrit à la main doit tomber dans l'espace projeté de `FR_XY`. Faute de disposer de la projection d'origine, elle est **réajustée par moindres carrés sur les repères déjà placés**, puis chaque point est vérifié point-dans-polygone contre `franceOutline.ts`. Placer un point à vue donne des écarts bien plus grands.
+
+Deux ajustements ont servi : un modèle quadratique en (lon, lat) pour l'Occitanie, puis une **projection conique conforme** (parallèles 44°/49°, méridien 3° E) suivie d'une transformation affine pour la Nouvelle-Aquitaine — résidu médian 0,51 unité sur 82 repères, soit ~5 km. Le second est préférable : la conique conforme reste juste **hors de l'enveloppe des repères**, là où le quadratique dérive, ce qui compte pour une région dont aucun voisin n'était encore placé.
 
 ### ➕ Ajouter un fromage
 
@@ -137,6 +140,8 @@ Pour une nouvelle **région**, ajouter aussi son entrée dans `src/data/regions.
 - ⚠️ **Ré-exécuter après un import** : `import-cheeses.mjs` régénère `cheeses.ts` depuis le handoff et efface donc cet enrichissement — relancer `npm run enrich-wikipedia` ensuite.
 - ♻️ Idempotent : ne re-télécharge pas les fromages déjà enrichis (`--force` pour tout re-télécharger, `--id <id>` pour un seul fromage).
 - 🔗 Les photos restent hébergées sur `upload.wikimedia.org` (pas de copie locale) ; l'écran Fiche affiche le crédit (auteur + licence) en lien vers la page Commons du fichier.
+- 🚫 Le filtre de pertinence écarte un article sur son **sujet grammatical** : « X est une commune / une race / une entreprise… ». Deux conséquences à connaître avant de croire à un bug : une marque qui *désigne un fromage* est rattrapée explicitement (sans quoi La Feuille du Limousin serait écartée), mais un article dont la première phrase ne dit ni « fromage » ni « laitier » l'est bel et bien — c'est le cas de la **caillebotte**, que Wikipédia définit comme un lait caillé et non comme un fromage. Elle reste donc sans résumé, à raison.
+- 🪪 L'API de Wikipédia exige un **User-Agent nommant un contact**. Un UA générique fait répondre « You are making too many requests » quel que soit le rythme d'appel.
 
 ## 🎨 Logo & icônes
 
@@ -244,3 +249,12 @@ Ce système est volontairement autonome : le reprendre dans une autre PWA revien
 ## ☁️ Déploiement
 
 Le site est déployé sur Netlify : **[fromageor.netlify.app](https://fromageor.netlify.app)**. La configuration (commande de build, dossier de publication, en-têtes de cache) se trouve dans `netlify.toml`.
+
+## 📚 Documentation
+
+| Fichier | Rôle |
+| --- | --- |
+| `README.md` | Ce fichier — fonctionnement du projet, données, scripts, écrans, déploiement |
+| `CONTEXT.md` | Note de passage de relais entre sessions : ce qui reste à faire et les pièges déjà rencontrés. **À lire avant d'ajouter une région ou une fiche.** |
+| `DOCUMENTATION_SPEC.md` | Le standard documentaire que le projet se donne. Son § 0 bis dit où en est réellement la doc : tout tient dans ce README, et FAQ, dépannage, changelog utilisateur, limites connues et procédures de support restent à écrire |
+| `CLAUDE.md` | Contexte projet pour Claude Code, qui renvoie aux trois précédents |

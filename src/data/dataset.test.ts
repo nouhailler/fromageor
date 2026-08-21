@@ -11,6 +11,7 @@ import { CORSE_CHEESES } from './cheeses-corse'
 import { GRAND_EST_CHEESES } from './cheeses-grand-est'
 import { IDF_CHEESES } from './cheeses-ile-de-france'
 import { OCCITANIE_CHEESES } from './cheeses-occitanie'
+import { NA_CHEESES } from './cheeses-nouvelle-aquitaine'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 import { appellationsOf } from '../lib/appellations'
@@ -37,6 +38,7 @@ const AJOUTS = [
   ...GRAND_EST_CHEESES,
   ...IDF_CHEESES,
   ...OCCITANIE_CHEESES,
+  ...NA_CHEESES,
 ]
 
 describe('ALL_CHEESES', () => {
@@ -419,6 +421,51 @@ describe('ALL_CHEESES', () => {
       // La Bretagne ne compte aucun fromage AOP.
       expect(cheese.aop).toBe(false)
     }
+  })
+
+  it.each([
+    'Ossau-Iraty',
+    'Laruns',
+    'Anneau du Vic-Bilh',
+    'Pur Brebis de l’Abbaye de Belloc',
+    'Amou',
+    'Trappe d’Échourgnac',
+    'Chabichou du Poitou',
+    'Mothais sur feuille',
+    'Bonde de Gâtine',
+    'Taupinette',
+    'Jonchée',
+    'Tricorne de Marans',
+    'La Feuille du Limousin',
+    'Chabis',
+    'Carré du Poitou',
+    'Tomme de Rilhac',
+    'Caillebotte',
+    'Pigouille',
+    'Couhé-Vérac',
+  ])('trouve « %s » dans la base (Nouvelle-Aquitaine)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages néo-aquitains à leur région, dont les deux AOP', () => {
+    expect(NA_CHEESES).toHaveLength(19)
+    for (const cheese of NA_CHEESES) {
+      expect(cheese.regionId).toBe('nouvelle-aquitaine')
+    }
+    expect(NA_CHEESES.filter((c) => c.aop).map((c) => c.nom).sort()).toEqual([
+      'Chabichou du Poitou',
+      'Mothais sur feuille',
+      'Ossau-Iraty',
+    ])
+  })
+
+  // L'aire de l'ossau-iraty ne mord sur les Hautes-Pyrénées que par trois
+  // communes : il est néo-aquitain, pas occitan — c'était la question ouverte
+  // laissée par la revue de la liste occitane.
+  it('range l’ossau-iraty en Nouvelle-Aquitaine et non en Occitanie', () => {
+    const cheese = ALL_CHEESES.find((c) => c.id === 'ossau-iraty')
+    expect(cheese?.regionId).toBe('nouvelle-aquitaine')
+    expect(cheese?.dept).toContain('64')
   })
 
   it('rattache les fromages bourguignons et comtois à leur région', () => {

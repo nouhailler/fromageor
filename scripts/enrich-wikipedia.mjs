@@ -82,6 +82,16 @@ const CHEESE_RE = /\bfromag|\blaitier|\blaitière/i
 // passer pour l'article du fromage. On les écarte sur leur sujet grammatical.
 const NON_CHEESE_SUBJECT_RE =
   /\b(est|était) une? (commune|ancienne commune|ville|localité|race|ancienne race|abbaye|entreprise|société|marque de|sandwich|plat|recette|gâteau|tarte|soupe)\b/i
+// … sauf quand la marque *est* le fromage. Beaucoup de fromages bien réels
+// n'existent sur Wikipédia que sous leur marque : « La Feuille du Limousin est
+// une marque de certification […] servant à identifier un fromage fermier ».
+// Les écarter n'avait rien d'intentionnel — la règle ci-dessus visait les
+// sujets « organisation » (entreprise, société, abbaye) — et le filtre était
+// de toute façon incohérent, laissant passer « est *la* marque commerciale
+// d'un fromage » (Trappe Échourgnac, Taupinette) sur la seule différence de
+// tournure. On rattrape le cas où la même phrase nomme un fromage ; le
+// contrôle du titre (titleMatchesCheeseName) reste seul juge de l'appariement.
+const CHEESE_BRAND_RE = /\bmarque\b[^.]*\bfromage/i
 const STOPWORDS = new Set([
   'de', 'du', 'des', 'la', 'le', 'les', 'un', 'une', 'et', 'd', 'l', 'au', 'aux',
   'fromage', 'fromages', 'tomme', 'tommette', 'tome',
@@ -104,12 +114,12 @@ function paragraphLines(extract) {
 function isCheeseArticle(extract) {
   const lines = paragraphLines(extract)
   if (lines.length === 0) return false
-  if (NON_CHEESE_SUBJECT_RE.test(lines[0])) return false
+  if (NON_CHEESE_SUBJECT_RE.test(lines[0]) && !CHEESE_BRAND_RE.test(lines[0])) return false
   if (!DISAMBIGUATION_RE.test(lines[0]) && CHEESE_RE.test(lines[0])) return true
   if (lines.length === 2) {
     const [l0, l1] = lines
     if (DISAMBIGUATION_RE.test(l0) || DISAMBIGUATION_RE.test(l1)) return false
-    if (NON_CHEESE_SUBJECT_RE.test(l0) || NON_CHEESE_SUBJECT_RE.test(l1)) return false
+    if ([l0, l1].some((l) => NON_CHEESE_SUBJECT_RE.test(l) && !CHEESE_BRAND_RE.test(l))) return false
     if (l0.endsWith(':') || l1.endsWith(':')) return false
     return CHEESE_RE.test(l0) || CHEESE_RE.test(l1)
   }

@@ -38,8 +38,8 @@ export function AppellationsScreen() {
           ))}
         </div>
         <div className={styles.note}>
-          AOP et IGP correspondent aux signes officiels du fromage. Label Rouge et Bio sont donnés à titre indicatif
-          dans ce jeu de démonstration.
+          AOP et IGP correspondent aux signes officiels du fromage. Label Rouge et Bio sont déduits de sa famille et
+          de son intensité, à titre indicatif : ils ne reflètent pas les certifications réellement détenues.
         </div>
       </div>
     </OverlayScreen>

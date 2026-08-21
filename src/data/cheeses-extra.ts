@@ -332,4 +332,10 @@ export const EXTRA_REGION_OVERRIDES: Record<string, { regionId: string; dept?: s
   // handoff les rangeait en Auvergne-Rhône-Alpes faute d'y avoir la région.
   'bleu-causses': { regionId: 'occitanie' },
   laguiole: { regionId: 'occitanie' },
+  // L'aire de l'AOP Bleu de Gex Haut-Jura est à cheval sur deux régions : le
+  // pays de Gex et le Haut-Bugey sont dans l'Ain (Auvergne-Rhône-Alpes), le
+  // reste dans le Jura. On tranche pour la Bourgogne-Franche-Comté, où se
+  // trouvent la quasi-totalité des fruitières encore en activité et les deux
+  // noms d'usage du fromage — Haut-Jura et Septmoncel (39).
+  'bleu-gex': { regionId: 'bourgogne-franche-comte' },
 }

@@ -134,11 +134,10 @@ export function Drawer() {
                 <span className={styles.regionCount}>{deco.filter((c) => c.regionId === region.id).length}</span>
               </div>
             ))}
-            {regions.length <= 1 && <div className={styles.regionsHint}>Autres régions à venir…</div>}
           </div>
           <div className={styles.divider} />
           <div className={styles.footer}>
-            Encyclopédie du terroir fromager français. Données de démonstration — lot&nbsp;1.
+            Encyclopédie du terroir fromager français. {deco.length}&nbsp;fiches, {regions.length}&nbsp;régions.
           </div>
         </div>
       </div>

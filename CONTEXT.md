@@ -4,120 +4,161 @@ Note de passage de relais entre sessions. Ce qui est **à faire**, ce qui est
 **déjà fait**, et les pièges rencontrés. Le fonctionnement du projet lui-même
 est documenté dans [README.md](README.md) — ce fichier ne le répète pas.
 
-Dernière mise à jour : **20/08/2026**, après l'ajout de l'Occitanie
-(commit `4f7c717`). Base à **170 fiches, 10 régions**.
+Dernière mise à jour : **21/08/2026**, après l'ajout de la Nouvelle-Aquitaine
+et le rattachement du bleu de Gex. Base à **189 fiches, 11 régions**.
 
 ---
 
-## 🎯 À faire demain — passer en revue la liste de fromages
+## ✅ Ce qui vient d'être fait
 
-Croiser la liste ci-dessous avec la base et écrire les fiches manquantes qui
-résistent à la vérification. **Le croisement automatique a déjà été fait**
-(recherche plein texte sur `ALL_CHEESES`), voici son résultat.
+**Le bleu de Gex est passé en Bourgogne-Franche-Comté**, par une entrée dans
+`EXTRA_REGION_OVERRIDES` (`src/data/cheeses-extra.ts`), comme le bleu des
+Causses et le laguiole avant lui. Une nuance que la note précédente escamotait :
+l'aire de l'AOP est **à cheval sur deux régions** — le pays de Gex et le
+Haut-Bugey sont dans l'Ain, donc en Auvergne-Rhône-Alpes. On a tranché pour la
+Bourgogne-Franche-Comté parce que les fruitières et les deux noms d'usage
+(Haut-Jura, Septmoncel) y sont ; le commentaire du code le dit.
 
-### Déjà dans la base — rien à faire
+**La Nouvelle-Aquitaine est en place**, 19 fiches dans
+`src/data/cheeses-nouvelle-aquitaine.ts` : ossau-iraty et chabichou du Poitou
+sous AOP, mothais sur feuille reconnu en appellation d'origine le 21 novembre
+2024, plus laruns, anneau du Vic-Bilh, Belloc, amou, trappe d'Échourgnac, bonde
+de Gâtine, taupinette, jonchée, tricorne de Marans, feuille du Limousin,
+chabis, carré du Poitou, tomme de Rilhac, caillebotte, pigouille et
+couhé-vérac. Trois n'ont pas de résumé Wikipédia, toutes les trois à raison :
+la caillebotte parce que l'article la définit comme un lait caillé et non un
+fromage (voir règle 3), la pigouille et le couhé-vérac parce qu'ils n'ont pas
+d'article propre — ils sont décrits dans « Chèvre du Poitou », qui leur a servi
+de source. Le filtre a d'ailleurs bien refusé de rattacher au couhé-vérac
+l'article de la commune de Couhé.
 
-| Fromage de la liste | État |
-| --- | --- |
-| Roquefort | ✔ Occitanie, AOP, ajouté le 20/08 |
-| Laguiole | ✔ Occitanie (rapatrié d'Auvergne-Rhône-Alpes) |
-| Bleu des Causses | ✔ Occitanie (rapatrié d'Auvergne-Rhône-Alpes) |
-| Pélardon | ✔ Occitanie, AOP |
-| Rocamadour | ✔ Occitanie, AOP — `Cabécou` est déjà un de ses noms alternatifs |
-| Tomme des Pyrénées | ✔ Occitanie, IGP |
-| Bethmale | ✔ Occitanie |
-| Moulis | ✔ Occitanie |
-| Tome fraîche de l'Aubrac | ✔ Occitanie |
-| Pérail | ✔ Occitanie, IGP |
-| Bleu de Gex | ✔ dans la base — **mais mal rattaché**, voir ci-dessous |
+**Trois textes d'interface devenus faux ont été corrigés** : le pied du tiroir
+affiche le compte réel de fiches et de régions au lieu de « Données de
+démonstration — lot 1 », l'écran Appellations dit maintenant que Label Rouge et
+Bio sont *déduits* de la famille et de l'intensité, et le code mort
+`regions.length <= 1` a été retiré (avec la classe CSS devenue orpheline).
 
-### Absents de la base — candidats à instruire
+**`DOCUMENTATION_SPEC.md` est déposée à la racine**, avec un § 0 bis qui dit
+honnêtement où en est la doc du projet : tout tient dans le README, et FAQ,
+dépannage, changelog et support restent à écrire. `CLAUDE.md` la référence.
 
-| Fromage | Première chose à vérifier |
-| --- | --- |
-| **Ossau-Iraty** | AOP majoritairement **Pyrénées-Atlantiques (64)**, donc Nouvelle-Aquitaine. Vérifier l'étendue réelle de l'aire en Hautes-Pyrénées avant de le ranger en Occitanie — sinon il attend l'arrivée de la Nouvelle-Aquitaine |
-| **Rogallais** (Ariège) | Existence et orthographe à confirmer sur une source vérifiable |
-| **Cabécou de Livernon** (Lot) | Distinct du Rocamadour AOP, ou simple appellation locale du même palet ? Risque de doublon |
-| **Cabécou du Bleu** | Nom non identifié — probable coquille de transcription, à élucider avant toute fiche |
-| **Recaoutou / Tome de Lozère** | Deux noms pour un même fromage ? Vérifier lequel est le nom d'usage |
-| **Écu du Pays de Sault** (Aude) | À confirmer ; le pays de Sault est bien audois |
-| **Clavière** (Lozère) | À confirmer |
-| **Tomme de brebis des Pyrénées** | L'IGP Tomme des Pyrénées couvre déjà vache, brebis et mixte. Trancher : fiche distincte, ou nom alternatif greffé sur la fiche existante (qui est aujourd'hui décrite au lait de vache) |
-
-### Correction à faire au passage
-
-`bleu-gex` est rattaché à **`auvergne-rhone-alpes`** alors que l'AOP Bleu de
-Gex Haut-Jura est de l'Ain et du Jura, donc de **Bourgogne-Franche-Comté**.
-Même nature d'erreur que le bleu des Causses et le laguiole, et même correctif :
-une entrée dans `EXTRA_REGION_OVERRIDES` (`src/data/cheeses-extra.ts`), qui est
-déjà couverte par un test.
-
-Ce fromage n'a rien à voir avec l'Occitanie : la liste le signalait elle-même
-comme limitrophe.
+**La question ouverte sur l'ossau-iraty est tranchée** : l'aire AOP ne mord sur
+les Hautes-Pyrénées que par **trois communes** (Arbéost, Arrens-Marsous,
+Ferrières). Il est néo-aquitain, pas occitan. Un test le fige.
 
 ---
 
-## ⚠️ Deux règles apprises hier, à ne pas réapprendre
+## 🎯 À faire — par ordre d'intérêt décroissant
+
+### 1. Les deux régions métropolitaines manquantes
+
+**Provence-Alpes-Côte d'Azur** (Banon AOP, brousse du Rove AOP, tomme d'Arles)
+et **Pays de la Loire** (curé nantais, crémet, Port-Salut, Timanoix). Le moule
+est stable : `src/data/cheeses-nouvelle-aquitaine.ts` est le dernier exemple en
+date, et le README dit quels quatre fichiers brancher.
+
+Attention pour PACA : le picodon et le saint-félicien du jeu généré sont donnés
+« vallée du Rhône, Drôme/Ardèche », donc Auvergne-Rhône-Alpes — c'est correct,
+ne pas les rapatrier. En revanche la **tomme du Champsaur** (`tomme-champsaur`,
+Hautes-Alpes 05) est rangée en Auvergne-Rhône-Alpes et devrait rejoindre PACA :
+même correctif d'une ligne dans `EXTRA_REGION_OVERRIDES`, à faire au moment où
+la région existera.
+
+### 2. Complétude des fiches existantes
+
+Au 21/08 : photo sur **120/189**, résumé Wikipédia sur **138/189**, et
+**38 fiches** sans `fabrication` / `conservation` / `service` / `anecdote`. Le
+déficit se concentre sur les 50 fiches du handoff généré
+(Auvergne-Rhône-Alpes), qui n'ont jamais eu de passe éditoriale. C'est du
+rattrapage, pas du développement.
+
+### 3. La doc qui manque
+
+`DOCUMENTATION_SPEC.md` demande une FAQ, un guide de dépannage, un changelog
+utilisateur, les limites connues et les procédures de support. Aucun des cinq
+n'existe : tout est dans le README, qui est un document de développeur. C'est
+le principal écart au standard qu'on vient de se donner.
+
+### 4. Politique de confidentialité
+
+Délibérément non créée, l'application ne collectant rien. La section « Données
+personnelles » des mentions légales en tient lieu et sert de point d'accroche
+si un compte, une mesure d'audience ou un formulaire apparaissait.
+
+---
+
+## ⚠️ Règles apprises, à ne pas réapprendre
 
 **1. Ne pas écrire une fiche sur une intuition.** Le « Rogeret des Cévennes »
 avait été écrit comme lozérien ; la seule source vérifiable le donne
-**ardéchois**, donc en Auvergne-Rhône-Alpes. Il a été retiré plutôt que rangé
-au hasard. Même vigilance pour les six candidats ci-dessus : `npm run
-enrich-wikipedia-extra` sert autant de garde-fou factuel que de source de
-photos, et le résumé Wikipédia doit être **lu** avant d'être gardé.
+**ardéchois**. Il a été retiré plutôt que rangé au hasard.
 
-Deux erreurs ont été rattrapées comme ça le 20/08 : le Cathare se fabrique en
-Haute-Garonne (et non dans l'Aude comme écrit), et le Pérail porte une IGP.
+La méthode qui marche, et qui a servi pour toute la Nouvelle-Aquitaine :
+partir des **catégories** Wikipédia (`Catégorie:Fromage de <département>`)
+plutôt que d'une liste de mémoire, puis lire l'article de chaque candidat
+avant de décider. Elle a écarté quatre entrées qu'on aurait écrites de bonne
+foi : l'**ardi gasna** (marque déposée apposée sur de l'ossau-iraty AOP, donc
+un doublon), le **bleu des Basques** et le **gris du Périgord** (marques
+industrielles), le **cabécou du Périgord** (déjà couvert par le rocamadour
+occitan, dont « Cabécou » est un nom alternatif).
+
+Elle a aussi corrigé deux fiches en cours d'écriture : la trappe d'Échourgnac
+n'est plus fabriquée par les moniales depuis 1999 (elles achètent le fromage
+et ne font que l'affiner à la liqueur de noix), et le Belloc a changé de mains
+en juin 2021. Les deux fiches le disent.
 
 **2. Se méfier des noms alternatifs génériques.** L'alias nu `Bonneval` sur la
 Trappe de Bonneval a suffi pour que le script apparie un **Bleu de
-Bonneval-sur-Arc** savoyard, sans rapport. L'appariement accepte un
-recoupement d'un seul mot quand le nom n'en compte qu'un — c'est voulu. Un
-`alt` doit donc être un vrai nom du fromage, jamais le seul nom du village.
+Bonneval-sur-Arc** savoyard, sans rapport. Un `alt` doit être un vrai nom du
+fromage, jamais le seul nom du village.
+
+**3. Le filtre de pertinence de l'enrichissement juge le sujet grammatical.**
+Il bloquait « est une marque de… », ce qui écartait **La Feuille du Limousin**
+alors qu'il laissait passer « est *la* marque commerciale d'un fromage »
+(Échourgnac, taupinette) — la tournure décidait, pas le fond. Corrigé par un
+`CHEESE_BRAND_RE` qui rattrape les marques dont la phrase nomme un fromage.
+Vérifié par un ré-enrichissement complet : aucune autre fiche n'a bougé.
+
+En revanche la **caillebotte** reste sans résumé, et il ne faut pas y toucher :
+sa première phrase la définit comme un « lait caillé », et l'article explique
+qu'elle n'a pas droit à l'appellation de fromage faute d'égouttage. Élargir
+`CHEESE_RE` pour l'attraper ferait entrer n'importe quel article de produit
+laitier.
+
+**4. Wikipédia exige un User-Agent avec contact.** Un UA générique fait
+répondre « You are making too many requests » quel que soit le rythme. Le
+script du projet a le bon UA ; un script jetable doit le recopier. Prévoir
+aussi des `fetch failed` isolés : relancer `--id <fromage>` suffit.
 
 ---
 
 ## 🗺️ Coordonnées sur la carte
 
 `FR_XY` contient de vraies coordonnées projetées, mais **pas la projection**.
-Pour l'Occitanie, un modèle quadratique a été ajusté par moindres carrés sur
-une centaine de repères déjà placés — résidu médian 0,5 unité (~5 km) — puis
-chaque point vérifié point-dans-polygone contre `franceOutline.ts`. Placer un
-point à vue donne des écarts bien plus grands.
+Elle se réajuste par moindres carrés sur les repères déjà placés — voir le
+README pour le principe, et l'en-tête de `cheeses-nouvelle-aquitaine.ts` pour
+les chiffres du dernier ajustement.
+
+Deux modèles ont servi. L'Occitanie a été placée avec un **quadratique** en
+(lon, lat) ; la Nouvelle-Aquitaine avec une **projection conique conforme**
+(parallèles 44°/49°, méridien 3° E) suivie d'une affine, ajustée sur 82
+repères après élimination des résidus au-delà de 1,8 unité — médiane 0,51
+unité, soit ~5 km. **Préférer la conique** pour les régions à venir : elle
+reste juste hors de l'enveloppe des repères, là où le quadratique dérive. PACA
+et les Pays de la Loire sont justement des coins encore vides.
 
 Le script d'ajustement n'a pas été conservé (jetable). Le refaire prend une
 dizaine de minutes : lire `map`/`commune` des fiches existantes, poser les
-lon/lat connues, ajuster `[1, u, v, u², v², uv]` avec `u = lon − 3` et
-`v = lat − 46,5` (centrer, sinon la matrice normale est mal conditionnée).
+lon/lat connues, ajuster une base `[1, u, v]` où `(u, v)` est la projection
+conique du point.
 
 **Piège** : la silhouette n'a que 47 points pour toute la France. Près des
-frontières, une position exacte peut faire déborder la pastille (rayon 2,6) du
-tracé — les trois fromages du Couserans sont volontairement remontés de
-1,3 unité pour cette raison, ce qui est noté en tête de leur fichier.
-
----
-
-## 📋 Le reste du chantier, après cette liste
-
-Par ordre d'intérêt décroissant :
-
-1. **Les trois régions manquantes** — Nouvelle-Aquitaine (Ossau-Iraty),
-   Provence-Alpes-Côte d'Azur (Banon), Pays de la Loire. L'historique avance
-   une ou deux régions par commit ; le moule est stable, voir
-   `src/data/cheeses-occitanie.ts` comme dernier exemple en date.
-2. **Complétude des fiches existantes** — au 20/08 : photo sur 109/170,
-   résumé Wikipédia sur 122/170, et 38 fiches sans `fabrication` /
-   `conservation` / `service` / `anecdote`. C'est du rattrapage, pas du
-   développement.
-3. **Deux textes devenus faux** — le tiroir annonce « Données de démonstration
-   — lot 1 » et l'écran Appellations parle de « ce jeu de démonstration » ;
-   avec 170 fiches et 10 régions, ce n'est plus vrai. Accessoirement,
-   `{regions.length <= 1 && « Autres régions à venir… »}` dans `Drawer.tsx`
-   est du code mort depuis la deuxième région.
-4. **Politique de confidentialité** — délibérément non créée, l'application ne
-   collectant rien. La section « Données personnelles » des mentions légales
-   en tient lieu et sert de point d'accroche si un compte, une mesure
-   d'audience ou un formulaire apparaissait.
+frontières et des estuaires, une position exacte peut faire déborder la
+pastille (rayon 2,6) du tracé. Deux cas traités jusqu'ici, tous deux notés en
+tête de leur fichier : les trois fromages du Couserans sont remontés de
+1,3 unité, et deux repères néo-aquitains ont été pris à l'intérieur des terres
+(la jonchée sur Surgères plutôt que Rochefort, le Belloc à l'est d'Urt). La
+marge minimale au tracé est vérifiée à l'ajustement — viser 3 unités au moins.
 
 ---
 
@@ -129,6 +170,9 @@ npm test && npm run lint && npm run typecheck && npm run build
 
 Node **22** est requis (`.nvmrc`) : sous Node 20, jsdom casse au démarrage de
 vitest avec `webidl.util.markAsUncloneable is not a function`.
+
+`npm run lint` sort 13 avertissements `only-export-components` sur les fichiers
+d'icônes et deux contextes — ils préexistent, il n'y a pas d'erreur.
 
 Les captures se régénèrent avec `scripts/screenshots.mjs`, dont Playwright
 n'est pas une dépendance du projet — voir la section « Logo & icônes » du
