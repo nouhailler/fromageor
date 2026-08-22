@@ -57,6 +57,20 @@ export const CHEESE_JSON_SCHEMA = {
     prix: { type: 'string', description: 'Prix moyen indicatif, ex. "≈ 28 €/kg".' },
     dispo: { type: 'string', description: 'Disponibilité, ex. "Courante", "Saisonnière", "Rare".' },
     color: { type: 'string' },
+    terroir: {
+      type: 'object',
+      required: ['url', 'width', 'height', 'lieu', 'credit', 'creditUrl'],
+      properties: {
+        url: { type: 'string' },
+        width: { type: 'number' },
+        height: { type: 'number' },
+        lieu: { type: 'string', description: 'Lieu photographié, ex. "Bastelica".' },
+        credit: { type: 'string', description: 'Ex. "Eugène, Pexels".' },
+        creditUrl: { type: 'string' },
+      },
+      additionalProperties: false,
+      description: 'Photo du pays du fromage, jamais du fromage lui-même : affichée près de la carte, légendée comme le lieu.',
+    },
     marque: { type: 'string', description: 'Titulaire de la marque, si le nom est une marque commerciale et non une appellation (ex. "Fromagerie Guilloteau").' },
     notes: { type: 'array', items: { type: 'string' }, minItems: 1, description: 'Notes aromatiques (3-4 recommandées).' },
     accords: {

@@ -23,6 +23,22 @@ export interface CheeseImage {
   creditUrl: string
 }
 
+/** Photo du *pays* du fromage, pas du fromage : les banques d'images
+ *  généralistes n'ont pas de photo du claousou, mais elles ont des photos de
+ *  l'Aubrac. Affichée dans la section « Localisation » de la fiche, légendée
+ *  comme le lieu — voir cheeses-terroir.ts. */
+export interface CheeseTerroir {
+  url: string
+  width: number
+  height: number
+  /** Lieu réellement photographié, ex. « Bastelica ». */
+  lieu: string
+  /** Ligne « Auteur, Banque », ex. « Eugène, Pexels ». */
+  credit: string
+  /** Lien vers la page de la photo, pour l'attribution complète. */
+  creditUrl: string
+}
+
 export interface CheeseWikipedia {
   url: string
   extract: string
@@ -72,6 +88,9 @@ export interface Cheese {
   marque?: string
   /** Optional hero photo sourced from Wikimedia Commons — see scripts/enrich-wikipedia.mjs. */
   image?: CheeseImage
+  /** Optional photo of the cheese's *place*, shown next to the map — never as
+   *  the cheese itself. See cheeses-terroir.ts. */
+  terroir?: CheeseTerroir
   /** Optional short summary + article link sourced from Wikipedia — see scripts/enrich-wikipedia.mjs. */
   wikipedia?: CheeseWikipedia
   /** Optional extra photos (beyond `image`) from the same Wikimedia Commons

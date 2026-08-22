@@ -19,6 +19,8 @@ import { OCCITANIE_CHEESES } from './cheeses-occitanie'
 import { NA_CHEESES } from './cheeses-nouvelle-aquitaine'
 import { PACA_CHEESES } from './cheeses-provence-alpes-cote-azur'
 import { PDL_CHEESES } from './cheeses-pays-de-la-loire'
+import { CHEESE_PHOTOS } from './cheeses-photos'
+import { TERROIR_PHOTOS } from './cheeses-terroir'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 import { appellationsOf } from '../lib/appellations'
@@ -724,6 +726,72 @@ describe('ALL_CHEESES', () => {
     for (const region of REGIONS) {
       expect(peuplees.has(region.id), `région vide : ${region.id}`).toBe(true)
     }
+  })
+
+  // Photos de fromages trouvées à la main sur Commons, là où le script — qui
+  // part de l'article Wikipédia — ne sait pas aller.
+  describe('CHEESE_PHOTOS', () => {
+    it('ne vise que des fromages de la base', () => {
+      const connus = new Set(ALL_CHEESES.map((c) => c.id))
+      expect(Object.keys(CHEESE_PHOTOS).filter((id) => !connus.has(id))).toEqual([])
+    })
+
+    it('s’applique en priorité sur ce que produisent les scripts', () => {
+      for (const [id, photo] of Object.entries(CHEESE_PHOTOS)) {
+        const cheese = ALL_CHEESES.find((c) => c.id === id)
+        expect(cheese?.image?.url, id).toBe(photo.url)
+      }
+    })
+
+    it('donne à chaque photo un auteur, une licence et un lien Commons', () => {
+      for (const [id, photo] of Object.entries(CHEESE_PHOTOS)) {
+        expect(photo.credit, id).toMatch(/, (CC|Public domain|GFDL|Wikimedia)/)
+        expect(photo.creditUrl, id).toMatch(/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/)
+        expect(photo.url, id).toMatch(/^https:\/\/upload\.wikimedia\.org\//)
+      }
+    })
+  })
+
+  // Photos de terroir : le pays du fromage, jamais le fromage. Aucune banque
+  // d'images généraliste n'a de photo du claousou ou du sablé de Wissant, mais
+  // elles ont des photos de l'Aubrac et de la côte d'Opale.
+  describe('TERROIR_PHOTOS', () => {
+    it('ne vise que des fromages de la base', () => {
+      const connus = new Set(ALL_CHEESES.map((c) => c.id))
+      expect(Object.keys(TERROIR_PHOTOS).filter((id) => !connus.has(id))).toEqual([])
+    })
+
+    it('recolle la photo sur le jeu final, générés comme ajoutés', () => {
+      for (const id of Object.keys(TERROIR_PHOTOS)) {
+        const cheese = ALL_CHEESES.find((c) => c.id === id)
+        expect(cheese?.terroir, `terroir absent sur ${id}`).toBeDefined()
+        expect(cheese?.terroir?.lieu.length).toBeGreaterThan(0)
+      }
+    })
+
+    // Chaque photo doit être attribuable : l'écran Fiche affiche le crédit en
+    // lien vers la page de la photo.
+    it('donne à chaque photo un crédit et un lien', () => {
+      for (const [id, photo] of Object.entries(TERROIR_PHOTOS)) {
+        expect(photo.credit, id).toMatch(/, Pexels$/)
+        expect(photo.creditUrl, id).toMatch(/^https:\/\/www\.pexels\.com\//)
+        expect(photo.url, id).toMatch(/^https:\/\/images\.pexels\.com\//)
+      }
+    })
+
+    // Une photo de terroir ne remplace pas une photo du fromage : elle ne va
+    // qu'aux fiches qui n'en ont pas, sans quoi elle ferait doublon.
+    it('ne va qu’aux fiches sans photo du fromage', () => {
+      const enTrop = ALL_CHEESES.filter((c) => c.terroir && c.image).map((c) => c.id)
+      expect(enTrop).toEqual([])
+    })
+
+    // Deux fiches ne doivent pas se partager la même vue : le lecteur croirait
+    // à une erreur d'affichage.
+    it('n’emploie pas deux fois la même photo', () => {
+      const urls = Object.values(TERROIR_PHOTOS).map((p) => p.url)
+      expect(new Set(urls).size).toBe(urls.length)
+    })
   })
 
   it('rattache les fromages bourguignons et comtois à leur région', () => {

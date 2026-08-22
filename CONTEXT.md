@@ -153,8 +153,31 @@ n'est plus le point faible — les 216 fiches ont toutes fabrication,
 conservation et service, et les 19 sans anecdote le sont faute de source, pas
 faute de travail.
 
-Ce qui reste, c'est **l'iconographie** : 78 fiches sans photo. Elles n'en
-auront pas par le script, qui a déjà tout ce que Wikimedia Commons propose.
+Ce qui reste, c'est **l'iconographie**, et elle a bien avancé : 78 fiches
+n'avaient aucune image, il en reste **47**. Sept ont récupéré une vraie photo
+du fromage (`cheeses-photos.ts`, Commons) et 24 une photo de leur pays
+(`cheeses-terroir.ts`, Pexels).
+
+**Le script d'enrichissement a un angle mort, et c'est lui qu'il faudrait
+traiter** : il part de l'article Wikipédia, donc un fromage sans article
+n'atteint jamais Commons — même quand Commons a sa photo. C'est ainsi que
+l'affidélice, le sablé de Wissant, le menez-hom, le chabis et la tomme corse
+étaient restés sans image alors qu'ils sont photographiés, cinq d'entre eux par
+le projet WikiCheese. Une recherche directe de fichiers Commons les retrouve.
+Elle n'a pas été automatisée parce qu'elle ramène aussi un Croque Monsieur, les
+toiles de Gustave Caillebotte et la cathédrale de Coutances : le tri reste
+manuel. Ces 27 ne sont pas des photos des fromages et
+ne doivent jamais être présentées comme telles — voir la section dédiée du
+README.
+
+Le point à retenir pour la suite : **aucune banque d'images généraliste n'a de
+photo des fromages manquants.** Un balayage Pexels des 78 fiches n'en a pas
+trouvé une seule ; la recherche est floue et renvoie toujours quelque chose,
+ce qui rend son compteur de résultats trompeur. Ce qu'elle a, c'est le terroir.
+Et là encore, **l'appariement par mot-clé se trompe une fois sur deux** — le
+palais Rohan de Bordeaux pour la tome du Pays de Rohan, Étretat pour le trèfle
+du Perche, Dinant en Belgique pour la chèvre de la Woëvre. Chaque candidat doit
+être regardé.
 Les combler suppose une autre source d'images, avec la question de licence qui
 va avec — c'est un choix de projet, pas une tâche mécanique.
 

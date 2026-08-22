@@ -205,6 +205,36 @@ export function CheeseDetailScreen() {
           </div>
         </div>
 
+        {/* Photo du pays, pas du fromage. Elle vit ici, sous la carte, et non
+            en tête de fiche : la place du haut est celle du fromage, et une
+            vue de village qui l'occuperait ferait une fausse promesse. */}
+        {c.terroir && (
+          <figure className={styles.terroir}>
+            <img
+              className={styles.terroirImage}
+              src={c.terroir.url}
+              width={c.terroir.width}
+              height={c.terroir.height}
+              alt={`Paysage de ${c.terroir.lieu}`}
+              loading="lazy"
+            />
+            <figcaption className={styles.terroirCaption}>
+              <span className={styles.terroirLieu}>{c.terroir.lieu}</span>
+              <span className={styles.terroirNote}>
+                Le pays du fromage, et non le fromage lui-même.
+              </span>
+              <a
+                href={c.terroir.creditUrl}
+                target="_blank"
+                rel="noreferrer"
+                className={styles.terroirCredit}
+              >
+                {c.terroir.credit}
+              </a>
+            </figcaption>
+          </figure>
+        )}
+
         {accordRows.length > 0 && (
           <>
             <h2 className={styles.sectionTitle}>Accords</h2>

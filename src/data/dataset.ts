@@ -20,6 +20,8 @@ import { NA_CHEESES } from './cheeses-nouvelle-aquitaine'
 import { PACA_CHEESES } from './cheeses-provence-alpes-cote-azur'
 import { PDL_CHEESES } from './cheeses-pays-de-la-loire'
 import { EXTRA_MEDIA } from './cheeses-extra-media'
+import { CHEESE_PHOTOS } from './cheeses-photos'
+import { TERROIR_PHOTOS } from './cheeses-terroir'
 
 /** Le jeu de données intégré = les fromages générés depuis le handoff
  *  (cheeses.ts) complétés à la main, avec cinq recollages sur les entrées
@@ -31,6 +33,24 @@ import { EXTRA_MEDIA } from './cheeses-extra-media'
  *
  *  Les imports locaux de l'utilisateur viennent par-dessus, voir
  *  useCheeseDatabase. */
+/** Deux recollages d'images, appliqués à tout le monde, générés comme ajoutés.
+ *
+ *  `CHEESE_PHOTOS` d'abord : des photos du fromage trouvées à la main sur
+ *  Commons, là où les scripts ne savent pas aller. Elles sont prioritaires sur
+ *  ce qu'ils produisent.
+ *
+ *  `TERROIR_PHOTOS` ensuite, et seulement à défaut : une vue du pays du
+ *  fromage. Elle ne remplace jamais une photo du fromage — dès qu'il y en a
+ *  une, elle s'efface, sans quoi la fiche montrerait un paysage à côté du
+ *  produit sans qu'on sache lequel est lequel. */
+function avecImages(c: Cheese): Cheese {
+  const photo = CHEESE_PHOTOS[c.id]
+  const next = photo ? { ...c, image: photo } : c
+  if (next.image) return next
+  const terroir = TERROIR_PHOTOS[c.id]
+  return terroir ? { ...next, terroir } : next
+}
+
 export const ALL_CHEESES: Cheese[] = [
   ...CHEESES.map((c) => {
     const extra = EXTRA_ALT_NAMES[c.id]
@@ -56,4 +76,4 @@ export const ALL_CHEESES: Cheese[] = [
     const media = EXTRA_MEDIA[c.id]
     return media ? { ...c, ...media } : c
   }),
-]
+].map(avecImages)

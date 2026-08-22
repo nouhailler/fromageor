@@ -119,6 +119,8 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-provence-alpes-cote-azur.ts` | **à la main** | Les 19 fromages de Provence-Alpes-Côte d'Azur — les vaches des Alpes du Sud, les chèvres provençales autour du banon AOP et de la brousse du Rove AOP, et cinq fromages forts ; la tomme du Champsaur les rejoint depuis le jeu généré |
 | `cheeses-pays-de-la-loire.ts` | **à la main** | Les 9 fromages des Pays de la Loire — aucune AOP, huit marques sur neuf : c'est la région où le fromage industriel français est né, du port-salut des trappistes d'Entrammes aux usines de Bel, Lactalis et Savencia |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
+| `cheeses-photos.ts` | **à la main** | Photos de fromages trouvées sur Commons par recherche directe de fichiers, là où le script d'enrichissement ne sait pas aller |
+| `cheeses-terroir.ts` | **à la main** | Photos du *pays* de 27 fromages qui n'ont pas de photo d'eux-mêmes, choisies sur Pexels et vérifiées une par une |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
 
@@ -154,6 +156,24 @@ Deux ajustements ont servi : un modèle quadratique en (lon, lat) pour l'Occitan
 4. `npm run test` — `src/data/dataset.test.ts` refuse tout identifiant ou nom en double, vérifie la région et les bornes de la carte.
 
 Pour une nouvelle **région**, ajouter aussi son entrée dans `src/data/regions.ts` : le menu latéral en tire la liste et le compteur par région, et l'accueil bascule de son nom vers « N régions » au-delà d'une.
+
+### 🖼️ Photos de fromages hors script
+
+`scripts/enrich-wikipedia.mjs` part de **l'article Wikipédia** du fromage : il en prend la photo d'en-tête, puis fouille la catégorie Commons liée à cet article. Conséquence, un fromage **sans article n'atteint jamais Commons**, même quand Commons a sa photo.
+
+Une recherche directe de fichiers Commons comble ce trou — elle a retrouvé sept photos que le script ne pouvait pas voir, dont cinq du projet **WikiCheese** (photographie des fromages français sur Commons). Elles vivent dans `cheeses-photos.ts` et sont **prioritaires** sur ce que produisent les scripts.
+
+⚠️ Cette recherche n'est **pas automatisée**, et il ne faut pas l'automatiser sans tri : sur les mêmes fiches, elle ramène aussi un « Croque Monsieur » pour le Fromage de Monsieur, les toiles de Gustave Caillebotte, un fromage **belge** nommé Margot et la cathédrale de Coutances. Chaque photo retenue a été regardée.
+
+### 🏔️ Photos de terroir
+
+Pour les fiches dont Commons n'a vraiment pas de photo, `cheeses-terroir.ts` propose l'autre moitié du problème : à défaut du fromage, **son pays**.
+
+- Ce ne sont **jamais des photos du fromage**. Un balayage Pexels des 78 fiches sans illustration n'a pas trouvé une seule photo d'un fromage nommé — la recherche est floue et renvoie du générique en toutes circonstances (« Laruns » donne 3 760 résultats : une vache et deux joggers).
+- L'écran Fiche les affiche **sous la carte**, dans la section Localisation, avec le nom du lieu et la mention « Le pays du fromage, et non le fromage lui-même ». Jamais en tête de fiche : la place du haut est celle du fromage.
+- ⚠️ **L'appariement automatique par mot-clé ne suffit pas.** Sur 58 candidats trouvés ainsi, la moitié désignait un autre endroit : « Tome du Pays de Rohan » tombait sur le palais Rohan de Bordeaux, « Trèfle du Perche » sur les falaises d'Étretat, la « Chèvre de la Woëvre » sur la Meuse à Dinant, en Belgique. Toute nouvelle entrée doit être **regardée**, pas seulement appariée.
+- Règle de sélection : la description Pexels doit nommer le lieu de la fiche, **à la même échelle que son champ `commune`** — la commune quand la fiche en donne une, le massif ou la région quand elle est plus large.
+- Les tests refusent une photo sur une fiche qui a déjà une image du fromage, et deux fiches partageant la même vue. Le jour où une photo du fromage apparaît, la vue de terroir s'efface toute seule — c'est ce qui est arrivé au menez-hom, au sablé de Wissant et à la tomme corse.
 
 ### 📷 Enrichissement Wikipédia (photo + résumé)
 
