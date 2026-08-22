@@ -12,4 +12,5 @@ export const REGIONS: Region[] = [
   { id: 'ile-de-france', name: 'Île-de-France' },
   { id: 'occitanie', name: 'Occitanie' },
   { id: 'nouvelle-aquitaine', name: 'Nouvelle-Aquitaine' },
+  { id: 'provence-alpes-cote-azur', name: 'Provence-Alpes-Côte d’Azur' },
 ]

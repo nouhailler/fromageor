@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Onze régions couvertes : **Auvergne-Rhône-Alpes** (50 fromages), **Hauts-de-France** (18), **Nouvelle-Aquitaine** (19), **Bourgogne-Franche-Comté** (17), **Occitanie** (14), **Centre-Val de Loire** (13), **Normandie** (13), **Bretagne** (12), **Grand Est** (12), **Île-de-France** (11) et **Corse** (10), soit 189 fiches — l'ossature UI/données accepte d'autres régions à la suite.
+Douze régions couvertes : **Auvergne-Rhône-Alpes** (49 fromages), **Provence-Alpes-Côte d'Azur** (20), **Nouvelle-Aquitaine** (19), **Hauts-de-France** (18), **Bourgogne-Franche-Comté** (17), **Occitanie** (14), **Centre-Val de Loire** (13), **Normandie** (13), **Bretagne** (12), **Grand Est** (12), **Île-de-France** (11) et **Corse** (10), soit 208 fiches — l'ossature UI/données accepte d'autres régions à la suite. Seuls les **Pays de la Loire** manquent encore à la métropole.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -116,13 +116,16 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-ile-de-france.ts` | **à la main** | Les 11 fromages d'Île-de-France — le pays de Brie, ses deux AOP rapatriées depuis le Grand Est et leur descendance |
 | `cheeses-occitanie.ts` | **à la main** | Les 12 fromages d'Occitanie — le roquefort et la brebis des causses, les tommes de vache du Couserans, les chèvres cévenoles et quercynoises ; le bleu des Causses et le laguiole les rejoignent depuis le jeu généré |
 | `cheeses-nouvelle-aquitaine.ts` | **à la main** | Les 19 fromages de Nouvelle-Aquitaine — les brebis du Pays basque et du Béarn autour de l'ossau-iraty, les chèvres du Poitou et des Charentes autour du chabichou, et une seule fiche pour tout le Limousin |
+| `cheeses-provence-alpes-cote-azur.ts` | **à la main** | Les 19 fromages de Provence-Alpes-Côte d'Azur — les vaches des Alpes du Sud, les chèvres provençales autour du banon AOP et de la brousse du Rove AOP, et cinq fromages forts ; la tomme du Champsaur les rejoint depuis le jeu généré |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
 
 Le champ `map` d'un fromage écrit à la main doit tomber dans l'espace projeté de `FR_XY`. Faute de disposer de la projection d'origine, elle est **réajustée par moindres carrés sur les repères déjà placés**, puis chaque point est vérifié point-dans-polygone contre `franceOutline.ts`. Placer un point à vue donne des écarts bien plus grands.
 
-Deux ajustements ont servi : un modèle quadratique en (lon, lat) pour l'Occitanie, puis une **projection conique conforme** (parallèles 44°/49°, méridien 3° E) suivie d'une transformation affine pour la Nouvelle-Aquitaine — résidu médian 0,51 unité sur 82 repères, soit ~5 km. Le second est préférable : la conique conforme reste juste **hors de l'enveloppe des repères**, là où le quadratique dérive, ce qui compte pour une région dont aucun voisin n'était encore placé.
+Deux ajustements ont servi : un modèle quadratique en (lon, lat) pour l'Occitanie, puis une **projection conique conforme** (parallèles 44°/49°, méridien 3° E) suivie d'une transformation affine pour la Nouvelle-Aquitaine — résidu médian 0,51 unité sur 82 repères, soit ~5 km. Le second est préférable : la conique conforme reste juste **hors de l'enveloppe des repères**, là où le quadratique dérive, ce qui compte pour une région dont aucun voisin n'était encore placé. Il a été refait pour Provence-Alpes-Côte d'Azur sur 119 repères, avec un résidu médian de 0,46 unité (~4,5 km) et un maximum de 1,57.
+
+⚠️ Près des côtes, la silhouette à 47 points ne suit pas le trait de côte réel : elle trace toute la Provence maritime comme une corde droite entre le delta du Rhône et Nice, qui passe **au nord de Marseille et de Toulon**. Un repère posé à sa position exacte y tombe hors du tracé. Les fiches concernées sont donc reculées dans les terres, sans quitter leur pays, et le fichier de la région dit lesquelles et pourquoi.
 
 ### ➕ Ajouter un fromage
 

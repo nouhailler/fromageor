@@ -338,4 +338,8 @@ export const EXTRA_REGION_OVERRIDES: Record<string, { regionId: string; dept?: s
   // trouvent la quasi-totalité des fruitières encore en activité et les deux
   // noms d'usage du fromage — Haut-Jura et Septmoncel (39).
   'bleu-gex': { regionId: 'bourgogne-franche-comte' },
+  // La tomme du Champsaur est haut-alpine (05), donc en
+  // Provence-Alpes-Côte d'Azur : le handoff la rangeait en
+  // Auvergne-Rhône-Alpes faute d'y avoir la région.
+  'tomme-champsaur': { regionId: 'provence-alpes-cote-azur' },
 }

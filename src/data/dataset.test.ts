@@ -12,6 +12,7 @@ import { GRAND_EST_CHEESES } from './cheeses-grand-est'
 import { IDF_CHEESES } from './cheeses-ile-de-france'
 import { OCCITANIE_CHEESES } from './cheeses-occitanie'
 import { NA_CHEESES } from './cheeses-nouvelle-aquitaine'
+import { PACA_CHEESES } from './cheeses-provence-alpes-cote-azur'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 import { appellationsOf } from '../lib/appellations'
@@ -39,6 +40,7 @@ const AJOUTS = [
   ...IDF_CHEESES,
   ...OCCITANIE_CHEESES,
   ...NA_CHEESES,
+  ...PACA_CHEESES,
 ]
 
 describe('ALL_CHEESES', () => {
@@ -466,6 +468,70 @@ describe('ALL_CHEESES', () => {
     const cheese = ALL_CHEESES.find((c) => c.id === 'ossau-iraty')
     expect(cheese?.regionId).toBe('nouvelle-aquitaine')
     expect(cheese?.dept).toContain('64')
+  })
+
+  it.each([
+    'Banon',
+    'Brousse du Rove',
+    'Tomme de Provence',
+    'Tomme d’Annot',
+    'Tomme de l’Ubaye',
+    'Bleu du Queyras',
+    'Bleu du Dévoluy',
+    'Persillé du col Bayard',
+    'Petit Bayard',
+    'Aiguille d’Orcières',
+    'Saint-Laurent',
+    'Chèvre du Mont-Ventoux',
+    'Poivre d’âne',
+    'Pèbre d’aï',
+    'Chèvre des Alpilles',
+    'Tomme d’Arles',
+    'Cachaille',
+    'Cachat',
+    'Fort du Ventoux',
+    'Brous',
+    'Coussignous',
+    'Bosson macéré',
+  ])('trouve « %s » dans la base (Provence-Alpes-Côte d’Azur)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages provençaux à leur région, dont les deux AOP', () => {
+    expect(PACA_CHEESES).toHaveLength(19)
+    for (const cheese of PACA_CHEESES) {
+      expect(cheese.regionId).toBe('provence-alpes-cote-azur')
+    }
+    expect(PACA_CHEESES.filter((c) => c.aop).map((c) => c.nom).sort()).toEqual([
+      'Banon',
+      'Brousse du Rove',
+    ])
+  })
+
+  // Cinq des dix-neuf fiches provençales sont des fromages forts : c'est la
+  // région qui en compte le plus, et ils n'ont ni croûte ni affinage au sens
+  // habituel.
+  it('range les cinq fromages forts provençaux dans leur propre famille', () => {
+    const forts = PACA_CHEESES.filter((c) => c.famille === 'Fromage fort fermenté')
+    expect(forts.map((c) => c.nom).sort()).toEqual([
+      'Bosson macéré',
+      'Brous',
+      'Cachaille',
+      'Cachat',
+      'Coussignous',
+    ])
+    for (const cheese of forts) {
+      expect(cheese.croute).toBe('Sans croûte')
+      expect(cheese.intensite).toBe(5)
+    }
+  })
+
+  // La tomme du Champsaur vient du jeu généré, qui la rangeait en
+  // Auvergne-Rhône-Alpes alors que le Champsaur est dans les Hautes-Alpes.
+  it('range la tomme du Champsaur en Provence-Alpes-Côte d’Azur', () => {
+    const cheese = ALL_CHEESES.find((c) => c.id === 'tomme-champsaur')
+    expect(cheese?.regionId).toBe('provence-alpes-cote-azur')
+    expect(cheese?.dept).toContain('05')
   })
 
   it('rattache les fromages bourguignons et comtois à leur région', () => {
