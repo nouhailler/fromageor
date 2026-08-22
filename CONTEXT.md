@@ -23,29 +23,51 @@ ont désormais fabrication, conservation et service.
 
 Restent **18 fiches sans anecdote**, et seulement sans ce champ-là — 43 fiches
 incomplètes avant, 18 après. C'est délibéré : une anecdote est un fait, et ces
-dix-huit-là n'ont pas de source où le prendre (onze entrées générées sans
-article Wikipédia, cinq fiches provençales à l'article de deux phrases, plus
-les deux cas ci-dessous). La liste est figée par un test, pour qu'elle ne
+dix-huit-là n'ont pas de source où le prendre : douze entrées générées sans
+article Wikipédia propre — dont la tomme d'Abondance, qui n'en a plus depuis
+qu'on lui a retiré celui d'un autre fromage —, le pavin dont l'article tient
+en une phrase déjà reprise dans son histoire, et cinq fiches provençales à
+l'article de deux phrases. La liste est figée par un test, pour qu'elle ne
 s'allonge pas en silence.
 
-Deux problèmes de données rencontrés en chemin, laissés tels quels et signalés
-ici :
+**Les trois problèmes de données repérés pendant cette passe sont corrigés.**
 
-- **`tomme-abondance` (Tomme d'Abondance) est appariée au mauvais article** :
-  son champ `wikipedia` pointe sur *Tomme de Savoie*. La fiche affiche donc un
-  résumé et une photo qui ne sont pas les siens. Le champ est dans
-  `cheeses.ts`, écrit par `enrich-wikipedia.mjs` ; le corriger demande soit un
-  quatrième recollage, soit un correctif du filtre. Rien n'a été écrit
-  d'éditorial à partir de cet article.
-- **Le `famille` du pavin contredit sa source** : la fiche le donne en pâte
-  pressée non cuite, l'article Wikipédia en pâte molle à croûte lavée. Sa
-  `fabrication` le dit plutôt que de trancher.
+**La tomme d'Abondance ne porte plus le résumé et la photo de la tomme de
+Savoie.** La cause n'était pas l'appariement mais sa persistance : le garde-fou
+`titleMatchesCheeseName`, ajouté après coup pour le Vieux-Lille, rejette bien
+*Tomme de Savoie*, mais `enrichCheese` retournait la fiche **inchangée**
+lorsqu'aucun article n'était trouvé — le mauvais appariement survivait donc à
+tout ré-enrichissement. Le script efface désormais `wikipedia`, `image` et
+`galleryImages` dans ce cas, comme le faisait déjà `enrich-wikipedia-extra.mjs`.
+À retenir : **resserrer le filtre ne suffit pas à nettoyer le passé**, il faut
+relancer `npm run enrich-wikipedia -- --force --id <fromage>`.
 
-À noter aussi : quatre entrées générées sont en réalité des **marques
-commerciales** — Carré d'Aurillac (Fromageries occitanes), Pavé d'Affinois
-(Guilloteau), Rochebaron (Savencia) et Bouton de Culotte (Capriferme). Leurs
-textes le disent, comme la Trappe d'Échourgnac et la Feuille du Limousin le
-font en Nouvelle-Aquitaine, plutôt que de laisser croire à une appellation.
+**Le `famille` du pavin est corrigé** en « Pâte molle à croûte lavée ». Il
+perd du même coup son badge « Bio », qui était déduit de la famille erronée —
+c'est normal, ce badge est indicatif et se calcule depuis la famille et
+l'intensité.
+
+**Les quatre marques commerciales du jeu généré sont signalées comme telles**
+par un nouveau champ `marque` sur le type `Cheese` : Carré d'Aurillac (Les
+Fromageries occitanes), Pavé d'Affinois (Fromagerie Guilloteau), Rochebaron
+(Savencia) et Bouton de Culotte (Capriferme). La fiche affiche un repère
+« Marque » et la ligne « Nom déposé, et non une appellation ». Deux fiches
+écrites à la main le portent aussi, celles dont le texte nomme déjà le
+titulaire : la Taupinette et la Feuille du Limousin. La Trappe d'Échourgnac et
+le Pur Brebis de Belloc s'en passent — leur prose dit qu'il s'agit de marques,
+mais aucune source ne dit de qui.
+
+⚠️ **Une marque évoque souvent un lieu où le fromage n'est pas fabriqué.**
+Trois `commune` sur quatre étaient fausses : le Carré d'Aurillac n'a jamais
+été produit à Aurillac mais à Saint-Flour, le Rochebaron doit son nom à un
+château de Bas-en-Basset alors qu'il se fabrique à Beauzac et
+Saint-Pal-de-Mons, et le Pavé d'Affinois vient de Pélussin — dans la **Loire**,
+là où le handoff disait l'Isère. Vérifier la `commune` et le `dept` en même
+temps que la marque.
+
+Ces corrections passent par un cinquième recollage, `EXTRA_FIELD_FIXES` dans
+`src/data/cheeses-extra.ts`, pour la même raison que les autres :
+`import-cheeses` réécrit `cheeses.ts`.
 
 **Provence-Alpes-Côte d'Azur est en place**, 19 fiches dans
 `src/data/cheeses-provence-alpes-cote-azur.ts`, plus la tomme du Champsaur

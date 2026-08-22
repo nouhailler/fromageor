@@ -108,6 +108,14 @@
   margin-top: 6px;
 }
 
+.marqueNote {
+  font-size: 13px;
+  color: var(--color-neutral-600);
+  margin-top: 6px;
+  padding-left: 10px;
+  border-left: 2px solid var(--color-neutral-300);
+}
+
 .intensityCard {
   margin: 22px 0;
   background: var(--color-surface);

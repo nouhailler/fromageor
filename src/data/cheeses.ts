@@ -2110,18 +2110,7 @@ export const CHEESES: Cheese[] = [
       84,
       63
     ],
-    "regionId": "auvergne-rhone-alpes",
-    "wikipedia": {
-      "url": "https://fr.wikipedia.org/wiki/Tomme_de_Savoie",
-      "extract": "La tomme de Savoie est un fromage produit en France dans la région alpine de Savoie, regroupant les départements de la Savoie et de la Haute-Savoie.  Son appellation est protégée par une indication géographique protégée. À l'origine élaborée par les familles paysannes pour leur subsistance, la tomme est aussi sans doute le plus ancien des fromages de Savoie. Il fait partie du patrimoine économique et culturel des deux départements."
-    },
-    "image": {
-      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/WikiCheese_-_Tomme_de_Savoie_-_20150619_-_002.jpg/960px-WikiCheese_-_Tomme_de_Savoie_-_20150619_-_002.jpg",
-      "width": 800,
-      "height": 450,
-      "credit": "Coyau, CC BY-SA 3.0",
-      "creditUrl": "https://commons.wikimedia.org/wiki/File:WikiCheese_-_Tomme_de_Savoie_-_20150619_-_002.jpg"
-    }
+    "regionId": "auvergne-rhone-alpes"
   },
   {
     "id": "tomme-tarentaise",

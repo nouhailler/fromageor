@@ -64,6 +64,12 @@ export interface Cheese {
   map: [number, number]
   /** Which region this cheese belongs to — see regions.ts. */
   regionId: string
+  /** Titulaire de la marque, quand le nom du fromage est une marque
+   *  commerciale déposée et non une appellation. Renseigné seulement quand une
+   *  source le dit : la fiche affiche alors un repère « Marque », pour ne pas
+   *  laisser croire à un signe officiel. Voir EXTRA_FIELD_FIXES dans
+   *  cheeses-extra.ts pour les entrées du jeu généré. */
+  marque?: string
   /** Optional hero photo sourced from Wikimedia Commons — see scripts/enrich-wikipedia.mjs. */
   image?: CheeseImage
   /** Optional short summary + article link sourced from Wikipedia — see scripts/enrich-wikipedia.mjs. */

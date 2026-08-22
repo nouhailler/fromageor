@@ -371,7 +371,17 @@ async function enrichCheese(cheese) {
   }
   if (!article) {
     console.log(`  ✗ ${cheese.nom} — no Wikipedia article found`)
-    return cheese
+    // Un appariement devenu invalide doit disparaître, pas survivre : le
+    // filtre s'est resserré plusieurs fois depuis les premières passes, et une
+    // entrée enrichie à l'époque où il laissait passer un mauvais article la
+    // gardait indéfiniment (« Tomme d'Abondance » portait le résumé et la
+    // photo de la tomme de Savoie). Même règle que dans
+    // enrich-wikipedia-extra.mjs, où une entrée vide efface l'ancienne.
+    const { wikipedia, image, galleryImages, ...sansMedia } = cheese
+    if (wikipedia || image || galleryImages) {
+      console.log(`    ↳ ancien appariement retiré (${wikipedia?.url ?? 'photo seule'})`)
+    }
+    return sansMedia
   }
 
   const next = { ...cheese, wikipedia: { url: article.url, extract: article.extract } }

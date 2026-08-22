@@ -519,6 +519,7 @@ export const NA_CHEESES: Cheese[] = [
     },
     galerie: ['Le dôme cendré', 'Coupe', 'Croûte bleutée', 'Plateau'],
     map: [30.89, 57.25],
+    marque: 'Alain Jousseaume, Roullet-Saint-Estèphe',
     regionId: 'nouvelle-aquitaine',
   },
   {
@@ -660,6 +661,7 @@ export const NA_CHEESES: Cheese[] = [
     },
     galerie: ['La feuille entière', 'Coupe', 'Croûte fine', 'Plateau'],
     map: [42.58, 60.86],
+    marque: 'Syndicat des éleveurs de chèvres de la Corrèze',
     regionId: 'nouvelle-aquitaine',
   },
   {

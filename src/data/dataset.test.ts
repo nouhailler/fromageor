@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { ALL_CHEESES } from './dataset'
 import { CHEESES } from './cheeses'
-import { EXTRA_CHEESES, EXTRA_REGION_OVERRIDES, EXTRA_EDITORIAL } from './cheeses-extra'
+import {
+  EXTRA_CHEESES,
+  EXTRA_REGION_OVERRIDES,
+  EXTRA_FIELD_FIXES,
+  EXTRA_EDITORIAL,
+} from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
 import { CVL_CHEESES } from './cheeses-centre-val-de-loire'
@@ -534,6 +539,71 @@ describe('ALL_CHEESES', () => {
     expect(cheese?.dept).toContain('05')
   })
 
+  describe('EXTRA_FIELD_FIXES', () => {
+    it('ne vise que des fromages du jeu généré', () => {
+      const generes = new Set(CHEESES.map((c) => c.id))
+      expect(Object.keys(EXTRA_FIELD_FIXES).filter((id) => !generes.has(id))).toEqual([])
+    })
+
+    it('applique bien chaque correction au jeu final', () => {
+      for (const [id, fixes] of Object.entries(EXTRA_FIELD_FIXES)) {
+        const cheese = ALL_CHEESES.find((c) => c.id === id)
+        expect(cheese, `fromage ${id} introuvable`).toBeDefined()
+        for (const [champ, valeur] of Object.entries(fixes)) {
+          // `dept` est le seul champ que le rattachement régional peut
+          // reprendre après coup — il fait alors autorité.
+          if (champ === 'dept' && EXTRA_REGION_OVERRIDES[id]?.dept) continue
+          expect(cheese?.[champ as keyof typeof cheese]).toEqual(valeur)
+        }
+      }
+    })
+
+    // Le pavin arrivait du handoff en « pâte pressée non cuite » alors que sa
+    // source le donne en pâte molle à croûte lavée — ce que sa propre croûte
+    // lavée et sa texture crémeuse disaient déjà.
+    it('corrige la famille du pavin', () => {
+      const pavin = ALL_CHEESES.find((c) => c.id === 'pavin')
+      expect(pavin?.famille).toBe('Pâte molle à croûte lavée')
+    })
+
+    // Quatre entrées générées portent un nom de marque et non d'appellation.
+    // Sans le champ `marque`, la fiche les présente comme des fromages de
+    // terroir ; le repère « Marque » de l'écran Fiche en dépend.
+    it('signale les quatre marques commerciales du jeu généré', () => {
+      const marques = ALL_CHEESES.filter(
+        (c) => CHEESES.some((g) => g.id === c.id) && c.marque,
+      )
+      expect(marques.map((c) => c.nom).sort()).toEqual([
+        'Bouton de Culotte',
+        "Carré d'Aurillac",
+        "Pavé d'Affinois",
+        'Rochebaron',
+      ])
+      // Une marque n'est pas une appellation : aucune ne doit être en AOP.
+      for (const cheese of marques) expect(cheese.aop).toBe(false)
+    })
+
+    it('corrige la commune que la marque évoquait à tort', () => {
+      const carre = ALL_CHEESES.find((c) => c.id === 'carre-aurillac')
+      // Il n'a jamais été fabriqué à Aurillac, mais à Saint-Flour.
+      expect(carre?.commune).toBe('Saint-Flour')
+      const pave = ALL_CHEESES.find((c) => c.id === 'pave-affinois')
+      // Pélussin est dans la Loire, pas en Isère.
+      expect(pave?.dept).toBe('Loire / Ain (42/01)')
+    })
+  })
+
+  // La tomme d'Abondance portait le résumé et la photo de la tomme de Savoie,
+  // appariés avant que le filtre de titre n'existe. L'enrichissement les a
+  // retirés faute d'article propre : elle ne doit pas les récupérer.
+  it('ne prête à la tomme d’Abondance ni résumé ni photo d’un autre fromage', () => {
+    const tomme = ALL_CHEESES.find((c) => c.id === 'tomme-abondance')
+    expect(tomme).toBeDefined()
+    expect(tomme?.wikipedia).toBeUndefined()
+    expect(tomme?.image).toBeUndefined()
+    expect(tomme?.galleryImages).toBeUndefined()
+  })
+
   // Passe éditoriale sur le jeu généré : le handoff n'avait rempli anecdote /
   // fabrication / conservation / service que sur douze de ses cinquante
   // fiches. EXTRA_EDITORIAL comble le reste, sans jamais écraser un texte
@@ -566,10 +636,10 @@ describe('ALL_CHEESES', () => {
     })
 
     // L'anecdote est le seul champ qu'on laisse vide : c'est un fait, et
-    // treize entrées générées n'ont pas de source où le prendre — onze sans
-    // article Wikipédia, la tomme d'Abondance appariée par erreur à l'article
-    // de la tomme de Savoie, et le pavin dont l'article tient en une phrase
-    // déjà reprise dans son histoire.
+    // treize entrées générées n'ont pas de source où le prendre — douze sans
+    // article Wikipédia propre (dont la tomme d'Abondance, à qui l'on a retiré
+    // celui de la tomme de Savoie), et le pavin dont l'article tient en une
+    // phrase déjà reprise dans son histoire.
     it('laisse sans anecdote les seules fiches sans source, et pas d’autres', () => {
       const sansAnecdote = ALL_CHEESES.filter(
         (c) => CHEESES.some((g) => g.id === c.id) && !c.anecdote,

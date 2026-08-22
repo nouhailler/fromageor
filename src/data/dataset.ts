@@ -1,6 +1,12 @@
 import type { Cheese } from './cheese.types'
 import { CHEESES } from './cheeses'
-import { EXTRA_CHEESES, EXTRA_ALT_NAMES, EXTRA_REGION_OVERRIDES, EXTRA_EDITORIAL } from './cheeses-extra'
+import {
+  EXTRA_CHEESES,
+  EXTRA_ALT_NAMES,
+  EXTRA_REGION_OVERRIDES,
+  EXTRA_FIELD_FIXES,
+  EXTRA_EDITORIAL,
+} from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
 import { CVL_CHEESES } from './cheeses-centre-val-de-loire'
@@ -15,11 +21,12 @@ import { PACA_CHEESES } from './cheeses-provence-alpes-cote-azur'
 import { EXTRA_MEDIA } from './cheeses-extra-media'
 
 /** Le jeu de données intégré = les fromages générés depuis le handoff
- *  (cheeses.ts) complétés à la main, avec quatre recollages sur les entrées
+ *  (cheeses.ts) complétés à la main, avec cinq recollages sur les entrées
  *  générées : noms alternatifs supplémentaires, rattachements régionaux
- *  corrigés, textes éditoriaux (anecdote, fabrication, conservation, service)
- *  et photos/résumés Wikipédia sur les ajouts. Aucun n'est écrit dans le
- *  fichier source concerné, qui est régénéré par son propre script.
+ *  corrigés, corrections factuelles de champs, textes éditoriaux (anecdote,
+ *  fabrication, conservation, service) et photos/résumés Wikipédia sur les
+ *  ajouts. Aucun n'est écrit dans le fichier source concerné, qui est
+ *  régénéré par son propre script.
  *
  *  Les imports locaux de l'utilisateur viennent par-dessus, voir
  *  useCheeseDatabase. */
@@ -27,11 +34,15 @@ export const ALL_CHEESES: Cheese[] = [
   ...CHEESES.map((c) => {
     const extra = EXTRA_ALT_NAMES[c.id]
     const region = EXTRA_REGION_OVERRIDES[c.id]
+    const fixes = EXTRA_FIELD_FIXES[c.id]
     const editorial = EXTRA_EDITORIAL[c.id]
-    if (!extra && !region && !editorial) return c
+    if (!extra && !region && !fixes && !editorial) return c
     return {
       ...c,
       ...(extra ? { alt: [...c.alt, ...extra.filter((n) => !c.alt.includes(n))] } : null),
+      ...fixes,
+      // Le rattachement passe après les corrections : lui seul fait autorité
+      // sur `dept`, dont il porte parfois une version corrigée.
       ...region,
       // Les textes du handoff, quand il y en a, restent prioritaires : le
       // recollage ne comble que ce qui manque.

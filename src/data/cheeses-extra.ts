@@ -344,6 +344,45 @@ export const EXTRA_REGION_OVERRIDES: Record<string, { regionId: string; dept?: s
   'tomme-champsaur': { regionId: 'provence-alpes-cote-azur' },
 }
 
+/** Corrections factuelles sur des entrées du jeu généré : champs que le
+ *  handoff a renseignés de travers, et que la lecture des sources a
+ *  démentis. Appliquées dans dataset.ts par-dessus l'entrée générée, pour ne
+ *  pas éditer un fichier que `npm run import-cheeses` réécrit.
+ *
+ *  Le champ `marque` est renseigné ici pour les quatre entrées dont le nom
+ *  est une marque commerciale déposée et non une appellation : sans lui, la
+ *  fiche les présente exactement comme un fromage de terroir. Leur `commune`
+ *  était d'ailleurs souvent celle que la marque évoque, pas celle où le
+ *  fromage se fabrique — d'où les corrections qui les accompagnent. */
+export const EXTRA_FIELD_FIXES: Record<string, Partial<Cheese>> = {
+  // Wikipédia le classe en pâte molle à croûte lavée ; le handoff en avait
+  // fait une pâte pressée non cuite, ce que sa propre croûte « lavée,
+  // orangée » et sa texture « souple, crémeuse » contredisaient déjà.
+  pavin: { famille: 'Pâte molle à croûte lavée' },
+  // Marque des Fromageries occitanes. Le fromage n'a jamais été produit à
+  // Aurillac : il a été mis au point en laboratoire et il est fabriqué à
+  // Saint-Flour, à l'autre bout du Cantal.
+  'carre-aurillac': { marque: 'Les Fromageries occitanes', commune: 'Saint-Flour' },
+  // Marque déposée de la Fromagerie Guilloteau, dont le siège est à Pélussin
+  // — commune de la Loire et non de l'Isère, comme le disait le handoff. Les
+  // fromages sont fabriqués dans la Loire et dans l'Ain.
+  'pave-affinois': {
+    marque: 'Fromagerie Guilloteau',
+    dept: 'Loire / Ain (42/01)',
+    commune: 'Pélussin',
+  },
+  // Marque du groupe Savencia. Le château de Rochebaron qui lui donne son nom
+  // est à Bas-en-Basset, mais le fromage se fabrique à Beauzac et à
+  // Saint-Pal-de-Mons.
+  rochebaron: {
+    marque: 'Savencia Fromage & Dairy',
+    commune: 'Beauzac et Saint-Pal-de-Mons',
+  },
+  // Marque du groupement d'éleveurs Capriferme. Le fromage est mâconnais ;
+  // le rattachement du département est fait par EXTRA_REGION_OVERRIDES.
+  'bouton-culotte': { marque: 'Capriferme', commune: 'Mâconnais' },
+}
+
 /** Passe éditoriale sur les entrées du jeu généré. Le handoff n'a renseigné
  *  `anecdote` / `fabrication` / `conservation` / `service` que sur douze de
  *  ses cinquante fiches ; les autres arrivaient avec une seule ligne

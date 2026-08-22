@@ -105,7 +105,7 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | Fichier | Écrit par | Contenu |
 | --- | --- | --- |
 | `cheeses.ts` | `import-cheeses.mjs` | Les 50 fromages du handoff |
-| `cheeses-extra.ts` | **à la main** | Les fromages d'Auvergne-Rhône-Alpes ajoutés depuis (6), et trois recollages sur les entrées générées : noms alternatifs greffés, rattachements régionaux corrigés, et textes éditoriaux (`EXTRA_EDITORIAL`) |
+| `cheeses-extra.ts` | **à la main** | Les fromages d'Auvergne-Rhône-Alpes ajoutés depuis (6), et quatre recollages sur les entrées générées : noms alternatifs greffés, rattachements régionaux corrigés (`EXTRA_REGION_OVERRIDES`), corrections factuelles de champs (`EXTRA_FIELD_FIXES`) et textes éditoriaux (`EXTRA_EDITORIAL`) |
 | `cheeses-bourgogne-franche-comte.ts` | **à la main** | Les 13 fromages de Bourgogne-Franche-Comté, rejoints par le comté, le morbier, le mont d'or et le bleu de Gex depuis le jeu généré |
 | `cheeses-bretagne.ts` | **à la main** | Les 12 fromages de Bretagne — aucun sous AOP, la région n'en compte pas |
 | `cheeses-centre-val-de-loire.ts` | **à la main** | Les 13 fromages du Centre-Val de Loire, dont les 5 AOP caprines du Val de Loire |
@@ -128,6 +128,16 @@ Le handoff n'a renseigné `anecdote` / `fabrication` / `conservation` / `service
 - Le recollage **ne comble que ce qui manque** : un texte venu du handoff reste prioritaire, et `dataset.test.ts` refuse toute collision.
 - Ces textes suivent la même règle que les fiches écrites à la main : rien qui ne soit tiré de l'article Wikipédia du fromage ou déductible des champs déjà présents (famille, croûte, affinage, accords).
 - L'`anecdote` est donc absente là où il n'y a pas de source — une anecdote est un fait. **18 fiches** sur 208 restent dans ce cas, et seulement pour ce champ ; le test en fige la liste pour qu'elle ne s'allonge pas en silence.
+
+### 🔧 Corrections factuelles et marques commerciales
+
+`EXTRA_FIELD_FIXES`, dans le même fichier, corrige les champs que le handoff a renseignés de travers et que la lecture des sources dément — la `famille` du pavin, par exemple, donnée en pâte pressée non cuite alors que sa croûte lavée et sa texture crémeuse disaient déjà le contraire.
+
+Il porte aussi le champ **`marque`**, renseigné quand le nom du fromage est une marque commerciale déposée et non une appellation. La fiche affiche alors un repère « Marque » à côté du badge de région, et la ligne « Nom déposé, et non une appellation — marque de X » : sans lui, une marque industrielle se lit exactement comme un fromage de terroir protégé.
+
+Six fiches le portent aujourd'hui — quatre du jeu généré (Carré d'Aurillac, Pavé d'Affinois, Rochebaron, Bouton de Culotte) et deux écrites à la main (Taupinette, La Feuille du Limousin). Le champ n'est rempli que lorsqu'une source nomme le titulaire ; la Trappe d'Échourgnac et le Pur Brebis de Belloc s'en passent, faute de le savoir.
+
+⚠️ Une marque évoque souvent un lieu où le fromage n'est pas fabriqué : le Carré d'Aurillac n'a jamais été produit à Aurillac mais à Saint-Flour, et le Pavé d'Affinois vient de Pélussin, dans la **Loire** et non l'Isère. Vérifier la `commune` en même temps que la `marque`.
 
 Le champ `map` d'un fromage écrit à la main doit tomber dans l'espace projeté de `FR_XY`. Faute de disposer de la projection d'origine, elle est **réajustée par moindres carrés sur les repères déjà placés**, puis chaque point est vérifié point-dans-polygone contre `franceOutline.ts`. Placer un point à vue donne des écarts bien plus grands.
 
@@ -152,6 +162,7 @@ Pour une nouvelle **région**, ajouter aussi son entrée dans `src/data/regions.
 - ♻️ Idempotent : ne re-télécharge pas les fromages déjà enrichis (`--force` pour tout re-télécharger, `--id <id>` pour un seul fromage).
 - 🔗 Les photos restent hébergées sur `upload.wikimedia.org` (pas de copie locale) ; l'écran Fiche affiche le crédit (auteur + licence) en lien vers la page Commons du fichier.
 - 🚫 Le filtre de pertinence écarte un article sur son **sujet grammatical** : « X est une commune / une race / une entreprise… ». Deux conséquences à connaître avant de croire à un bug : une marque qui *désigne un fromage* est rattrapée explicitement (sans quoi La Feuille du Limousin serait écartée), mais un article dont la première phrase ne dit ni « fromage » ni « laitier » l'est bel et bien — c'est le cas de la **caillebotte**, que Wikipédia définit comme un lait caillé et non comme un fromage. Elle reste donc sans résumé, à raison.
+- 🧹 Un appariement **devenu invalide est retiré**, pas conservé : le filtre s'est resserré plusieurs fois, et une fiche enrichie du temps où il laissait passer un mauvais article la gardait indéfiniment (« Tomme d'Abondance » a longtemps porté le résumé et la photo de la tomme de Savoie). Relancer le script sur une fiche sans article propre nettoie donc ses champs `wikipedia`, `image` et `galleryImages`.
 - 🪪 L'API de Wikipédia exige un **User-Agent nommant un contact**. Un UA générique fait répondre « You are making too many requests » quel que soit le rythme d'appel.
 
 ## 🎨 Logo & icônes

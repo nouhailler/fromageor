@@ -144,6 +144,11 @@ export function CheeseDetailScreen() {
               AOP
             </LabelBadge>
           )}
+          {c.marque && (
+            <LabelBadge bg="var(--color-neutral-200)" fg="var(--color-neutral-800)" size="md">
+              Marque
+            </LabelBadge>
+          )}
           <LabelBadge bg="var(--color-accent-200)" fg="var(--color-accent-700)" size="md">
             {regionName(c.regionId)}
           </LabelBadge>
@@ -153,6 +158,13 @@ export function CheeseDetailScreen() {
         <div className={styles.location}>
           {c.dept} · {c.commune}
         </div>
+        {/* Un nom déposé n'est pas une appellation : le dire ici évite qu'une
+            marque industrielle se lise comme un fromage de terroir protégé. */}
+        {c.marque && (
+          <div className={styles.marqueNote}>
+            Nom déposé, et non une appellation — marque de {c.marque}.
+          </div>
+        )}
 
         <div className={styles.intensityCard}>
           <div className={styles.intensityRow}>
