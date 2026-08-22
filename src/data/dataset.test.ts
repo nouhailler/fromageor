@@ -18,6 +18,7 @@ import { IDF_CHEESES } from './cheeses-ile-de-france'
 import { OCCITANIE_CHEESES } from './cheeses-occitanie'
 import { NA_CHEESES } from './cheeses-nouvelle-aquitaine'
 import { PACA_CHEESES } from './cheeses-provence-alpes-cote-azur'
+import { PDL_CHEESES } from './cheeses-pays-de-la-loire'
 import { REGIONS } from './regions'
 import { searchCheeses } from '../lib/search'
 import { appellationsOf } from '../lib/appellations'
@@ -46,6 +47,7 @@ const AJOUTS = [
   ...OCCITANIE_CHEESES,
   ...NA_CHEESES,
   ...PACA_CHEESES,
+  ...PDL_CHEESES,
 ]
 
 describe('ALL_CHEESES', () => {
@@ -148,7 +150,6 @@ describe('ALL_CHEESES', () => {
 
   it.each([
     'Tome des Rhuys',
-    'Curé Nantais',
     'Abbaye de La Joie-Notre-Dame',
     'Abbaye de Timadeuc',
     'Tomme de Bretagne',
@@ -421,8 +422,10 @@ describe('ALL_CHEESES', () => {
     }
   })
 
-  it('rattache les 12 fromages bretons à leur région, aucun sous AOP', () => {
-    expect(BRETAGNE_CHEESES).toHaveLength(12)
+  // 11 depuis que le Curé Nantais est passé en Pays de la Loire : Pornic est
+  // en Loire-Atlantique, quoi qu'en dise la Bretagne historique.
+  it('rattache les 11 fromages bretons à leur région, aucun sous AOP', () => {
+    expect(BRETAGNE_CHEESES).toHaveLength(11)
     for (const cheese of BRETAGNE_CHEESES) {
       expect(cheese.regionId).toBe('bretagne')
       // La Bretagne ne compte aucun fromage AOP.
@@ -668,6 +671,59 @@ describe('ALL_CHEESES', () => {
       const reblochon = ALL_CHEESES.find((c) => c.id === 'reblochon')
       expect(reblochon?.anecdote).toContain('re-blocher')
     })
+  })
+
+  it.each([
+    'Curé Nantais',
+    'Régal des Gourmets',
+    'Port-Salut',
+    'Entrammes',
+    'Trappe de la Coudre',
+    'Trappiste de Laval',
+    'Chaussée aux Moines',
+    'Vieux Pané',
+    'Bons Mayennais',
+    'Kiri',
+    'Mizotte',
+    'Halbran',
+  ])('trouve « %s » dans la base (Pays de la Loire)', (nom) => {
+    expect(searchCheeses(ALL_CHEESES, nom, 'Tous').length).toBeGreaterThan(0)
+  })
+
+  it('rattache les fromages ligériens de l’Ouest à leur région, aucun sous AOP', () => {
+    expect(PDL_CHEESES).toHaveLength(9)
+    for (const cheese of PDL_CHEESES) {
+      expect(cheese.regionId).toBe('pays-de-la-loire')
+      // La région ne compte aucune AOP fromagère.
+      expect(cheese.aop).toBe(false)
+    }
+  })
+
+  // C'est la particularité de la région : le lait y allait au beurre, et ce
+  // qui reste est né de l'industrie laitière. Huit fiches sur neuf portent un
+  // nom de marque, et le champ `marque` doit le dire — seul le halbran, décrit
+  // dans l'article de la mizotte, n'en est pas une.
+  it('signale comme marques huit des neuf fiches ligériennes', () => {
+    const sansMarque = PDL_CHEESES.filter((c) => !c.marque).map((c) => c.id)
+    expect(sansMarque).toEqual(['halbran'])
+  })
+
+  // Pornic est en Loire-Atlantique : le Curé Nantais était rangé en Bretagne
+  // par tradition, pas par géographie.
+  it('range le Curé Nantais en Pays de la Loire et non en Bretagne', () => {
+    const cheese = ALL_CHEESES.find((c) => c.id === 'cure-nantais')
+    expect(cheese?.regionId).toBe('pays-de-la-loire')
+    expect(cheese?.dept).toContain('44')
+    expect(BRETAGNE_CHEESES.some((c) => c.id === 'cure-nantais')).toBe(false)
+  })
+
+  // Treize régions : la métropole est complète.
+  it('couvre les treize régions métropolitaines', () => {
+    expect(REGIONS).toHaveLength(13)
+    const peuplees = new Set(ALL_CHEESES.map((c) => c.regionId))
+    for (const region of REGIONS) {
+      expect(peuplees.has(region.id), `région vide : ${region.id}`).toBe(true)
+    }
   })
 
   it('rattache les fromages bourguignons et comtois à leur région', () => {

@@ -4,13 +4,44 @@ Note de passage de relais entre sessions. Ce qui est **à faire**, ce qui est
 **déjà fait**, et les pièges rencontrés. Le fonctionnement du projet lui-même
 est documenté dans [README.md](README.md) — ce fichier ne le répète pas.
 
-Dernière mise à jour : **22/08/2026**, après l'ajout de
-Provence-Alpes-Côte d'Azur, le rattachement de la tomme du Champsaur et la
-passe éditoriale sur le jeu généré. Base à **208 fiches, 12 régions**.
+Dernière mise à jour : **22/08/2026**, après l'ajout des Pays de la Loire.
+Base à **216 fiches, 13 régions** : **la métropole est complète.**
 
 ---
 
 ## ✅ Ce qui vient d'être fait
+
+**Les Pays de la Loire sont en place, et c'était la dernière région
+métropolitaine.** 9 fiches dans `src/data/cheeses-pays-de-la-loire.ts`, dont
+le Curé Nantais déplacé depuis la Bretagne — Pornic est en Loire-Atlantique,
+quoi qu'en dise la Bretagne historique. C'était une fiche écrite à la main,
+donc un vrai déplacement de fichier et non un `EXTRA_REGION_OVERRIDES` ; le
+test breton passe de 12 à 11.
+
+**Cette région est atypique et il faut le savoir avant d'y toucher** : aucune
+AOP, presque aucun fromage fermier, et **huit fiches sur neuf portent un nom de
+marque**. Ce n'est pas un défaut de recherche. Le lait ligérien allait
+traditionnellement au beurre — l'article du Curé Nantais le dit sans détour —
+et ce qui reste vient de l'industrie : le port-salut des trappistes
+d'Entrammes, vendu en 1957 à l'agroalimentaire, a servi de modèle à toute la
+filière des « fromages d'abbaye », et la Mayenne et la Sarthe abritent les
+usines de Bel, Lactalis et Savencia. Le champ `marque` sert exactement à ça, et
+un test vérifie que seul le halbran s'en passe.
+
+Trois candidats écartés, la raison notée en tête de fichier : le **crémet
+d'Anjou** (« spécialité crémière » — crème fouettée et blancs en neige, pas de
+coagulation, même raisonnement que la caillebotte), le **gourmelin** (une
+phrase d'article, ni département ni lait, et les deux portails Bretagne et
+Pays de la Loire sans trancher) et le **babybel** (fabriqué à Évron et
+Sablé-sur-Sarthe, mais rangé dans aucune catégorie départementale — marque
+nationale dont le lait vient de tout l'Ouest).
+
+Deux points à ne pas refaire : le **port-salut et l'entrammes sont le même
+fromage** — l'article « Entrammes (fromage) » redirige sur celui de la marque
+Port-Salut, d'où une fiche unique et « Entrammes » en nom alternatif. Et le
+**halbran** n'a pas d'article propre : il est décrit dans celui de la mizotte,
+comme la pigouille et le couhé-vérac le sont dans « Chèvre du Poitou ». Il
+restera sans résumé Wikipédia, c'est normal.
 
 **La passe éditoriale sur le jeu généré est faite.** Le handoff n'avait rempli
 `anecdote` / `fabrication` / `conservation` / `service` que sur 12 de ses 50
@@ -103,28 +134,26 @@ demandait.
 
 ## 🎯 À faire — par ordre d'intérêt décroissant
 
-### 1. La dernière région métropolitaine manquante
+### 1. Il n'y a plus de région à ajouter
 
-**Pays de la Loire** (curé nantais, crémet, Port-Salut, Timanoix). C'est la
-seule des treize qui reste. Le moule est stable :
-`src/data/cheeses-provence-alpes-cote-azur.ts` est le dernier exemple en date,
-et le README dit quels quatre fichiers brancher — plus le test de région dans
+Les treize régions métropolitaines sont couvertes, et un test le verrouille :
+`REGIONS` doit en compter treize, et aucune ne doit être vide. **L'outre-mer
+n'est pas prévu** — la seule catégorie Wikipédia qui existe est « Fromage de
+La Réunion », et rien n'a été décidé sur le sujet.
+
+Si une région devait tout de même être ajoutée, le moule est stable :
+`src/data/cheeses-pays-de-la-loire.ts` est le dernier exemple en date, et le
+README dit quels quatre fichiers brancher — plus le test de région dans
 `dataset.test.ts`, qui en fait cinq.
-
-Piège connu : le **curé nantais** (`cure-nantais`) est déjà dans la base, en
-Bretagne, avec Pornic pour commune. Pornic est en Loire-Atlantique : il faudra
-soit le déplacer dans le nouveau fichier, soit le rattacher par
-`EXTRA_REGION_OVERRIDES` — mais c'est une fiche écrite à la main, pas une
-entrée générée, donc le déplacement est la bonne voie.
 
 ### 2. Complétude des fiches existantes
 
-Au 22/08, après la passe éditoriale : photo sur **132/208**, résumé Wikipédia
-sur **157/208**. Le texte n'est plus le point faible — les 208 fiches ont
-toutes fabrication, conservation et service, et les 18 sans anecdote le sont
-faute de source, pas faute de travail.
+Au 22/08 : photo sur **138/216**, résumé Wikipédia sur **163/216**. Le texte
+n'est plus le point faible — les 216 fiches ont toutes fabrication,
+conservation et service, et les 19 sans anecdote le sont faute de source, pas
+faute de travail.
 
-Ce qui reste, c'est **l'iconographie** : 76 fiches sans photo. Elles n'en
+Ce qui reste, c'est **l'iconographie** : 78 fiches sans photo. Elles n'en
 auront pas par le script, qui a déjà tout ce que Wikimedia Commons propose.
 Les combler suppose une autre source d'images, avec la question de licence qui
 va avec — c'est un choix de projet, pas une tâche mécanique.
@@ -200,10 +229,10 @@ Deux modèles ont servi. L'Occitanie a été placée avec un **quadratique** en
 (lon, lat) ; la Nouvelle-Aquitaine puis PACA avec une **projection conique
 conforme** (parallèles 44°/49°, méridien 3° E) suivie d'une affine. Le
 dernier ajustement porte sur **119 repères** après élimination des résidus
-au-delà de 1,8 unité — médiane 0,46 unité (~4,5 km), maximum 1,57.
-**Préférer la conique** pour les régions à venir : elle reste juste hors de
-l'enveloppe des repères, là où le quadratique dérive. Les Pays de la Loire
-sont le dernier coin encore vide.
+au-delà de 1,8 unité — médiane 0,46 unité (~4,5 km), maximum 1,57. Il a servi
+tel quel pour les Pays de la Loire, sans réajustement. **Préférer la conique**
+si une région devait encore être placée : elle reste juste hors de l'enveloppe
+des repères, là où le quadratique dérive.
 
 Le script d'ajustement n'a pas été conservé (jetable). Le refaire prend une
 dizaine de minutes : lire `map`/`commune` des fiches existantes, poser les

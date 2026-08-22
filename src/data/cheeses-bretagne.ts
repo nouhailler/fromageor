@@ -1,6 +1,10 @@
 // Fromages de Bretagne, écrits à la main. Aucun n'est sous AOP : la région
 // n'en compte pas, sa production étant fermière, monastique ou artisanale.
 //
+// Le Curé Nantais est parti d'ici : il est rattaché à la Bretagne historique,
+// mais Pornic est en Loire-Atlantique, donc en Pays de la Loire. Sa fiche vit
+// désormais dans cheeses-pays-de-la-loire.ts.
+//
 // Assemblés dans dataset.ts avec le reste ; dataset.test.ts garantit qu'aucun
 // identifiant ni aucun nom n'apparaît deux fois toutes régions confondues.
 //
@@ -58,54 +62,6 @@ export const BRETAGNE_CHEESES: Cheese[] = [
     },
     galerie: ['Meule entière', 'Coupe', 'Croûte lavée', 'Plateau'],
     map: [12.9, 35.8],
-    regionId: 'bretagne',
-  },
-  {
-    id: 'cure-nantais',
-    nom: 'Curé Nantais',
-    alt: ['Fromage du Curé', 'Régal des Gourmets'],
-    dept: 'Loire-Atlantique (44)',
-    commune: 'Pornic, pays de Retz',
-    lait: 'Vache',
-    race: 'Normande, Prim’Holstein',
-    famille: 'Pâte molle à croûte lavée',
-    croute: 'Lavée au muscadet ou au cidre, orangée',
-    texture: 'Souple et crémeuse',
-    forme: 'Carré à angles arrondis',
-    poids: '200 g ou 700 g',
-    dim: '9 × 9 cm · 3 cm',
-    affinage: '4 semaines',
-    mg: '40 %',
-    saison: "Toute l'année",
-    intensite: 4,
-    aop: false,
-    prix: '≈ 30 €/kg',
-    dispo: 'Régionale',
-    color: 'Ivoire',
-    notes: ['Muscadet', 'Étable', 'Beurre', 'Noisette'],
-    accords: {
-      vin: 'Muscadet Sèvre-et-Maine, Gros plant',
-      biere: 'Ambrée',
-      cidre: 'Cidre brut',
-      whisky: 'Single malt breton',
-      pain: 'Pain de campagne, pain au sarrasin',
-    },
-    histoire:
-      "Créé vers 1880 par un prêtre vendéen réfugié dans le pays de Retz, qui aurait transmis sa recette à un fermier de Saint-Julien-de-Concelles. Rattaché à la Bretagne historique, il relève aujourd'hui de la Loire-Atlantique — un découpage administratif que les Nantais n'ont jamais tout à fait digéré.",
-    anecdote:
-      "Longtemps vendu sous le nom de « Régal des Gourmets », il a repris celui du curé quand la fromagerie a été relancée à Pornic dans les années 1980.",
-    fabrication:
-      "Caillé moulé en carré, égoutté sans pressage, croûte lavée à l'eau salée puis au muscadet ou au cidre pendant quatre semaines.",
-    conservation: 'Au réfrigérateur dans sa boîte, 2 semaines.',
-    service: "À température ambiante, avec le muscadet qui a servi à le laver.",
-    nutrition: {
-      energie: '320 kcal',
-      proteines: '20 g',
-      lipides: '26 g',
-      calcium: '400 mg',
-    },
-    galerie: ['Vue entière', 'Coupe', 'Croûte lavée', 'Plateau'],
-    map: [17.2, 40.0],
     regionId: 'bretagne',
   },
   {

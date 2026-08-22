@@ -19,7 +19,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 
 ---
 
-Douze régions couvertes : **Auvergne-Rhône-Alpes** (49 fromages), **Provence-Alpes-Côte d'Azur** (20), **Nouvelle-Aquitaine** (19), **Hauts-de-France** (18), **Bourgogne-Franche-Comté** (17), **Occitanie** (14), **Centre-Val de Loire** (13), **Normandie** (13), **Bretagne** (12), **Grand Est** (12), **Île-de-France** (11) et **Corse** (10), soit 208 fiches — l'ossature UI/données accepte d'autres régions à la suite. Seuls les **Pays de la Loire** manquent encore à la métropole.
+**Les treize régions métropolitaines sont couvertes** : **Auvergne-Rhône-Alpes** (49 fromages), **Provence-Alpes-Côte d'Azur** (20), **Nouvelle-Aquitaine** (19), **Hauts-de-France** (18), **Bourgogne-Franche-Comté** (17), **Occitanie** (14), **Centre-Val de Loire** (13), **Normandie** (13), **Grand Est** (12), **Bretagne** (11), **Île-de-France** (11), **Corse** (10) et **Pays de la Loire** (9), soit 216 fiches. L'ossature UI/données accepte d'autres régions à la suite — l'outre-mer n'est pas couvert.
 
 Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fidélité (design system **Organic** : Caprasimo/Figtree, palette terracotta/sauge/crème), fidèle aux couleurs, typographies, espacements et à la logique métier du prototype de référence.
 
@@ -107,7 +107,7 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses.ts` | `import-cheeses.mjs` | Les 50 fromages du handoff |
 | `cheeses-extra.ts` | **à la main** | Les fromages d'Auvergne-Rhône-Alpes ajoutés depuis (6), et quatre recollages sur les entrées générées : noms alternatifs greffés, rattachements régionaux corrigés (`EXTRA_REGION_OVERRIDES`), corrections factuelles de champs (`EXTRA_FIELD_FIXES`) et textes éditoriaux (`EXTRA_EDITORIAL`) |
 | `cheeses-bourgogne-franche-comte.ts` | **à la main** | Les 13 fromages de Bourgogne-Franche-Comté, rejoints par le comté, le morbier, le mont d'or et le bleu de Gex depuis le jeu généré |
-| `cheeses-bretagne.ts` | **à la main** | Les 12 fromages de Bretagne — aucun sous AOP, la région n'en compte pas |
+| `cheeses-bretagne.ts` | **à la main** | Les 11 fromages de Bretagne — aucun sous AOP, la région n'en compte pas ; le Curé Nantais est parti en Pays de la Loire |
 | `cheeses-centre-val-de-loire.ts` | **à la main** | Les 13 fromages du Centre-Val de Loire, dont les 5 AOP caprines du Val de Loire |
 | `cheeses-normandie.ts` | **à la main** | Les 13 fromages de Normandie, dont les 4 AOP à pâte molle |
 | `cheeses-hauts-de-france.ts` | **à la main** | Les 18 fromages des Hauts-de-France, autour du Maroilles, seule AOP de la région |
@@ -117,6 +117,7 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-occitanie.ts` | **à la main** | Les 12 fromages d'Occitanie — le roquefort et la brebis des causses, les tommes de vache du Couserans, les chèvres cévenoles et quercynoises ; le bleu des Causses et le laguiole les rejoignent depuis le jeu généré |
 | `cheeses-nouvelle-aquitaine.ts` | **à la main** | Les 19 fromages de Nouvelle-Aquitaine — les brebis du Pays basque et du Béarn autour de l'ossau-iraty, les chèvres du Poitou et des Charentes autour du chabichou, et une seule fiche pour tout le Limousin |
 | `cheeses-provence-alpes-cote-azur.ts` | **à la main** | Les 19 fromages de Provence-Alpes-Côte d'Azur — les vaches des Alpes du Sud, les chèvres provençales autour du banon AOP et de la brousse du Rove AOP, et cinq fromages forts ; la tomme du Champsaur les rejoint depuis le jeu généré |
+| `cheeses-pays-de-la-loire.ts` | **à la main** | Les 9 fromages des Pays de la Loire — aucune AOP, huit marques sur neuf : c'est la région où le fromage industriel français est né, du port-salut des trappistes d'Entrammes aux usines de Bel, Lactalis et Savencia |
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
@@ -135,7 +136,7 @@ Le handoff n'a renseigné `anecdote` / `fabrication` / `conservation` / `service
 
 Il porte aussi le champ **`marque`**, renseigné quand le nom du fromage est une marque commerciale déposée et non une appellation. La fiche affiche alors un repère « Marque » à côté du badge de région, et la ligne « Nom déposé, et non une appellation — marque de X » : sans lui, une marque industrielle se lit exactement comme un fromage de terroir protégé.
 
-Six fiches le portent aujourd'hui — quatre du jeu généré (Carré d'Aurillac, Pavé d'Affinois, Rochebaron, Bouton de Culotte) et deux écrites à la main (Taupinette, La Feuille du Limousin). Le champ n'est rempli que lorsqu'une source nomme le titulaire ; la Trappe d'Échourgnac et le Pur Brebis de Belloc s'en passent, faute de le savoir.
+Quatorze fiches le portent aujourd'hui — quatre du jeu généré (Carré d'Aurillac, Pavé d'Affinois, Rochebaron, Bouton de Culotte), deux en Nouvelle-Aquitaine (Taupinette, La Feuille du Limousin) et huit des neuf fiches des Pays de la Loire. Le champ n'est rempli que lorsqu'une source nomme le titulaire ; la Trappe d'Échourgnac et le Pur Brebis de Belloc s'en passent, faute de le savoir.
 
 ⚠️ Une marque évoque souvent un lieu où le fromage n'est pas fabriqué : le Carré d'Aurillac n'a jamais été produit à Aurillac mais à Saint-Flour, et le Pavé d'Affinois vient de Pélussin, dans la **Loire** et non l'Isère. Vérifier la `commune` en même temps que la `marque`.
 

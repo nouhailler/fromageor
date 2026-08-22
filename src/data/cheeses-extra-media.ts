@@ -3551,5 +3551,137 @@ export const EXTRA_MEDIA: Record<string, CheeseMedia> = {
         "creditUrl": "https://commons.wikimedia.org/wiki/File:Bosson%20mac%C3%A9r%C3%A9%20sur%20tartine%20de%20pain%20gill%C3%A9e.jpg"
       }
     ]
+  },
+  "port-salut": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Port_Salut_cheese.jpg/960px-Port_Salut_cheese.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Jon Sullivan, Public domain",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Port_Salut_cheese.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Port-Salut_(marque_fromag%C3%A8re)",
+      "extract": "Port-Salut est une marque commerciale française apposée sur une série de fromages et préparations fromagères pasteurisés industriels fabriqués dans la Communauté européenne. Cette marque appartient à la société Bel Foodservice, filiale du groupe Bel. Cette gamme est issue d'une ancienne activité agricole des moines trappistes de l'abbaye du Port-du-Salut consistant, vers 1815, en une production laitière transformée en un fromage ; la marque de fromage comme le processus initial de sa fabrication"
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Port_Salut_cheese.jpg/960px-Port_Salut_cheese.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Jon Sullivan, Public domain",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Port%20Salut%20cheese.jpg"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Port_salut_cheese.jpg/960px-Port_salut_cheese.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Jon Sullivan, Public domain",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Port%20salut%20cheese.jpg"
+      }
+    ]
+  },
+  "trappe-coudre": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Trappe_de_la_Coudre.JPG/960px-Trappe_de_la_Coudre.JPG",
+      "width": 800,
+      "height": 600,
+      "credit": "Queeste, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Trappe_de_la_Coudre.JPG"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Trappe_de_la_Coudre",
+      "extract": "Trappe de la Coudre (ou trappiste de Laval) est la marque commerciale d'un fromage industriel français fabriqué à Entrammes en Mayenne par la société d'industrie laitière Société anonyme des fermiers réunis et affiné artisanalement à Laval par les moniales trappistes de l'abbaye Notre-Dame de la Coudre. La marque Trappe de la Coudre est accompagnée de la marque Monastic. C'est un fromage industriel à pâte molle et à croûte lavée ou morgée, transformé sur une base de lait de vache pasteurisé et a"
+    }
+  },
+  "chaussee-moines": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Chauss%C3%A9e_aux_Moines_%282%29.JPG/960px-Chauss%C3%A9e_aux_Moines_%282%29.JPG",
+      "width": 800,
+      "height": 600,
+      "credit": "Queeste, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Chauss%C3%A9e_aux_Moines_(2).JPG"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Chauss%C3%A9e_aux_Moines",
+      "extract": "Chaussée aux Moines est une marque commerciale propriété du groupe d'industrie laitière Lactalis désignant un fromage industriel français à pâte pressée non cuite de lait pasteurisé de vache. De fait, il n'a aucun lien avec un quelconque monastère ou des moines en général."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Chauss%C3%A9e_aux_Moines_%282%29.JPG/960px-Chauss%C3%A9e_aux_Moines_%282%29.JPG",
+        "width": 800,
+        "height": 600,
+        "credit": "Queeste, CC BY-SA 3.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chauss%C3%A9e%20aux%20Moines%20(2).JPG"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Chauss%C3%A9e_aux_Moines_2020.jpg",
+        "width": 800,
+        "height": 903,
+        "credit": "Thomon, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Chauss%C3%A9e%20aux%20Moines%202020.jpg"
+      }
+    ]
+  },
+  "vieux-pane": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Fromage_le_vieux_pane.jpg/960px-Fromage_le_vieux_pane.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Manuel FLURY, Public domain",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Fromage_le_vieux_pane.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Vieux_pan%C3%A9",
+      "extract": "Le Vieux Pané est une marque commerciale appartenant au groupe Savencia Fromage & Dairy pour un fromage industriel fabriqué dans la Mayenne angevine. C'est un fromage à base de lait de vache pasteurisé, à pâte molle et à croûte lavée. Sa teneur en matière grasse est de 25 % du poids total. Son affinage dure deux semaines. Il a une forme carrée de 25 cm, 3,5 cm d'épaisseur et pèse 2,3 kg."
+    }
+  },
+  "bons-mayennais": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Bons_Mayennais_fromage_2.jpg/960px-Bons_Mayennais_fromage_2.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Jmalo, CC BY-SA 3.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Bons_Mayennais_fromage_2.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Bons_Mayennais",
+      "extract": "Bons Mayennais est une marque commerciale appartenant à la fromagerie Vaubernier désignant un fromage industriel de lait pasteurisé de vache employant l'appellation d'origine non protégée camembert."
+    }
+  },
+  "kiri": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/fr/9/90/Logo_KIRI_%28avec_transparence%29_2.png",
+      "width": 500,
+      "height": 476,
+      "credit": "Wikimedia Commons",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Logo_KIRI_(avec_transparence)_2.png"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Kiri_(marque_fromag%C3%A8re)",
+      "extract": "Kiri est une marque commerciale de fromage industriel français du Groupe Bel créée en 1966."
+    }
+  },
+  "mizotte": {
+    "image": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Mizotte_kaas.jpg/960px-Mizotte_kaas.jpg",
+      "width": 800,
+      "height": 600,
+      "credit": "Queeste, CC BY-SA 4.0",
+      "creditUrl": "https://commons.wikimedia.org/wiki/File:Mizotte_kaas.jpg"
+    },
+    "wikipedia": {
+      "url": "https://fr.wikipedia.org/wiki/Mizotte",
+      "extract": "La mizotte est un fromage au lait de vache à pâte solubilisée, à croûte lavée au vin blanc, fabriquée à Saint-Michel-en-l'Herm (Vendée) par les fromageries Lescure appartenant au groupe Bongrain. Cette spécialité fromagère de Vendée tire son nom de l'appellation vernaculaire d'une herbe haliophile de pré salé, la mizotte, appelée aussi glycérie maritime, qui pousse dans les marais vendéens inondés par la mer."
+    },
+    "galleryImages": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Mizotte_kaas.jpg/960px-Mizotte_kaas.jpg",
+        "width": 800,
+        "height": 600,
+        "credit": "Queeste, CC BY-SA 4.0",
+        "creditUrl": "https://commons.wikimedia.org/wiki/File:Mizotte%20kaas.jpg"
+      }
+    ]
   }
 }

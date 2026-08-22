@@ -18,6 +18,7 @@ import { IDF_CHEESES } from './cheeses-ile-de-france'
 import { OCCITANIE_CHEESES } from './cheeses-occitanie'
 import { NA_CHEESES } from './cheeses-nouvelle-aquitaine'
 import { PACA_CHEESES } from './cheeses-provence-alpes-cote-azur'
+import { PDL_CHEESES } from './cheeses-pays-de-la-loire'
 import { EXTRA_MEDIA } from './cheeses-extra-media'
 
 /** Le jeu de données intégré = les fromages générés depuis le handoff
@@ -51,7 +52,7 @@ export const ALL_CHEESES: Cheese[] = [
         : null),
     }
   }),
-  ...[...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES, ...CVL_CHEESES, ...NORMANDIE_CHEESES, ...HDF_CHEESES, ...CORSE_CHEESES, ...GRAND_EST_CHEESES, ...IDF_CHEESES, ...OCCITANIE_CHEESES, ...NA_CHEESES, ...PACA_CHEESES].map((c) => {
+  ...[...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES, ...CVL_CHEESES, ...NORMANDIE_CHEESES, ...HDF_CHEESES, ...CORSE_CHEESES, ...GRAND_EST_CHEESES, ...IDF_CHEESES, ...OCCITANIE_CHEESES, ...NA_CHEESES, ...PACA_CHEESES, ...PDL_CHEESES].map((c) => {
     const media = EXTRA_MEDIA[c.id]
     return media ? { ...c, ...media } : c
   }),
