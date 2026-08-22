@@ -5,12 +5,47 @@ Note de passage de relais entre sessions. Ce qui est **à faire**, ce qui est
 est documenté dans [README.md](README.md) — ce fichier ne le répète pas.
 
 Dernière mise à jour : **22/08/2026**, après l'ajout de
-Provence-Alpes-Côte d'Azur et le rattachement de la tomme du Champsaur.
-Base à **208 fiches, 12 régions**.
+Provence-Alpes-Côte d'Azur, le rattachement de la tomme du Champsaur et la
+passe éditoriale sur le jeu généré. Base à **208 fiches, 12 régions**.
 
 ---
 
 ## ✅ Ce qui vient d'être fait
+
+**La passe éditoriale sur le jeu généré est faite.** Le handoff n'avait rempli
+`anecdote` / `fabrication` / `conservation` / `service` que sur 12 de ses 50
+fiches ; les 38 autres sont complétées par `EXTRA_EDITORIAL`, dans
+`src/data/cheeses-extra.ts`, recollé dans `dataset.ts` par-dessus l'entrée
+générée — jamais dans `cheeses.ts`, que `import-cheeses` réécrit. Le recollage
+ne comble que ce qui manque : un texte du handoff reste prioritaire, et un
+test refuse toute collision. Résultat : **toutes les 208 fiches** de la base
+ont désormais fabrication, conservation et service.
+
+Restent **18 fiches sans anecdote**, et seulement sans ce champ-là — 43 fiches
+incomplètes avant, 18 après. C'est délibéré : une anecdote est un fait, et ces
+dix-huit-là n'ont pas de source où le prendre (onze entrées générées sans
+article Wikipédia, cinq fiches provençales à l'article de deux phrases, plus
+les deux cas ci-dessous). La liste est figée par un test, pour qu'elle ne
+s'allonge pas en silence.
+
+Deux problèmes de données rencontrés en chemin, laissés tels quels et signalés
+ici :
+
+- **`tomme-abondance` (Tomme d'Abondance) est appariée au mauvais article** :
+  son champ `wikipedia` pointe sur *Tomme de Savoie*. La fiche affiche donc un
+  résumé et une photo qui ne sont pas les siens. Le champ est dans
+  `cheeses.ts`, écrit par `enrich-wikipedia.mjs` ; le corriger demande soit un
+  quatrième recollage, soit un correctif du filtre. Rien n'a été écrit
+  d'éditorial à partir de cet article.
+- **Le `famille` du pavin contredit sa source** : la fiche le donne en pâte
+  pressée non cuite, l'article Wikipédia en pâte molle à croûte lavée. Sa
+  `fabrication` le dit plutôt que de trancher.
+
+À noter aussi : quatre entrées générées sont en réalité des **marques
+commerciales** — Carré d'Aurillac (Fromageries occitanes), Pavé d'Affinois
+(Guilloteau), Rochebaron (Savencia) et Bouton de Culotte (Capriferme). Leurs
+textes le disent, comme la Trappe d'Échourgnac et la Feuille du Limousin le
+font en Nouvelle-Aquitaine, plutôt que de laisser croire à une appellation.
 
 **Provence-Alpes-Côte d'Azur est en place**, 19 fiches dans
 `src/data/cheeses-provence-alpes-cote-azur.ts`, plus la tomme du Champsaur
@@ -62,17 +97,15 @@ entrée générée, donc le déplacement est la bonne voie.
 
 ### 2. Complétude des fiches existantes
 
-Au 22/08 : photo sur **132/208**, résumé Wikipédia sur **157/208**, et
-**43 fiches** sans `fabrication` / `conservation` / `service` / `anecdote`. Le
-déficit se concentre sur les 49 fiches du handoff généré
-(Auvergne-Rhône-Alpes), qui n'ont jamais eu de passe éditoriale. C'est du
-rattrapage, pas du développement.
+Au 22/08, après la passe éditoriale : photo sur **132/208**, résumé Wikipédia
+sur **157/208**. Le texte n'est plus le point faible — les 208 fiches ont
+toutes fabrication, conservation et service, et les 18 sans anecdote le sont
+faute de source, pas faute de travail.
 
-Sept des nouvelles fiches provençales y contribuent aussi, mais à raison :
-leur article Wikipédia tient en deux phrases (bleu du Dévoluy, persillé du col
-Bayard, aiguille d'Orcières, saint-laurent, tomme de l'Ubaye…). Les champs
-manquants y sont marqués « Non précisée » plutôt que remplis d'une valeur
-plausible inventée.
+Ce qui reste, c'est **l'iconographie** : 76 fiches sans photo. Elles n'en
+auront pas par le script, qui a déjà tout ce que Wikimedia Commons propose.
+Les combler suppose une autre source d'images, avec la question de licence qui
+va avec — c'est un choix de projet, pas une tâche mécanique.
 
 ### 3. La doc qui manque
 

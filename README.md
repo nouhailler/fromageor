@@ -105,7 +105,7 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | Fichier | Écrit par | Contenu |
 | --- | --- | --- |
 | `cheeses.ts` | `import-cheeses.mjs` | Les 50 fromages du handoff |
-| `cheeses-extra.ts` | **à la main** | Les fromages d'Auvergne-Rhône-Alpes ajoutés depuis (6), les noms alternatifs greffés sur des entrées générées, et les rattachements régionaux corrigés |
+| `cheeses-extra.ts` | **à la main** | Les fromages d'Auvergne-Rhône-Alpes ajoutés depuis (6), et trois recollages sur les entrées générées : noms alternatifs greffés, rattachements régionaux corrigés, et textes éditoriaux (`EXTRA_EDITORIAL`) |
 | `cheeses-bourgogne-franche-comte.ts` | **à la main** | Les 13 fromages de Bourgogne-Franche-Comté, rejoints par le comté, le morbier, le mont d'or et le bleu de Gex depuis le jeu généré |
 | `cheeses-bretagne.ts` | **à la main** | Les 12 fromages de Bretagne — aucun sous AOP, la région n'en compte pas |
 | `cheeses-centre-val-de-loire.ts` | **à la main** | Les 13 fromages du Centre-Val de Loire, dont les 5 AOP caprines du Val de Loire |
@@ -120,6 +120,14 @@ Le jeu de données actif est assemblé dans `src/data/dataset.ts` (`ALL_CHEESES`
 | `cheeses-extra-media.ts` | `enrich-wikipedia-extra.mjs` | Photos et résumés Wikipédia de tous les ajouts, tenus à part pour garder les fichiers écrits à la main lisibles |
 
 Cette séparation existe parce que `import-cheeses.mjs` **réécrit intégralement** `cheeses.ts` : tout ce qui est ajouté à la main vit donc à côté, et survit à une régénération.
+
+### ✍️ Textes éditoriaux des entrées générées
+
+Le handoff n'a renseigné `anecdote` / `fabrication` / `conservation` / `service` que sur **12 de ses 50 fiches**. Les 38 autres sont complétées par `EXTRA_EDITORIAL`, dans `cheeses-extra.ts`, recollé dans `dataset.ts` — jamais dans `cheeses.ts`, que l'import réécrit.
+
+- Le recollage **ne comble que ce qui manque** : un texte venu du handoff reste prioritaire, et `dataset.test.ts` refuse toute collision.
+- Ces textes suivent la même règle que les fiches écrites à la main : rien qui ne soit tiré de l'article Wikipédia du fromage ou déductible des champs déjà présents (famille, croûte, affinage, accords).
+- L'`anecdote` est donc absente là où il n'y a pas de source — une anecdote est un fait. **18 fiches** sur 208 restent dans ce cas, et seulement pour ce champ ; le test en fige la liste pour qu'elle ne s'allonge pas en silence.
 
 Le champ `map` d'un fromage écrit à la main doit tomber dans l'espace projeté de `FR_XY`. Faute de disposer de la projection d'origine, elle est **réajustée par moindres carrés sur les repères déjà placés**, puis chaque point est vérifié point-dans-polygone contre `franceOutline.ts`. Placer un point à vue donne des écarts bien plus grands.
 

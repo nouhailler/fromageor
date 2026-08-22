@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { ALL_CHEESES } from './dataset'
 import { CHEESES } from './cheeses'
-import { EXTRA_CHEESES, EXTRA_REGION_OVERRIDES } from './cheeses-extra'
+import { EXTRA_CHEESES, EXTRA_REGION_OVERRIDES, EXTRA_EDITORIAL } from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
 import { CVL_CHEESES } from './cheeses-centre-val-de-loire'
@@ -532,6 +532,72 @@ describe('ALL_CHEESES', () => {
     const cheese = ALL_CHEESES.find((c) => c.id === 'tomme-champsaur')
     expect(cheese?.regionId).toBe('provence-alpes-cote-azur')
     expect(cheese?.dept).toContain('05')
+  })
+
+  // Passe éditoriale sur le jeu généré : le handoff n'avait rempli anecdote /
+  // fabrication / conservation / service que sur douze de ses cinquante
+  // fiches. EXTRA_EDITORIAL comble le reste, sans jamais écraser un texte
+  // existant.
+  describe('EXTRA_EDITORIAL', () => {
+    const CHAMPS = ['anecdote', 'fabrication', 'conservation', 'service'] as const
+
+    it('ne vise que des fromages du jeu généré', () => {
+      const generes = new Set(CHEESES.map((c) => c.id))
+      const orphelins = Object.keys(EXTRA_EDITORIAL).filter((id) => !generes.has(id))
+      expect(orphelins).toEqual([])
+    })
+
+    it('n’écrase aucun texte déjà écrit par le handoff', () => {
+      const collisions: string[] = []
+      for (const [id, textes] of Object.entries(EXTRA_EDITORIAL)) {
+        const source = CHEESES.find((c) => c.id === id)
+        for (const champ of Object.keys(textes)) {
+          if (source?.[champ as (typeof CHAMPS)[number]]) collisions.push(`${id}.${champ}`)
+        }
+      }
+      expect(collisions).toEqual([])
+    })
+
+    it('donne à chaque entrée générée fabrication, conservation et service', () => {
+      const manquants = ALL_CHEESES.filter(
+        (c) => CHEESES.some((g) => g.id === c.id) && (!c.fabrication || !c.conservation || !c.service),
+      ).map((c) => c.id)
+      expect(manquants).toEqual([])
+    })
+
+    // L'anecdote est le seul champ qu'on laisse vide : c'est un fait, et
+    // treize entrées générées n'ont pas de source où le prendre — onze sans
+    // article Wikipédia, la tomme d'Abondance appariée par erreur à l'article
+    // de la tomme de Savoie, et le pavin dont l'article tient en une phrase
+    // déjà reprise dans son histoire.
+    it('laisse sans anecdote les seules fiches sans source, et pas d’autres', () => {
+      const sansAnecdote = ALL_CHEESES.filter(
+        (c) => CHEESES.some((g) => g.id === c.id) && !c.anecdote,
+      ).map((c) => c.id)
+      expect(sansAnecdote.sort()).toEqual([
+        'claousou',
+        'comtomme',
+        'couronne-lozerienne',
+        'galet-loire',
+        'margot',
+        'pavin',
+        'tomme-abondance',
+        'tomme-belledonne',
+        'tomme-champsaur2',
+        'tomme-chevre-vercors',
+        'tomme-tarentaise',
+        'tomme-trieves',
+        'tommette-chevre-lyonnais',
+      ])
+    })
+
+    it('recolle bien les textes sur le jeu final', () => {
+      const salers = ALL_CHEESES.find((c) => c.id === 'salers')
+      expect(salers?.fabrication).toContain('gerle')
+      // Le reblochon vient complet du handoff : son texte doit être intact.
+      const reblochon = ALL_CHEESES.find((c) => c.id === 'reblochon')
+      expect(reblochon?.anecdote).toContain('re-blocher')
+    })
   })
 
   it('rattache les fromages bourguignons et comtois à leur région', () => {
