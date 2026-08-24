@@ -41,8 +41,8 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 | <img src="docs/screenshots/accords.png" alt="Accords mets et boissons" width="240"> | <img src="docs/screenshots/decoupe.png" alt="Guide de découpe" width="240"> | <img src="docs/screenshots/calendrier.png" alt="Calendrier des saisons" width="240"> |
 |                       **🏅 Appellations**                       |                     **📖 Encyclopédie**                     |                      **💾 Import / Export**                      |
 | <img src="docs/screenshots/appellations.png" alt="Appellations" width="240"> | <img src="docs/screenshots/encyclopedie.png" alt="Encyclopédie" width="240"> | <img src="docs/screenshots/import-export.png" alt="Import / Export de la base" width="240"> |
-|                     **⚖️ Mentions légales**                     |                                                             |                                                                  |
-| <img src="docs/screenshots/mentions-legales.png" alt="Mentions légales" width="240"> |  |  |
+|                     **⚖️ Mentions légales**                     |               **🔪 Le geste, pas à pas** (détail d'une méthode)              |                                                                  |
+| <img src="docs/screenshots/mentions-legales.png" alt="Mentions légales" width="240"> | <img src="docs/screenshots/decoupe-methode.png" alt="Guide d'une méthode de découpe" width="240"> |  |
 
 </details>
 
@@ -53,12 +53,12 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 | Écran | Rôle |
 | --- | --- |
 | 🏠 **Accueil** | Fromage à la une, carte miniature, sélections de saison et populaires |
-| 🧀 **Fiche détaillée** | Photo Wikimedia, intensité, notes aromatiques, carte d'identité, accords |
+| 🧀 **Fiche détaillée** | Photo Wikimedia, intensité, notes aromatiques, carte d'identité, accords, méthode de découpe et lien vers son guide |
 | 🗺️ **Carte de France** | Points par département, filtres AOP / lait / pâte |
 | 🔍 **Recherche** | Plein texte sur nom, notes, région, appellation + filtres lait |
 | ❤️ **Favoris** | Listes multiples, création et suppression, ajout depuis n'importe quelle fiche |
 | 🍷 **Accords mets & boissons** | Suggestions automatiques par famille (vins, bières, cidres, miel…) |
-| 🔪 **Découpe** | Le bon geste selon la forme du fromage |
+| 🔪 **Découpe** | Six méthodes ; chacune s'ouvre sur son geste pas à pas et la liste cliquable des fromages qu'elle concerne |
 | 📅 **Calendrier des saisons** | Les fromages à leur apogée, mois par mois |
 | 🏅 **Appellations** | AOP et IGP réels ; Label Rouge et Bio déduits de la famille et de l'intensité, à titre indicatif |
 | 📖 **Encyclopédie** | Articles de fond : histoire, fabrication, affinage, races laitières |
@@ -248,7 +248,42 @@ L'écran **Import / Export** ouvre sur une carte « Version de l'application » 
 
 ## 🧮 Logique métier
 
-Portée fidèlement dans `src/lib/` depuis le prototype de référence : parsing des saisons (`season.ts`), suggestions d'accords (`accords.ts`), appellations (`appellations.ts`), recherche plein texte (`search.ts`), favoris multi-listes avec migration (`favorites-storage.ts`).
+Portée fidèlement dans `src/lib/` depuis le prototype de référence : parsing des saisons (`season.ts`), suggestions d'accords (`accords.ts`), appellations (`appellations.ts`), recherche plein texte (`search.ts`), favoris multi-listes avec migration (`favorites-storage.ts`), méthodes de découpe (`decoupe.ts`, `decoupe-guide.ts`).
+
+### 🔪 Méthode de découpe d'une fiche
+
+Aucune fiche ne porte sa méthode de découpe, et aucune ne le fera : `forme` est du texte libre, écrit fiche par fiche (« Disque », « Meule à talon convexe », « Palet plié dans six à douze feuilles »…). La fiche **déduit** donc, dans `decoupeMatchFor()` (`src/lib/decoupe.ts`), laquelle des six méthodes de l'écran Découpe la concerne, et l'affiche en disant de quel champ elle vient — « Méthode déduite de la forme (« Disque »), à titre indicatif » — comme les badges Label Rouge et Bio, qui sont eux aussi des déductions.
+
+L'ordre des règles, du plus sûr au plus général :
+
+| Test | Champ lu | Méthode |
+| --- | --- | --- |
+| Fromage frais, fromage fort, lactosérum, pâte fondue, caillé — ou une forme qui nomme son contenant (pot, bocal, bol…) | `famille`, `forme` | **aucune** : ces fromages ne se coupent pas |
+| Famille persillée | `famille` | Roquefort & pâtes persillées |
+| « À la cuillère » dans le texte *Comment le servir* | `service` | Cœurs coulants & carrés |
+| Carré, pavé, brique, cœur, triangle… | `forme` | Cœurs coulants & carrés |
+| Bûche, pyramide, tronc de cône, bonde, tonnelet… | `forme` | Bûches & pyramides de chèvre |
+| Au moins 1,5 kg — ou, à défaut de poids renseigné, une forme qui dit « meule », « fourme » ou « roue » | `poids`, `forme`, `famille` | Comté & grandes meules, ou Brie & grandes pointes molles si la pâte est molle |
+| Tout le reste | `forme` | Camembert & petits ronds fleuris |
+
+Deux choix méritent d'être connus avant d'y toucher :
+
+- **Le poids tranche entre « meule » et « petit rond »**, pas le mot « meule » de la forme : la tomme d'Annot (0,6 kg) se coupe comme un camembert, la tomme de Savoie (1,5 kg) s'achète à la coupe. Le seuil est `GRANDE_MEULE_KG`.
+- **Le texte « Comment le servir » l'emporte sur la forme** quand il parle de cuillère. Il est écrit à la main depuis une source : l'époisses est un « Disque », mais personne ne le coupe en parts.
+
+**L'écran Découpe se sert du même classement.** Les six méthodes n'ont pas de liste d'exemples écrite à la main : `decoupeGroups()` range la base active — fromages importés compris — sous chacune d'elles, et l'écran affiche trois noms plus le compte des autres. Les trois noms sont les **AOP d'abord**, faute d'un meilleur signe de notoriété dans les données, puis l'ordre alphabétique. Un fromage ne peut donc plus être cité sous une méthode que sa propre fiche contredit, et un test le vérifie — le handoff en citait trois dans ce cas (saint-marcellin, saint-félicien, brillat-savarin).
+
+**Vingt fiches n'affichent aucun bloc Découpe** — les six fromages forts, les fromages frais, la cancoillotte, le brocciu, la caillebotte, la tome fraîche de l'Aubrac, et le halbran dont la forme n'est pas renseignée. Inventer un geste pour eux serait pire que de se taire. La liste est figée par un test (`src/lib/decoupe.test.ts`), pour qu'elle ne s'allonge pas en silence.
+
+### 🔪 Le guide d'une méthode
+
+Chaque carte de l'écran Découpe s'ouvre : `DecoupeMethodScreen` donne le principe du geste, **pourquoi** c'est celui-là (ce que la découpe répartit, et ce qu'elle confisque au premier servi), les **quatre temps du geste** — la forme, la lame, le premier coup, les parts —, ce qu'il faut éviter, la particularité de la famille, puis **tous les fromages concernés**, chaque nom ouvrant sa fiche.
+
+Les quatre temps sont aussi dessinés : `DecoupeStepDiagram` (`src/components/icons/DecoupeSteps.tsx`) reprend le vocabulaire graphique des icônes de méthode — pâte claire, traits d'accent, coupes en pointillés — et y ajoute la lame, en gris neutre pour qu'on ne la prenne pas pour une coupe, et la part servie, remplie de la teinte secondaire.
+
+⚠️ **Ces textes ne sont pas des données.** Ils vivent dans `src/lib/decoupe-guide.ts` et sont écrits pour ce projet : ce sont des consignes de service, pas des faits extraits d'une source, et ils ne disent rien d'un fromage en particulier — seule sa fiche le fait. C'est la seule prose du projet dans ce cas, et elle est tenue à l'écart de `src/data/` pour cette raison.
+
+**La fiche y mène, et le retour y revient.** Le bloc Découpe d'une fiche est un bouton (« Comment découper ce fromage ? ») : il ouvre la méthode et mémorise la fiche dans `state.decoupeFrom`, parce que l'écran Découpe est *sous* la fiche dans la pile (z-18 contre z-20) et qu'il faut donc fermer celle-ci pour le montrer. Le retour de l'écran de méthode rouvre alors la fiche au lieu de retomber sur la liste. Depuis la liste des fromages concernés, en revanche, une fiche s'empile normalement par-dessus.
 
 ## 💾 Import / Export de la base de fromages
 

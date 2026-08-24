@@ -390,6 +390,71 @@
   line-height: 1.5;
 }
 
+/* Les cartes Conservation / Comment le servir n'ont pas de marge basse :
+   le titre Découpe, qui les suit, pose la sienne. */
+.decoupeTitle {
+  margin-top: 26px;
+}
+
+/* Même carte que l'écran Découpe, à la largeur de la fiche. */
+.decoupeCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 26px;
+  display: flex;
+  gap: 15px;
+  /* Toute la carte ouvre le guide de la méthode. */
+  width: 100%;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.decoupeCard:active {
+  background: var(--color-neutral-100);
+}
+.decoupeOpen {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-accent-700);
+}
+.decoupeDiagram {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: var(--color-neutral-100);
+  display: grid;
+  place-items: center;
+}
+.decoupeBody {
+  flex: 1;
+  min-width: 0;
+}
+.decoupeShape {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 16px;
+  line-height: 1.15;
+}
+.decoupeRule {
+  font-size: 13.5px;
+  color: var(--color-neutral-800);
+  line-height: 1.55;
+  margin-top: 6px;
+}
+.decoupeNote {
+  font-size: 12px;
+  color: var(--color-neutral-600);
+  margin-top: 8px;
+}
+
 .priceRow {
   display: flex;
   gap: 12px;

@@ -1,7 +1,8 @@
 // Ported from Component.renderVals() in the design handoff prototype: all
 // the derived/computed collections that feed the screens (deco, seasonal,
 // mapDots, searchResults, favoris, listsOverview, sheetLists, calMonths,
-// appList, accordsCats).
+// appList, accordsCats), plus decoupeMethods, qui n'existait pas dans le
+// prototype : ses exemples y étaient écrits à la main.
 import { useMemo } from 'react'
 import { FR_XY } from '../data/fr-map'
 import type { Cheese } from '../data/cheese.types'
@@ -12,6 +13,7 @@ import { currentSeasonName, seasonMonths, MONTH_NAMES } from '../lib/season'
 import { searchCheeses } from '../lib/search'
 import { appellationsOf, appBadge, type AppellationBadge } from '../lib/appellations'
 import { accordsDefs, type AccordCategory } from '../lib/accords'
+import { decoupeGroups, type DecoupeGroup } from '../lib/decoupe'
 
 export interface DecoratedCheese extends Cheese {
   initial: string
@@ -197,6 +199,8 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[], che
     return accordsDefs().map((cat) => ({ ...cat, items: deco.filter(cat.match).slice(0, 10) }))
   }, [deco])
 
+  const decoupeMethods = useMemo<DecoupeGroup<DecoratedCheese>[]>(() => decoupeGroups(deco), [deco])
+
   return {
     deco,
     byId,
@@ -216,5 +220,6 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[], che
     calMonths,
     appList,
     accordsCats,
+    decoupeMethods,
   }
 }

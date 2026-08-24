@@ -4,12 +4,62 @@ Note de passage de relais entre sessions. Ce qui est **à faire**, ce qui est
 **déjà fait**, et les pièges rencontrés. Le fonctionnement du projet lui-même
 est documenté dans [README.md](README.md) — ce fichier ne le répète pas.
 
-Dernière mise à jour : **22/08/2026**, après l'ajout des Pays de la Loire.
-Base à **216 fiches, 13 régions** : **la métropole est complète.**
+Dernière mise à jour : **24/08/2026**, après le branchement de la découpe sur
+les fiches et l'ouverture du guide de découpe. Base à **216 fiches, 13 régions** : **la métropole est complète.**
 
 ---
 
 ## ✅ Ce qui vient d'être fait
+
+**Chaque fiche affiche sa méthode de découpe.** L'écran Découpe existait depuis
+le handoff et n'avait jamais bougé : six méthodes statiques, sans aucun lien
+avec la base. `decoupeMatchFor()` (`src/lib/decoupe.ts`) déduit maintenant, de
+`forme` — appuyée par `famille`, `poids` et le texte *Comment le servir* —
+laquelle des six concerne un fromage, et la fiche l'affiche sous « Comment le
+servir » **en disant de quel champ elle vient**. Les règles sont dans le README
+(« Méthode de découpe d'une fiche ») ; ce qui suit est ce qu'il faut savoir
+avant d'y toucher.
+
+**Vingt fiches n'ont volontairement pas de méthode** : fromages frais, fromages
+forts, cancoillotte, brocciu, caillebotte, tome fraîche de l'Aubrac, et le
+halbran dont la forme n'est pas renseignée. Ils se mangent à la cuillère ou se
+tartinent — leur inventer un geste serait pire que de se taire. La liste est
+figée par un test, comme celle des fiches sans anecdote.
+
+**L'écran Découpe se sert du même classement**, et ses listes d'exemples ne
+sont plus écrites à la main. Elles l'étaient depuis le handoff, et trois des
+dix-huit noms contredisaient les fiches : le saint-marcellin et le
+saint-félicien illustraient « ronds » et « brie » alors que leur texte de
+service dit la cuillère, et le brillat-savarin était rangé dans « brie » alors
+que c'est un petit cylindre de 200 g. `decoupeGroups()` range maintenant la
+base sous les six méthodes ; l'écran montre trois noms — **les AOP d'abord,
+faute d'un meilleur signe de notoriété dans les données**, puis l'ordre
+alphabétique — et le compte des autres. Un test interdit qu'un fromage soit
+cité sous une méthode que sa fiche contredit. La capture
+`docs/screenshots/decoupe.png` est régénérée.
+
+**Chaque méthode s'ouvre maintenant sur son guide.** `DecoupeMethodScreen`
+donne le principe, le pourquoi, les quatre temps du geste — dessinés par
+`DecoupeStepDiagram` —, ce qu'il faut éviter, la particularité de la famille,
+et la liste complète des fromages concernés, chaque nom ouvrant sa fiche. La
+fiche y mène par un bouton « Comment découper ce fromage ? », et le retour
+ramène à la fiche : c'est à quoi sert `state.decoupeFrom`, l'écran Découpe
+étant *sous* la fiche dans la pile (z-18 contre z-20).
+
+⚠️ **Le texte du guide n'est pas une donnée**, et c'est la seule prose du
+projet dans ce cas. `src/lib/decoupe-guide.ts` contient des consignes de
+service écrites pour l'application, pas des faits sourcés — d'où sa place dans
+`src/lib/` et non dans `src/data/`, et le soin à ne rien y affirmer sur un
+fromage nommé. La règle « ne jamais écrire une fiche sur une intuition » vaut
+pour les fiches ; celle-ci vaut ici : **ne jamais faire passer une consigne de
+service pour un fait de terroir.**
+
+**Deux règles de classement à ne pas défaire** : c'est le **poids** qui sépare
+la grande meule (achetée à la coupe, servie « à la pointe ») du petit rond
+coupé en parts, et non le mot « meule » de la forme — sans quoi la tomme
+d'Annot (0,6 kg) se couperait comme un comté. Et le texte **« Comment le
+servir » l'emporte sur la forme** quand il parle de cuillère : l'époisses est
+un « Disque », mais personne ne le coupe en parts.
 
 **Les Pays de la Loire sont en place, et c'était la dernière région
 métropolitaine.** 9 fiches dans `src/data/cheeses-pays-de-la-loire.ts`, dont
@@ -146,7 +196,25 @@ Si une région devait tout de même être ajoutée, le moule est stable :
 README dit quels quatre fichiers brancher — plus le test de région dans
 `dataset.test.ts`, qui en fait cinq.
 
-### 2. Complétude des fiches existantes
+### 2. Le guide de découpe peut aller plus loin
+
+Trois pistes, par ordre d'intérêt :
+
+- **Animer les quatre temps.** Ils sont dessinés mais figés :
+  `DecoupeStepDiagram` rend l'étape demandée, une transition entre les quatre
+  serait un ajout purement visuel, sans nouvelle donnée.
+- **Descendre sous la famille.** Les six méthodes couvrent les 196 fiches
+  classées, mais une pyramide et une bûche partagent aujourd'hui le même guide
+  alors que le geste diffère (tranches dans la hauteur contre rondelles). Un
+  deuxième niveau, par forme plutôt que par famille, tiendrait dans la même
+  mécanique : `decoupeMatchFor` renvoie déjà le champ qui a décidé.
+- **Le cas des carrés.** « Cœurs coulants & carrés » réunit deux gestes sous un
+  nom : la calotte et la cuillère pour les coulants, les bandes parallèles pour
+  les carrés. Les schémas montrent le premier, la particularité décrit le
+  second. Scinder la méthode se ferait dans `decoupeDefs()` et
+  `decoupeMatchFor()`, mais changerait les six identifiants figés par les tests.
+
+### 3. Complétude des fiches existantes
 
 Au 22/08 : photo sur **138/216**, résumé Wikipédia sur **163/216**. Le texte
 n'est plus le point faible — les 216 fiches ont toutes fabrication,
@@ -181,14 +249,14 @@ du Perche, Dinant en Belgique pour la chèvre de la Woëvre. Chaque candidat doi
 Les combler suppose une autre source d'images, avec la question de licence qui
 va avec — c'est un choix de projet, pas une tâche mécanique.
 
-### 3. La doc qui manque
+### 4. La doc qui manque
 
 `DOCUMENTATION_SPEC.md` demande une FAQ, un guide de dépannage, un changelog
 utilisateur, les limites connues et les procédures de support. Aucun des cinq
 n'existe : tout est dans le README, qui est un document de développeur. C'est
 le principal écart au standard qu'on vient de se donner.
 
-### 4. Politique de confidentialité
+### 5. Politique de confidentialité
 
 Délibérément non créée, l'application ne collectant rien. La section « Données
 personnelles » des mentions légales en tient lieu et sert de point d'accroche

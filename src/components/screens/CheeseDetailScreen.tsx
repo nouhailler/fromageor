@@ -1,12 +1,13 @@
 import { useMemo } from 'react'
-import { ChevronLeft, ExternalLink, Heart } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ExternalLink, Heart } from 'lucide-react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
 import { regionName } from '../../lib/region-lookup'
+import { decoupeMatchFor } from '../../lib/decoupe'
 import { ImagePlaceholder } from '../ui/ImagePlaceholder'
 import { LabelBadge } from '../ui/LabelBadge'
 import { FranceMap } from '../map/FranceMap'
-import { LightbulbIcon } from '../icons/MiscIcons'
+import { LightbulbIcon, ShearsIcon } from '../icons/MiscIcons'
 import styles from './CheeseDetailScreen.module.css'
 
 export function CheeseDetailScreen() {
@@ -68,6 +69,19 @@ export function CheeseDetailScreen() {
       ['Pains', a.pain],
     ] as [string, string | undefined][]
   ).filter((r): r is [string, string] => !!r[1])
+
+  // Aucune fiche ne porte sa méthode de découpe : elle se déduit de la forme
+  // (voir decoupeMatchFor). Absente pour les fromages qui ne se coupent pas.
+  const decoupe = decoupeMatchFor(c)
+  const decoupeBasis = decoupe
+    ? {
+        // Espaces insécables : le guillemet fermant ne doit pas tomber seul
+        // à la ligne suivante.
+        forme: `la forme («\u00a0${c.forme}\u00a0»)`,
+        famille: `la famille («\u00a0${c.famille}\u00a0»)`,
+        service: 'le service, à la cuillère',
+      }[decoupe.basis]
+    : ''
 
   const n = c.nutrition || {}
   const nutritionCells = (
@@ -311,6 +325,33 @@ export function CheeseDetailScreen() {
               </div>
             )}
           </div>
+        )}
+
+        {decoupe && (
+          <>
+            <h2 className={`${styles.sectionTitle} ${styles.decoupeTitle}`}>Découpe</h2>
+            <button
+              type="button"
+              className={styles.decoupeCard}
+              onClick={() => actions.openDecoupeMethodFromCheese(decoupe.method.id, c.id)}
+            >
+              <div className={styles.decoupeDiagram}>
+                <decoupe.method.Diagram />
+              </div>
+              <div className={styles.decoupeBody}>
+                <div className={styles.decoupeShape}>{decoupe.method.shape}</div>
+                <div className={styles.decoupeRule}>{decoupe.method.rule}</div>
+                <div className={styles.decoupeNote}>
+                  Méthode déduite de {decoupeBasis}, à titre indicatif.
+                </div>
+                <div className={styles.decoupeOpen}>
+                  <ShearsIcon size={15} />
+                  Comment découper ce fromage ?
+                  <ChevronRight size={15} strokeWidth={2.75} />
+                </div>
+              </div>
+            </button>
+          </>
         )}
 
         <div className={styles.priceRow}>

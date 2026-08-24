@@ -3,6 +3,7 @@ import { INITIAL_APP_STATE, type AppState, type Tab, type LaitFilter, type MapFi
 import { useFavoriteLists } from './useFavoriteLists'
 import * as favoritesLib from '../lib/favorites-storage'
 import type { FavoriteList } from '../lib/favorites-storage'
+import type { DecoupeMethodId } from '../lib/decoupe'
 
 // Every action in the reference Component is really just `this.setState(partial)`
 // — a shallow merge. We reproduce that exact mechanism instead of a switch
@@ -29,6 +30,9 @@ export interface AppActions {
   closeAccords: () => void
   openDecoupe: () => void
   closeDecoupe: () => void
+  openDecoupeMethod: (id: DecoupeMethodId) => void
+  openDecoupeMethodFromCheese: (id: DecoupeMethodId, cheeseId: string) => void
+  closeDecoupeMethod: () => void
   openCalendrier: () => void
   closeCalendrier: () => void
   openAppellations: () => void
@@ -87,8 +91,20 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
       openAccords: () => dispatch({ accords: true, menuOpen: false, selected: null }),
       closeAccords: () => dispatch({ accords: false }),
-      openDecoupe: () => dispatch({ decoupe: true, menuOpen: false, selected: null }),
-      closeDecoupe: () => dispatch({ decoupe: false }),
+      openDecoupe: () =>
+        dispatch({ decoupe: true, decoupeMethod: null, decoupeFrom: null, menuOpen: false, selected: null }),
+      closeDecoupe: () => dispatch({ decoupe: false, decoupeMethod: null, decoupeFrom: null }),
+      openDecoupeMethod: (id) => dispatch({ decoupeMethod: id }),
+      // Depuis une fiche : l'écran Découpe est sous la fiche dans la pile, il
+      // faut donc fermer celle-ci — d'où le chemin de retour mémorisé.
+      openDecoupeMethodFromCheese: (id, cheeseId) =>
+        dispatch({ decoupe: true, decoupeMethod: id, decoupeFrom: cheeseId, menuOpen: false, selected: null }),
+      closeDecoupeMethod: () =>
+        dispatch(
+          state.decoupeFrom
+            ? { decoupe: false, decoupeMethod: null, decoupeFrom: null, selected: state.decoupeFrom }
+            : { decoupeMethod: null },
+        ),
       openCalendrier: () => dispatch({ calendrier: true, menuOpen: false, selected: null }),
       closeCalendrier: () => dispatch({ calendrier: false }),
       openAppellations: () => dispatch({ appel: true, menuOpen: false, selected: null }),
@@ -131,7 +147,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       },
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.openList, state.newListName, state.sheetFor, setLists])
+  }, [state.openList, state.newListName, state.sheetFor, state.decoupeFrom, setLists])
 
   const value = useMemo<AppContextValue>(() => ({ state, lists, actions }), [state, lists, actions])
 
