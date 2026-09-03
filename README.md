@@ -10,7 +10,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 [![React](https://img.shields.io/badge/React-19-c67139?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-8-c67139?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-c67139?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vitest](https://img.shields.io/badge/Vitest-285%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
+[![Vitest](https://img.shields.io/badge/Vitest-394%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
 [![PWA](https://img.shields.io/badge/PWA-installable-7a8a5e?style=flat-square&logo=pwa&logoColor=white)](#-logo--icônes)
 [![Node](https://img.shields.io/badge/Node-%E2%89%A5%2022.12-7a8a5e?style=flat-square&logo=nodedotjs&logoColor=white)](.nvmrc)
 [![Netlify](https://img.shields.io/badge/Netlify-fromageor.netlify.app-8c491a?style=flat-square&logo=netlify&logoColor=white)](https://fromageor.netlify.app)
@@ -324,6 +324,152 @@ Un avertissement s'affiche **au tout premier lancement** ; sa validation est mé
 
 Ce système est volontairement autonome : le reprendre dans une autre PWA revient à copier `src/lib/legal-*.ts` et `src/components/legal/`, puis à réécrire le seul `legal-notice.ts`.
 
+## 📡 Mode hors connexion
+
+Le service worker (Workbox, généré par `vite-plugin-pwa`) précharge l'intégralité de l'application — écrans, styles, polices, icônes — au premier chargement (`globPatterns` dans `vite.config.ts`). Les 216 fiches elles-mêmes sont des données compilées dans le bundle JS, pas récupérées par une API : recherche, favoris, accords, découpe, calendrier, appellations et encyclopédie fonctionnent donc **entièrement hors connexion** dès la deuxième ouverture.
+
+| Fonction | Hors connexion | En ligne |
+| --- | :---: | :---: |
+| Navigation, fiches, recherche, favoris, découpe, calendrier, appellations, encyclopédie, mentions légales | ✅ | ✅ |
+| Import / export JSON (`localStorage`) | ✅ | ✅ |
+| Photos de fromages (Wikimedia Commons, Pexels) | ⚠️ selon le cache du navigateur | ✅ |
+| Vérification de mise à jour | ❌ (`runUpdateCheck` renvoie `'offline'`, sans erreur visible) | ✅ |
+
+⚠️ **Les photos ne sont pas mises en cache par le service worker** : `image`, `galleryImages` et `terroir` pointent vers `upload.wikimedia.org` ou Pexels, hors du périmètre précaché. Une fiche déjà consultée en ligne peut donc réafficher un encart vide (`ImagePlaceholder`) si elle est rouverte hors connexion, selon que le navigateur a ou non gardé la photo dans son propre cache HTTP.
+
+**Il n'y a pas de synchronisation** (§ hors sujet ici) : aucun compte, aucun serveur, aucune file d'attente à réconcilier. Le seul mécanisme de transfert de données est l'export/import JSON manuel, décrit plus haut.
+
+## ❓ FAQ
+
+**Comment installer l'application ?**
+Ouvrir [fromageor.netlify.app](https://fromageor.netlify.app) dans le navigateur, puis utiliser sa fonction native d'installation : « Ajouter à l'écran d'accueil » (Chrome/Edge Android, Safari iOS) ou l'icône d'installation dans la barre d'adresse (Chrome/Edge desktop). Il n'y a pas de version en magasin d'applications.
+
+**L'application fonctionne-t-elle sans connexion Internet ?**
+Oui pour l'essentiel des écrans — voir [📡 Mode hors connexion](#-mode-hors-connexion). Seules les photos de fromages ont besoin du réseau.
+
+**Où sont stockées mes données (favoris, listes, fromages importés) ?**
+Uniquement sur l'appareil, dans le `localStorage` du navigateur. Rien n'est envoyé à un serveur — voir [⚖️ Mentions légales](#-mentions-légales--avertissement).
+
+**Comment exporter mes données ?**
+Menu latéral → Import / Export → *Export*, qui télécharge un JSON du jeu de données actif (fromages intégrés et import personnel fusionnés).
+
+**Comment ajouter mes propres fromages ?**
+Menu latéral → Import / Export → *Import*, en collant ou en chargeant un JSON conforme au schéma affiché à l'écran. Voir [💾 Import / Export](#-import--export-de-la-base-de-fromages).
+
+**Comment supprimer mes données ?**
+Depuis les réglages du navigateur : « Effacer les données de navigation » pour ce site. Il n'existe pas de bouton de réinitialisation dans l'application — voir [⚠️ Limites connues](#-limites-connues).
+
+**Pourquoi l'application ne demande-t-elle aucune permission (localisation, notifications…) ?**
+Elle n'en a besoin d'aucune : la carte de France est une silhouette SVG décorative, pas une géolocalisation réelle (`USES_GEOLOCATION = false`).
+
+**Pourquoi certaines fiches n'ont pas de photo ?**
+Faute de photo libre de droits trouvée pour ce fromage — voir [⚠️ Limites connues](#-limites-connues).
+
+**Pourquoi certaines fiches n'ont pas de bloc « Comment découper ce fromage ? » ?**
+20 fiches n'ont volontairement aucune méthode assignée (fromages frais, fromages forts, service à la cuillère…) — inventer un geste serait pire que de ne rien afficher. Voir [🔪 Méthode de découpe d'une fiche](#-méthode-de-découpe-dune-fiche).
+
+**Comment savoir si j'ai la dernière version installée ?**
+Menu latéral → Import / Export → carte « Version de l'application », avec un bouton pour vérifier tout de suite. Voir [🔢 Version installée](#-version-installée).
+
+**L'application couvre-t-elle les départements et régions d'outre-mer ?**
+Non : seules les 13 régions de la France métropolitaine sont couvertes à ce jour. Voir [⚠️ Limites connues](#-limites-connues).
+
+## 🛠️ Dépannage
+
+<details>
+<summary><b>L'application semble ne pas être à jour après un déploiement</b></summary>
+
+- **Symptôme** — un écran ou une donnée récemment ajoutée n'apparaît pas alors que le déploiement est annoncé terminé.
+- **Causes possibles** — l'onglet est resté ouvert sans repasser au premier plan ni se reconnecter depuis le déploiement ; ou le garde-fou anti-boucle (deux rechargements en moins de 10 min) vient d'ignorer un rechargement légitime.
+- **Diagnostic** — menu latéral → Import / Export → carte Version : comparer la date de build affichée à la date attendue du déploiement.
+- **Solution** — bouton « Rechercher une mise à jour » sur cette carte : il relance la vérification et lève le garde-fou anti-boucle pour l'occasion.
+- **Si le problème persiste** — fermer complètement l'onglet ou l'application, puis la rouvrir.
+- **Informations utiles au support** — version et date affichées, navigateur, appareil, état de la connexion.
+</details>
+
+<details>
+<summary><b>Une photo de fromage ne s'affiche pas</b></summary>
+
+- **Symptôme** — un encart gris avec une icône image à la place de la photo.
+- **Causes possibles** — ce fromage n'a pas (encore) de photo dans la base (voir Limites connues) ; ou une coupure réseau empêche le chargement depuis Wikimedia/Pexels, ces photos n'étant jamais embarquées dans l'application.
+- **Diagnostic** — vérifier la connexion réseau, recharger la fiche.
+- **Solution** — revenir en ligne. Si la fiche n'a jamais eu de photo, ce n'est pas une anomalie.
+- **Informations utiles au support** — nom du fromage, capture d'écran.
+</details>
+
+<details>
+<summary><b>Mes favoris ou mes fromages importés ont disparu</b></summary>
+
+- **Symptôme** — une liste de favoris vide, ou l'import personnel absent après une réouverture.
+- **Causes possibles** — données de navigation effacées, navigation privée (rien n'est conservé à la fermeture), ou changement de navigateur/appareil : il n'y a **aucune synchronisation**.
+- **Diagnostic** — vérifier si le navigateur était en navigation privée, ou si « Effacer les données de navigation » a été utilisé récemment.
+- **Solution** — aucune récupération n'est possible une fois le stockage local effacé. Exporter régulièrement ses données (Import / Export → Export) pour s'en prémunir.
+- **Informations utiles au support** — navigateur, mode privé ou non, date du dernier export connu.
+</details>
+
+<details>
+<summary><b>L'import JSON est refusé</b></summary>
+
+- **Symptôme** — un message d'erreur s'affiche au lieu de la confirmation d'import.
+- **Diagnostic** — comparer le fichier au schéma affiché sur l'écran Import / Export, ou télécharger son gabarit d'exemple depuis ce même écran.
+- **Solution** — corriger le ou les champs signalés, réessayer.
+
+| Message | Signification |
+| --- | --- |
+| `JSON invalide : le texte fourni ne peut pas être analysé.` | Le texte collé n'est pas du JSON syntaxiquement valide. |
+| `Format non reconnu : attendu un tableau de fromages, ou un objet { "region"?, "cheeses": [...] }.` | La racine du document n'est ni un tableau, ni un objet avec une clé `cheeses`. |
+| `"region" doit être un objet { "id": string, "name": string }.` | La clé `region`, si présente, ne respecte pas la forme attendue. |
+| `"<champ>" manquant ou vide` / `"<champ>" doit être un(e) …` | Un fromage du tableau ne respecte pas le schéma (`src/lib/cheese-schema.ts`) — ligne par ligne dans la liste d'erreurs affichée. |
+
+- **Informations utiles au support** — le fichier JSON en cause (sans données personnelles), la liste des erreurs affichées.
+</details>
+
+<details>
+<summary><b>L'avertissement de premier lancement réapparaît à chaque ouverture</b></summary>
+
+- **Symptôme** — la modale légale se réaffiche alors qu'elle a déjà été validée.
+- **Cause** — le navigateur n'a pas conservé `legal_notice_acknowledged` dans `localStorage` (navigation privée, ou réglage du navigateur qui efface le stockage à la fermeture).
+- **Solution** — désactiver cet effacement automatique pour ce site, ou accepter que l'avertissement réapparaisse en navigation privée : c'est le comportement attendu, pas un bug.
+</details>
+
+## 🕰️ Changelog
+
+L'application n'a pas de numéro de version publié — chaque build est identifié par sa date (voir [🔢 Version installée](#-version-installée)). Ce qui suit résume les changements visibles par l'utilisateur, du plus récent au plus ancien ; le détail technique de chaque changement est dans l'historique Git.
+
+| Date | Changements |
+| --- | --- |
+| 24/08/2026 | Chaque fiche affiche sa méthode de découpe ; les six méthodes de l'écran Découpe s'ouvrent sur un guide illustré (principe, geste en quatre temps, fromages concernés). |
+| 22/08/2026 | 31 fiches supplémentaires illustrées. **Pays de la Loire** ajoutée — treizième et dernière région métropolitaine (9 fiches) : la France métropolitaine est complète. **Provence-Alpes-Côte d'Azur** ajoutée (20 fiches). Passe éditoriale sur les 38 fiches du prototype initial (textes complétés). Correction : une marque commerciale n'est plus présentée comme une appellation, deux champs corrigés. |
+| 21/08/2026 | **Nouvelle-Aquitaine** ajoutée (19 fiches). |
+| 20/08/2026 | **Occitanie** ajoutée (14 fiches). Écran « Version de l'application ». Mentions légales déplacées dans leur propre écran, accessible depuis le menu. |
+| 19/08/2026 | Huit régions ajoutées d'un coup : Bourgogne-Franche-Comté, Bretagne, Centre-Val de Loire, Normandie, Hauts-de-France, Corse, Grand Est, Île-de-France. Mise à jour automatique de l'application en arrière-plan. Avertissement de premier lancement. Logo et icônes. |
+| 05/08/2026 | Photos et résumés Wikipédia ajoutés aux fiches. |
+| 04/08/2026 | Première version : écrans du prototype initial, une région (Auvergne-Rhône-Alpes, 50 fromages), import / export de la base, déploiement sur Netlify. |
+
+## ⚠️ Limites connues
+
+- **Couverture géographique** — 13 régions de France métropolitaine (216 fiches). L'outre-mer n'est pas couvert ; rien n'est décidé sur le sujet.
+- **Iconographie incomplète** — au 22/08/2026, 47 fiches sur 216 n'ont aucune image (78 avant la dernière passe d'illustration) ; 24 affichent une photo du pays du fromage plutôt que du fromage lui-même, toujours identifiée comme telle. Ces chiffres n'évoluent que par relecture manuelle, photo par photo — aucune banque d'images généraliste n'a de photo fiable des fromages manquants.
+- **18 fiches sans anecdote** (« le saviez-vous »), faute de source vérifiable pour ce champ précisément — délibéré, pas un oubli.
+- **Label Rouge et Bio sont des déductions indicatives** — calculées depuis la famille et l'intensité du fromage, pas des données officielles vérifiées fromage par fromage. Seules les mentions AOP et IGP sont des signes officiels réels.
+- **Méthode de découpe déduite, jamais déclarée** — 20 fiches n'en affichent aucune plutôt que d'inventer un geste (fromages frais, forts, service à la cuillère…).
+- **Aucun compte, aucune synchronisation** — les favoris et les imports d'un appareil ne se retrouvent pas sur un autre ; seul un export/import manuel permet de les transférer.
+- **Aucune suppression de données depuis l'interface** — les données locales s'effacent en vidant le stockage du navigateur, pas depuis un bouton de l'application.
+- **Photos hébergées à distance**, non mises en cache par le service worker : elles ne s'affichent pas hors connexion si elles n'ont jamais été chargées — voir [📡 Mode hors connexion](#-mode-hors-connexion).
+- **Carte de France décorative** — silhouette SVG à 47 points, pas un fond de carte géographique précis ; ni géolocalisation ni itinéraire réels.
+- **Compatibilité navigateur non vérifiée formellement** — l'application vise les navigateurs récents supportant les Service Workers et les modules ES ; aucune version minimale précise n'a été testée. À vérifier si une compatibilité garantie est requise.
+
+## 📩 Support
+
+Projet personnel, sans canal de support dédié ni délai de réponse garanti.
+
+| Pour | Où |
+| --- | --- |
+| Signaler un bug, une fiche incorrecte ou une suggestion | [github.com/nouhailler/fromageor/issues](https://github.com/nouhailler/fromageor/issues) |
+| Contacter l'éditeur | `contact@swinux.ch` (voir Mentions légales → Éditeur) |
+
+**À joindre dans un signalement** : la version affichée (Import / Export → Version de l'application), l'appareil et le navigateur utilisés, ce qui a été fait juste avant, et si possible une capture d'écran. Pour une fiche de fromage, préciser son nom exact.
+
 ## ☁️ Déploiement
 
 Le site est déployé sur Netlify : **[fromageor.netlify.app](https://fromageor.netlify.app)**. La configuration (commande de build, dossier de publication, en-têtes de cache) se trouve dans `netlify.toml`.
@@ -334,5 +480,5 @@ Le site est déployé sur Netlify : **[fromageor.netlify.app](https://fromageor.
 | --- | --- |
 | `README.md` | Ce fichier — fonctionnement du projet, données, scripts, écrans, déploiement |
 | `CONTEXT.md` | Note de passage de relais entre sessions : ce qui reste à faire et les pièges déjà rencontrés. **À lire avant d'ajouter une région ou une fiche.** |
-| `DOCUMENTATION_SPEC.md` | Le standard documentaire que le projet se donne. Son § 0 bis dit où en est réellement la doc : tout tient dans ce README, et FAQ, dépannage, changelog utilisateur, limites connues et procédures de support restent à écrire |
+| `DOCUMENTATION_SPEC.md` | Le standard documentaire que le projet se donne. Son § 0 bis dit où en est réellement la doc |
 | `CLAUDE.md` | Contexte projet pour Claude Code, qui renvoie aux trois précédents |

@@ -249,12 +249,14 @@ du Perche, Dinant en Belgique pour la chèvre de la Woëvre. Chaque candidat doi
 Les combler suppose une autre source d'images, avec la question de licence qui
 va avec — c'est un choix de projet, pas une tâche mécanique.
 
-### 4. La doc qui manque
+### 4. La doc qui manquait — fait le 03/09/2026
 
-`DOCUMENTATION_SPEC.md` demande une FAQ, un guide de dépannage, un changelog
-utilisateur, les limites connues et les procédures de support. Aucun des cinq
-n'existe : tout est dans le README, qui est un document de développeur. C'est
-le principal écart au standard qu'on vient de se donner.
+`DOCUMENTATION_SPEC.md` demandait une FAQ, un guide de dépannage, un
+changelog utilisateur, les limites connues et les procédures de support.
+Les cinq sont maintenant dans le README (`/doc full`), avec en plus une
+section « Mode hors connexion » repérée pendant l'audit — le service worker
+précache l'application mais pas les photos distantes (Wikimedia/Pexels), ce
+qui n'était documenté nulle part.
 
 ### 5. Politique de confidentialité
 

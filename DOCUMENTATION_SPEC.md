@@ -15,19 +15,23 @@ lu et appliqué par Claude Code. Il est versionné avec le code (voir §35).
 # 0 bis. ÉTAT D'APPLICATION DANS CE PROJET
 
 Cette spec est déposée à la racine le 21/08/2026 comme référence à atteindre,
-et non comme description de l'existant. À la date du dépôt :
+et non comme description de l'existant. Mise à jour le 03/09/2026, après que
+`/doc full` a comblé les cinq sections listées ci-dessous comme absentes :
 
 - La documentation du projet tient **entièrement dans `README.md`**, complété
   par `CONTEXT.md` (note de passage de relais entre sessions). Il n'y a pas de
   site documentaire ni d'arborescence `docs/` — `docs/` ne contient que les
   captures d'écran.
-- Sont donc **couverts** : installation, lancement, navigation, architecture,
-  données, écrans, hors connexion, mise à jour PWA, mentions légales, captures.
-- Sont **absents** et restent à écrire : FAQ, dépannage, changelog utilisateur,
-  procédures de support, limites connues.
+- Sont **couverts** : installation, lancement, navigation, architecture,
+  données, écrans, hors connexion, mise à jour PWA, mentions légales, captures,
+  FAQ, dépannage, changelog utilisateur, limites connues, procédures de
+  support.
 - L'application ne collecte aucune donnée : la politique de confidentialité est
   délibérément remplacée par la section « Données personnelles » des mentions
   légales (voir `CONTEXT.md`).
+- Reste **non déterminable sans action humaine** : les versions minimales de
+  navigateurs réellement supportées (aucun test de compatibilité formel n'a
+  été mené) — marqué « À vérifier » dans le README.
 
 Les §§ qui décrivent une arborescence de site documentaire s'entendent donc,
 pour ce projet, comme des **sections de `README.md`** tant que la doc n'est pas
