@@ -361,8 +361,10 @@ npm test && npm run lint && npm run typecheck && npm run build
 Node **22** est requis (`.nvmrc`) : sous Node 20, jsdom casse au démarrage de
 vitest avec `webidl.util.markAsUncloneable is not a function`.
 
-`npm run lint` sort 13 avertissements `only-export-components` sur les fichiers
-d'icônes et deux contextes — ils préexistent, il n'y a pas d'erreur.
+`npm run lint` sort 59 avertissements `only-export-components` — 13 préexistants
+(fichiers d'icônes et deux contextes) et 46 dans `docs-site/content/**`, chaque
+page y exportant `meta` à côté de son composant par conception (voir §37 de
+`DOCUMENTATION_SPEC.md` et le README, section documentation). Aucune erreur.
 
 Les captures se régénèrent avec `scripts/screenshots.mjs`, dont Playwright
 n'est pas une dépendance du projet — voir la section « Logo & icônes » du

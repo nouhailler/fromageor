@@ -141,7 +141,7 @@ export function Drawer() {
           </div>
           <div className={styles.divider} />
           <a
-            href="https://github.com/nouhailler/fromageor#readme"
+            href="/docs/"
             target="_blank"
             rel="noreferrer"
             className={styles.navItem}

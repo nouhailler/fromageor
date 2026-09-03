@@ -76,6 +76,14 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // Le site de documentation (docs-site/, généré à part par
+        // scripts/build-docs.mjs dans dist/docs/) n'est pas l'application :
+        // il ne doit jamais entrer dans le précache PWA...
+        globIgnores: ['docs/**'],
+        // ...ni être intercepté par le fallback SPA du service worker, qui
+        // sinon sert le shell de l'application (index.html) à toute
+        // navigation vers /docs/*, y compris sur un premier chargement direct.
+        navigateFallbackDenylist: [/^\/docs\//],
       },
     }),
   ],
