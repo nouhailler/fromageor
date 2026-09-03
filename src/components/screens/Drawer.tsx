@@ -1,4 +1,4 @@
-import { X, Home, MapPin, Search, Heart, Database, Scale } from 'lucide-react'
+import { X, Home, MapPin, Search, Heart, Database, Scale, BookOpen } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
@@ -139,6 +139,19 @@ export function Drawer() {
           <div className={styles.footer}>
             Encyclopédie du terroir fromager français. {deco.length}&nbsp;fiches, {regions.length}&nbsp;régions.
           </div>
+          <div className={styles.divider} />
+          <a
+            href="https://github.com/nouhailler/fromageor#readme"
+            target="_blank"
+            rel="noreferrer"
+            className={styles.navItem}
+            style={{ background: 'transparent', color: 'var(--color-text)' }}
+          >
+            <span className={styles.navItemIcon}>
+              <BookOpen size={22} strokeWidth={2.75} />
+            </span>
+            Documentation
+          </a>
         </div>
       </div>
     </div>

@@ -64,7 +64,7 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 | 📖 **Encyclopédie** | Articles de fond : histoire, fabrication, affinage, races laitières |
 | 💾 **Import / Export** | Sauvegarde et extension de la base depuis l'interface |
 | ⚖️ **Mentions légales** | Avertissement, limitation de responsabilité, éditeur |
-| ☰ **Menu latéral** | Navigation transverse + compteur par région |
+| ☰ **Menu latéral** | Navigation transverse, compteur par région, lien vers cette documentation tout en bas |
 
 ## 🧱 Stack
 
@@ -469,6 +469,8 @@ Projet personnel, sans canal de support dédié ni délai de réponse garanti.
 | Contacter l'éditeur | `contact@swinux.ch` (voir Mentions légales → Éditeur) |
 
 **À joindre dans un signalement** : la version affichée (Import / Export → Version de l'application), l'appareil et le navigateur utilisés, ce qui a été fait juste avant, et si possible une capture d'écran. Pour une fiche de fromage, préciser son nom exact.
+
+Ce README est aussi accessible **depuis l'application** : menu latéral → tout en bas → « Documentation » (`src/components/screens/Drawer.tsx`), qui ouvre ce fichier sur GitHub dans un nouvel onglet.
 
 ## ☁️ Déploiement
 
