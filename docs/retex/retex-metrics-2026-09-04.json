@@ -1,0 +1,109 @@
+{
+  "project": "fromageor",
+  "generatedAt": "2026-09-04",
+  "scope": "tout l'historique",
+  "git": {
+    "firstCommit": "2026-08-04",
+    "lastCommit": "2026-09-04",
+    "calendarDays": 32,
+    "activeDays": 9,
+    "totalCommits": 36,
+    "commitsByMonth": {
+      "2026-08": 32,
+      "2026-09": 4
+    },
+    "commitsByDay": {
+      "2026-08-04": 4,
+      "2026-08-05": 3,
+      "2026-08-19": 13,
+      "2026-08-20": 5,
+      "2026-08-21": 1,
+      "2026-08-22": 5,
+      "2026-08-24": 1,
+      "2026-09-03": 3,
+      "2026-09-04": 1
+    },
+    "hotspots": [
+      { "file": "README.md", "revisions": 29 },
+      { "file": "src/data/dataset.ts", "revisions": 15 },
+      { "file": "src/data/dataset.test.ts", "revisions": 15 },
+      { "file": "src/data/regions.ts", "revisions": 11 },
+      { "file": "src/data/cheeses-extra-media.ts", "revisions": 11 },
+      { "file": "scripts/enrich-wikipedia-extra.mjs", "revisions": 11 },
+      { "file": "CONTEXT.md", "revisions": 10 },
+      { "file": "scripts/enrich-wikipedia.mjs", "revisions": 9 },
+      { "file": "src/components/screens/Drawer.tsx", "revisions": 8 },
+      { "file": "src/data/cheeses-extra.ts", "revisions": 7 },
+      { "file": "src/components/screens/CheeseDetailScreen.tsx", "revisions": 7 },
+      { "file": "vite.config.ts", "revisions": 6 },
+      { "file": "src/data/cheeses.ts", "revisions": 6 }
+    ],
+    "fixRatio": 0.056,
+    "fixRatioNote": "plancher — proxy par mots-clés de titre de commit, sous-compte le rework réel documenté dans CONTEXT.md",
+    "reverts": 0,
+    "longestGapDays": 14,
+    "longestGapRange": ["2026-08-05", "2026-08-19"],
+    "secondGapDays": 10,
+    "secondGapRange": ["2026-08-24", "2026-09-03"],
+    "authors": {
+      "nouhailler <patrick.nouhailler@gmail.com>": 32,
+      "Patrick <patrick.nouhailler@gmail.com>": 3,
+      "Claude <noreply@anthropic.com>": 1
+    }
+  },
+  "claudeCode": {
+    "coverage": "partielle",
+    "coverageNote": "logs locaux disponibles seulement à partir de 2026-08-19T12:45Z ; les 7 premiers commits (04-05 août) n'ont aucune session associée retrouvée ; la journée du 2026-09-04 est en cours au moment de l'extraction (ce RETEX y contribue)",
+    "sessions": 7,
+    "messages": 2378,
+    "period": { "first": "2026-08-19T12:45:05.060Z", "last": "2026-09-04T14:55:10.645Z" },
+    "tokens": {
+      "input": 4746,
+      "output": 2838573,
+      "cacheCreate": 10244200,
+      "cacheRead": 623105430
+    },
+    "cacheReadShare": 0.98,
+    "byModel": {
+      "claude-opus-5": { "input": 3518, "output": 2313856, "cacheCreate": 5845867, "cacheRead": 411566537 },
+      "claude-sonnet-5": { "input": 1228, "output": 524717, "cacheCreate": 4398333, "cacheRead": 211538893 }
+    },
+    "byMonth": {
+      "2026-08": 419729778,
+      "2026-09": 216463171
+    },
+    "byDay": {
+      "2026-08-19": 160771376,
+      "2026-08-20": 59799119,
+      "2026-08-21": 33805824,
+      "2026-08-22": 126367197,
+      "2026-08-24": 38986262,
+      "2026-09-03": 136387937,
+      "2026-09-04": 80075234
+    }
+  },
+  "whatWorked": [
+    "Taux correctif mesuré bas (5,6 %) et zéro revert sur 36 commits.",
+    "Objectif initial (une région + ossature extensible) tenu intégralement jusqu'à la 13e région, sans refonte d'architecture de données.",
+    "98 % des tokens traités servis par le cache-read — coût marginal réel proche de 13,1 M sur 636,2 M traités.",
+    "Méthode de sourcing rigoureuse maintenue (catégories Wikipédia, jamais d'intuition) malgré son coût token direct — compromis qualité/coût assumé.",
+    "CONTEXT.md tenu à jour en continu (10 révisions) comme mémoire de passation entre sessions.",
+    "Tests/lint/typecheck/build systématiquement revérifiés avant de conclure chaque livraison (394 tests)."
+  ],
+  "keyFindings": [
+    "Objectif initial (une région + ossature pour en ajouter d'autres) tenu jusqu'au bout : 13/13 régions métropolitaines, 216 fiches.",
+    "Pipeline d'enrichissement photo/Wikipédia : angle mort structurel redécouvert plusieurs fois (31 révisions cumulées sur 3 fichiers), faute d'audit de couverture fait en amont.",
+    "Pivot documentation le 03/09 : 150 lignes ajoutées à README.md puis 146 supprimées le même jour (7h d'écart) après clarification de périmètre par l'utilisateur ; journée à 45,5 M tokens/commit contre 12-25 M sur les journées comparables.",
+    "Processus git très propre : 5,6 % de taux correctif mesuré (probablement sous-évalué), zéro revert sur 36 commits.",
+    "98,0 % des tokens traités proviennent du cache (cache-read) — usage efficace du contexte, coût marginal réel proche de 13,1 M tokens sur 636,2 M traités.",
+    "Couverture des données de session partielle : les deux premiers jours actifs (04-05 août) n'ont aucun log Claude Code local associé, et le 04/09 est une journée en cours au moment de l'extraction."
+  ],
+  "actions": [
+    "Confirmer explicitement l'architecture cible avant d'écrire du contenu de documentation piloté par une spec.",
+    "Auditer la couverture d'un jeu de données sur l'ensemble du périmètre avant d'implémenter un pipeline dépendant d'une source externe.",
+    "Généraliser la pratique 'pièges connus' dès le premier bug rencontré, pas après plusieurs occurrences.",
+    "Surveiller le ratio tokens/commit en cours de route comme signal de pivot ou de friction.",
+    "Vérifier en début de session si une dérogation de spec externe est toujours valide avant de s'appuyer dessus.",
+    "Conserver la pratique de commits atomiques et descriptifs (taux correctif bas, zéro revert)."
+  ]
+}
