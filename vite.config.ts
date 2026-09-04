@@ -17,11 +17,27 @@ function buildCommit(): string {
   }
 }
 
+/** URL du dépôt (https://github.com/<owner>/<repo>), dérivée du remote
+ *  `origin` plutôt qu'écrite en dur — sert de base à « Signaler un bug » et
+ *  au lien du dépôt dans l'écran À propos. `null` si indéterminable (pas de
+ *  remote, remote non-GitHub) : le composant doit alors s'en passer plutôt
+ *  que d'inventer une URL. */
+function repoUrl(): string | null {
+  try {
+    const raw = execSync('git remote get-url origin', { encoding: 'utf8' }).trim()
+    const m = raw.match(/github\.com[/:]([^/]+)\/([^/.]+)(?:\.git)?$/)
+    return m ? `https://github.com/${m[1]}/${m[2]}` : null
+  } catch {
+    return null
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   define: {
     __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
     __BUILD_COMMIT__: JSON.stringify(buildCommit()),
+    __REPO_URL__: JSON.stringify(repoUrl()),
   },
   plugins: [
     react(),

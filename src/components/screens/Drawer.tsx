@@ -1,4 +1,4 @@
-import { X, Home, MapPin, Search, Heart, Database, Scale, BookOpen } from 'lucide-react'
+import { X, Home, MapPin, Search, Heart, Database, Scale, BookOpen, Info } from 'lucide-react'
 import type { ComponentType } from 'react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
@@ -152,6 +152,17 @@ export function Drawer() {
             </span>
             Documentation
           </a>
+          <button
+            type="button"
+            className={styles.navItem}
+            style={{ background: 'transparent', color: 'var(--color-text)' }}
+            onClick={actions.openAbout}
+          >
+            <span className={styles.navItemIcon}>
+              <Info size={22} strokeWidth={2.75} />
+            </span>
+            À propos
+          </button>
         </div>
       </div>
     </div>

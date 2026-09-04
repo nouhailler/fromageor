@@ -37,6 +37,7 @@ export interface AppState {
   article: string | null
   importExport: boolean
   legal: boolean
+  about: boolean
 }
 
 export const INITIAL_APP_STATE: AppState = {
@@ -61,4 +62,5 @@ export const INITIAL_APP_STATE: AppState = {
   article: null,
   importExport: false,
   legal: false,
+  about: false,
 }

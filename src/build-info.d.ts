@@ -7,3 +7,7 @@ declare const __BUILD_TIME__: string
 
 /** Commit git court à partir duquel le build a été fait, ou 'inconnu'. */
 declare const __BUILD_COMMIT__: string
+
+/** URL du dépôt (https://github.com/<owner>/<repo>), ou `null` si le remote
+ *  `origin` n'a pas pu être lu ou n'est pas sur GitHub. */
+declare const __REPO_URL__: string | null
