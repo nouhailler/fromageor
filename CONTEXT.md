@@ -4,12 +4,23 @@ Note de passage de relais entre sessions. Ce qui est **à faire**, ce qui est
 **déjà fait**, et les pièges rencontrés. Le fonctionnement du projet lui-même
 est documenté dans [README.md](README.md) — ce fichier ne le répète pas.
 
-Dernière mise à jour : **24/08/2026**, après le branchement de la découpe sur
-les fiches et l'ouverture du guide de découpe. Base à **216 fiches, 13 régions** : **la métropole est complète.**
+Dernière mise à jour : **04/09/2026**, après l'ajout d'une interface anglaise
+avec sélecteur de langue. Base à **216 fiches, 13 régions** : **la métropole
+est complète.**
 
 ---
 
 ## ✅ Ce qui vient d'être fait
+
+**L'interface est traduisible en anglais, sélecteur FR/EN dans le menu
+latéral.** Voir la section « Traduction anglaise » du README pour l'architecture
+(`LanguageContext`, `src/lib/i18n/`) et la règle centrale à ne pas casser : les
+valeurs françaises utilisées par la logique métier (catégories de lait,
+regex de `accords.ts`/`decoupe.ts`, mots de saison) ne changent jamais, seul
+l'affichage est traduit par-dessus. Tout l'habillage est traduit — écrans,
+mentions légales, guide de découpe, encyclopédie — **sauf le contenu des 216
+fiches**, qui reste en français dans les deux langues pour l'instant : voir
+l'item 2 de la liste « À faire » ci-dessous pour la suite (Phase 2).
 
 **Chaque fiche affiche sa méthode de découpe.** L'écran Découpe existait depuis
 le handoff et n'avait jamais bougé : six méthodes statiques, sans aucun lien
@@ -196,7 +207,30 @@ Si une région devait tout de même être ajoutée, le moule est stable :
 README dit quels quatre fichiers brancher — plus le test de région dans
 `dataset.test.ts`, qui en fait cinq.
 
-### 2. Le guide de découpe peut aller plus loin
+### 2. Traduire les 216 fiches en anglais (Phase 2 de l'i18n)
+
+L'interface complète est traduisible depuis le 04/09/2026 (voir « Traduction
+anglaise » du README) : sélecteur FR/EN dans le menu, tous les écrans, les
+mentions légales, le guide de découpe, l'encyclopédie. Ce qui reste en
+français **quel que soit le réglage de langue**, c'est le contenu des 216
+fiches — `histoire`, `fabrication`, `conservation`, `service`, `anecdote`,
+`notes`, `accords`.
+
+La plomberie est prête : `Cheese.en?` (`src/data/cheese.types.ts`) attend un
+objet `CheeseTranslation` par fiche, et `CheeseDetailScreen` le lit déjà avec
+repli sur le français si absent — remplir une fiche ne demande **aucun
+changement de code**, seulement d'ajouter son `en: {...}`. Traiter région par
+région, comme la saisie initiale des données, avec le même souci de ne pas
+traduire à la volée sans relecture (une anecdote mal traduite reste un fait
+déformé). `dataset.test.ts` n'a pas encore de garde-fou sur la cohérence
+FR/EN — à ajouter en même temps que la première région traduite (mêmes clés
+qu'en français, rien de vide).
+
+Le résumé Wikipédia (`wikipedia.extract`) est **volontairement laissé en
+français** dans les deux langues : c'est une citation sourcée, le traduire
+romprait le lien direct avec l'article cité.
+
+### 3. Le guide de découpe peut aller plus loin
 
 Trois pistes, par ordre d'intérêt :
 
@@ -214,7 +248,7 @@ Trois pistes, par ordre d'intérêt :
   second. Scinder la méthode se ferait dans `decoupeDefs()` et
   `decoupeMatchFor()`, mais changerait les six identifiants figés par les tests.
 
-### 3. Complétude des fiches existantes
+### 4. Complétude des fiches existantes
 
 Au 22/08 : photo sur **138/216**, résumé Wikipédia sur **163/216**. Le texte
 n'est plus le point faible — les 216 fiches ont toutes fabrication,
@@ -249,7 +283,7 @@ du Perche, Dinant en Belgique pour la chèvre de la Woëvre. Chaque candidat doi
 Les combler suppose une autre source d'images, avec la question de licence qui
 va avec — c'est un choix de projet, pas une tâche mécanique.
 
-### 4. La doc qui manquait — fait le 03/09/2026
+### 5. La doc qui manquait — fait le 03/09/2026
 
 `DOCUMENTATION_SPEC.md` demandait une FAQ, un guide de dépannage, un
 changelog utilisateur, les limites connues et les procédures de support.
@@ -258,7 +292,7 @@ section « Mode hors connexion » repérée pendant l'audit — le service worke
 précache l'application mais pas les photos distantes (Wikimedia/Pexels), ce
 qui n'était documenté nulle part.
 
-### 5. Politique de confidentialité
+### 6. Politique de confidentialité
 
 Délibérément non créée, l'application ne collectant rien. La section « Données
 personnelles » des mentions légales en tient lieu et sert de point d'accroche
@@ -361,10 +395,13 @@ npm test && npm run lint && npm run typecheck && npm run build
 Node **22** est requis (`.nvmrc`) : sous Node 20, jsdom casse au démarrage de
 vitest avec `webidl.util.markAsUncloneable is not a function`.
 
-`npm run lint` sort 59 avertissements `only-export-components` — 13 préexistants
-(fichiers d'icônes et deux contextes) et 46 dans `docs-site/content/**`, chaque
-page y exportant `meta` à côté de son composant par conception (voir §37 de
-`DOCUMENTATION_SPEC.md` et le README, section documentation). Aucune erreur.
+`npm run lint` sort 61 avertissements `only-export-components` — 13 préexistants
+(fichiers d'icônes et deux contextes), 46 dans `docs-site/content/**` (chaque
+page y exportant `meta` à côté de son composant par conception, voir §37 de
+`DOCUMENTATION_SPEC.md` et le README, section documentation), et 2 dans
+`src/state/LanguageContext.tsx` (même motif que les autres contextes : le
+composant `LanguageProvider` cohabite avec le hook `useLanguage`). Aucune
+erreur.
 
 Les captures se régénèrent avec `scripts/screenshots.mjs`, dont Playwright
 n'est pas une dépendance du projet — voir la section « Logo & icônes » du

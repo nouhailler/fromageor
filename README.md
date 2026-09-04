@@ -10,7 +10,7 @@ Une application mobile (PWA) pour explorer, filtrer et collectionner les fromage
 [![React](https://img.shields.io/badge/React-19-c67139?style=flat-square&logo=react&logoColor=white)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-8-c67139?style=flat-square&logo=vite&logoColor=white)](https://vite.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-c67139?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vitest](https://img.shields.io/badge/Vitest-394%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
+[![Vitest](https://img.shields.io/badge/Vitest-397%20tests-7a8a5e?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev)
 [![PWA](https://img.shields.io/badge/PWA-installable-7a8a5e?style=flat-square&logo=pwa&logoColor=white)](#-logo--icônes)
 [![Node](https://img.shields.io/badge/Node-%E2%89%A5%2022.12-7a8a5e?style=flat-square&logo=nodedotjs&logoColor=white)](.nvmrc)
 [![Netlify](https://img.shields.io/badge/Netlify-fromageor.netlify.app-8c491a?style=flat-square&logo=netlify&logoColor=white)](https://fromageor.netlify.app)
@@ -64,7 +64,8 @@ Réimplémentation en React + Vite + TypeScript d'un handoff de design haute-fid
 | 📖 **Encyclopédie** | Articles de fond : histoire, fabrication, affinage, races laitières |
 | 💾 **Import / Export** | Sauvegarde et extension de la base depuis l'interface |
 | ⚖️ **Mentions légales** | Avertissement, limitation de responsabilité, éditeur |
-| ☰ **Menu latéral** | Navigation transverse, compteur par région, lien vers cette documentation tout en bas |
+| ☰ **Menu latéral** | Navigation transverse, compteur par région, sélecteur FR/EN, lien vers cette documentation tout en bas |
+| ℹ️ **À propos** | Version installée, auteur, support, crédits open-source — voir le menu latéral |
 
 ## 🧱 Stack
 
@@ -285,6 +286,22 @@ Les quatre temps sont aussi dessinés : `DecoupeStepDiagram` (`src/components/ic
 ⚠️ **Ces textes ne sont pas des données.** Ils vivent dans `src/lib/decoupe-guide.ts` et sont écrits pour ce projet : ce sont des consignes de service, pas des faits extraits d'une source, et ils ne disent rien d'un fromage en particulier — seule sa fiche le fait. C'est la seule prose du projet dans ce cas, et elle est tenue à l'écart de `src/data/` pour cette raison.
 
 **La fiche y mène, et le retour y revient.** Le bloc Découpe d'une fiche est un bouton (« Comment découper ce fromage ? ») : il ouvre la méthode et mémorise la fiche dans `state.decoupeFrom`, parce que l'écran Découpe est *sous* la fiche dans la pile (z-18 contre z-20) et qu'il faut donc fermer celle-ci pour le montrer. Le retour de l'écran de méthode rouvre alors la fiche au lieu de retomber sur la liste. Depuis la liste des fromages concernés, en revanche, une fiche s'empile normalement par-dessus.
+
+## 🌐 Traduction anglaise
+
+L'interface se bascule entièrement en anglais depuis un sélecteur **FR / EN** en haut du menu latéral, sans rechargement. Le choix est mémorisé (`localStorage`, clé `fromages-langue`), français par défaut.
+
+| Fichier | Rôle |
+| --- | --- |
+| `src/state/LanguageContext.tsx` | Contexte React : langue courante, `setLang()`, fonction `t(clé, variables?)` |
+| `src/lib/i18n/strings.ts` | Dictionnaire plat FR/EN de tout le texte d'interface en dur (~150 clés) |
+| `src/lib/i18n/lang.ts` | Le type `Lang` partagé, pour éviter les imports circulaires |
+
+⚠️ **Principe central, à ne jamais casser** : les valeurs françaises utilisées par la logique métier ne changent jamais, quelle que soit la langue affichée — seul un libellé traduit vient se greffer par-dessus, à l'affichage. C'est le cas de `laitBase()` (comparée dans `accords.ts`, `appellations.ts`, les filtres de `MapScreen`), des champs `famille`/`forme`/`service` (regex de `accords.ts` et `decoupe.ts`), et des mots de saison que `seasonMonths()` cherche dans le champ `saison`. Chaque fonction concernée expose donc une valeur *interne* (inchangée) et, séparément, un libellé *traduit* pour l'affichage (`laitLabel()`, `intensityLabel()`, `seasonLabel()`, `appellationLabel()`…) — le même principe que celui déjà appliqué à l'intensité avant même l'anglais. Les filtres (`ChipRow`) reçoivent un `labelFor?` optionnel pour ça : la valeur comparée/transmise à `onChange` reste toujours française.
+
+**Traduit** : les écrans, les mentions légales (`legal-notice.ts`), le guide de découpe (`decoupe-guide.ts`), l'encyclopédie (`encyclopedia.ts`), les catégories d'accords, le tableau de schéma JSON de l'écran Import/Export, l'écran À propos (y compris l'e-mail de support généré).
+
+**Pas encore traduit** : le contenu des 216 fiches (`histoire`, `fabrication`, `conservation`, `service`, `anecdote`, `notes`, `accords`) — champ optionnel `Cheese.en?` déjà présent dans `cheese.types.ts` et déjà lu par `CheeseDetailScreen` (repli sur le français si absent), mais aucune fiche n'a encore son `en: {...}`. Voir `CONTEXT.md` pour le suivi de cette traduction, prévue région par région. Le résumé Wikipédia (`wikipedia.extract`) reste volontairement en français dans les deux langues : c'est une citation sourcée, la traduire romprait le lien avec l'article cité. Le site de documentation (`/docs/`) n'est pas concerné.
 
 ## 💾 Import / Export de la base de fromages
 
