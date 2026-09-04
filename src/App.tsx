@@ -1,4 +1,5 @@
 import { AppStateProvider, useAppState } from './state/AppStateContext'
+import { LanguageProvider } from './state/LanguageContext'
 import { CheeseCollectionsProvider } from './state/CheeseCollectionsContext'
 import { PhoneFrame } from './components/layout/PhoneFrame'
 import { HamburgerButton } from './components/layout/HamburgerButton'
@@ -68,11 +69,13 @@ function AppShell() {
 
 function App() {
   return (
-    <AppStateProvider>
-      <CheeseCollectionsProvider>
-        <AppShell />
-      </CheeseCollectionsProvider>
-    </AppStateProvider>
+    <LanguageProvider>
+      <AppStateProvider>
+        <CheeseCollectionsProvider>
+          <AppShell />
+        </CheeseCollectionsProvider>
+      </AppStateProvider>
+    </LanguageProvider>
   )
 }
 

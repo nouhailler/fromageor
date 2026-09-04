@@ -1,4 +1,5 @@
 import { useAppState } from '../../state/AppStateContext'
+import { useLanguage } from '../../state/LanguageContext'
 import { encycloDefs } from '../../lib/encyclopedia'
 import { OverlayScreen } from '../layout/OverlayScreen'
 import { OverlayHeader, OverlayEyebrow } from '../layout/OverlayHeader'
@@ -6,14 +7,15 @@ import styles from './EncyclopediaArticle.module.css'
 
 export function EncyclopediaArticle() {
   const { state, actions } = useAppState()
-  const article = state.article ? encycloDefs().find((a) => a.id === state.article) : undefined
+  const { t, lang } = useLanguage()
+  const article = state.article ? encycloDefs(lang).find((a) => a.id === state.article) : undefined
 
   if (!article) return null
 
   return (
     <OverlayScreen>
       <OverlayHeader onBack={actions.backToArticles}>
-        <OverlayEyebrow>Encyclopédie</OverlayEyebrow>
+        <OverlayEyebrow>{t('drawer.encyclopedia')}</OverlayEyebrow>
       </OverlayHeader>
 
       <div className={styles.content}>

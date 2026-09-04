@@ -1,5 +1,6 @@
 import { createContext, useContext, type ReactNode } from 'react'
 import { useAppState } from './AppStateContext'
+import { useLanguage } from './LanguageContext'
 import { useCheeseCollections } from './useCheeseCollections'
 import { useCheeseDatabase } from './useCheeseDatabase'
 
@@ -13,8 +14,9 @@ const CheeseCollectionsContext = createContext<Collections | null>(null)
  *  of each screen recomputing its own copy. */
 export function CheeseCollectionsProvider({ children }: { children: ReactNode }) {
   const { state, lists } = useAppState()
+  const { lang } = useLanguage()
   const database = useCheeseDatabase()
-  const collections = useCheeseCollections(state, lists, database.cheeses)
+  const collections = useCheeseCollections(state, lists, database.cheeses, lang)
   const value: Collections = { ...collections, ...database }
   return <CheeseCollectionsContext.Provider value={value}>{children}</CheeseCollectionsContext.Provider>
 }

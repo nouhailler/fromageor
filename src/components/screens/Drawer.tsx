@@ -2,20 +2,24 @@ import { X, Home, MapPin, Search, Heart, Database, Scale, BookOpen, Info } from 
 import type { ComponentType } from 'react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
+import { useLanguage } from '../../state/LanguageContext'
 import type { Tab } from '../../state/types'
+import type { StringKey } from '../../lib/i18n/strings'
+import { regionName } from '../../lib/region-lookup'
 import { GobletIcon, ShearsIcon, CalendarIcon, StarBadgeIcon, OpenBookIcon } from '../icons/MiscIcons'
 import styles from './Drawer.module.css'
 
-const TAB_ITEMS: { key: Tab; label: string; Icon: ComponentType<{ size?: number; strokeWidth?: number }> }[] = [
-  { key: 'home', label: 'Accueil', Icon: Home },
-  { key: 'carte', label: 'Carte', Icon: MapPin },
-  { key: 'recherche', label: 'Recherche', Icon: Search },
-  { key: 'favoris', label: 'Favoris', Icon: Heart },
+const TAB_ITEMS: { key: Tab; labelKey: StringKey; Icon: ComponentType<{ size?: number; strokeWidth?: number }> }[] = [
+  { key: 'home', labelKey: 'nav.home', Icon: Home },
+  { key: 'carte', labelKey: 'nav.map', Icon: MapPin },
+  { key: 'recherche', labelKey: 'nav.search', Icon: Search },
+  { key: 'favoris', labelKey: 'nav.favorites', Icon: Heart },
 ]
 
 export function Drawer() {
   const { actions } = useAppState()
   const { deco, regions } = useCollections()
+  const { t, lang, setLang } = useLanguage()
 
   return (
     <div className={styles.root}>
@@ -24,15 +28,39 @@ export function Drawer() {
         <div className={styles.header}>
           <div>
             <div className={styles.brand}>
-              Fromages
+              {t('drawer.brandLine1')}
               <br />
-              de France
+              {t('drawer.brandLine2')}
             </div>
-            <div className={styles.brandSub}>{deco.length} fiches référencées</div>
+            <div className={styles.brandSub}>{t('drawer.fichesReferenced', { n: deco.length })}</div>
           </div>
-          <button type="button" className={styles.closeButton} onClick={actions.closeMenu} aria-label="Fermer le menu">
-            <X size={20} strokeWidth={2.75} />
-          </button>
+          <div className={styles.headerActions}>
+            <div className={styles.langSwitch} role="group" aria-label="FR / EN">
+              <button
+                type="button"
+                className={styles.langButton}
+                data-active={lang === 'fr'}
+                onClick={() => setLang('fr')}
+                aria-label={t('drawer.switchToFrench')}
+                aria-pressed={lang === 'fr'}
+              >
+                FR
+              </button>
+              <button
+                type="button"
+                className={styles.langButton}
+                data-active={lang === 'en'}
+                onClick={() => setLang('en')}
+                aria-label={t('drawer.switchToEnglish')}
+                aria-pressed={lang === 'en'}
+              >
+                EN
+              </button>
+            </div>
+            <button type="button" className={styles.closeButton} onClick={actions.closeMenu} aria-label={t('drawer.closeMenu')}>
+              <X size={20} strokeWidth={2.75} />
+            </button>
+          </div>
         </div>
 
         <div className={`mainscroll ${styles.nav}`}>
@@ -41,7 +69,7 @@ export function Drawer() {
               // The drawer's tab entries mirror the bottom tab bar's active
               // state: only the current tab (with no fiche open) is highlighted.
               return (
-                <DrawerTabItem key={item.key} tab={item.key} label={item.label} Icon={item.Icon} />
+                <DrawerTabItem key={item.key} tab={item.key} label={t(item.labelKey)} Icon={item.Icon} />
               )
             })}
           </div>
@@ -55,7 +83,7 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <GobletIcon size={22} />
             </span>
-            Accords mets &amp; boissons
+            {t('drawer.accords')}
           </button>
           <button
             type="button"
@@ -66,7 +94,7 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <ShearsIcon size={22} />
             </span>
-            Découpe
+            {t('drawer.decoupe')}
           </button>
           <button
             type="button"
@@ -77,7 +105,7 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <CalendarIcon size={22} />
             </span>
-            Calendrier des saisons
+            {t('drawer.calendar')}
           </button>
           <button
             type="button"
@@ -88,7 +116,7 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <StarBadgeIcon size={22} />
             </span>
-            Appellations
+            {t('drawer.appellations')}
           </button>
           <button
             type="button"
@@ -99,7 +127,7 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <OpenBookIcon size={22} />
             </span>
-            Encyclopédie
+            {t('drawer.encyclopedia')}
           </button>
           <button
             type="button"
@@ -110,7 +138,7 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <Database size={22} strokeWidth={2.75} />
             </span>
-            Import / Export
+            {t('drawer.importExport')}
           </button>
           <button
             type="button"
@@ -121,24 +149,22 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <Scale size={22} strokeWidth={2.75} />
             </span>
-            Mentions légales
+            {t('drawer.legal')}
           </button>
 
           <div className={styles.divider} />
           <div className={styles.regionsSection}>
-            <div className={styles.regionsLabel}>Régions</div>
+            <div className={styles.regionsLabel}>{t('drawer.regionsLabel')}</div>
             {regions.map((region) => (
               <div key={region.id} className={styles.regionRow}>
                 <span className={styles.regionDot} />
-                <span className={styles.regionName}>{region.name}</span>
+                <span className={styles.regionName}>{regionName(region.id, lang)}</span>
                 <span className={styles.regionCount}>{deco.filter((c) => c.regionId === region.id).length}</span>
               </div>
             ))}
           </div>
           <div className={styles.divider} />
-          <div className={styles.footer}>
-            Encyclopédie du terroir fromager français. {deco.length}&nbsp;fiches, {regions.length}&nbsp;régions.
-          </div>
+          <div className={styles.footer}>{t('drawer.footer', { n: deco.length, r: regions.length })}</div>
           <div className={styles.divider} />
           <a
             href="/docs/"
@@ -150,7 +176,7 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <BookOpen size={22} strokeWidth={2.75} />
             </span>
-            Documentation
+            {t('drawer.documentation')}
           </a>
           <button
             type="button"
@@ -161,7 +187,7 @@ export function Drawer() {
             <span className={styles.navItemIcon}>
               <Info size={22} strokeWidth={2.75} />
             </span>
-            À propos
+            {t('drawer.about')}
           </button>
         </div>
       </div>

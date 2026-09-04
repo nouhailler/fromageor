@@ -1,8 +1,17 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { VersionCard } from './VersionCard'
+import { LanguageProvider } from '../../state/LanguageContext'
 import { LAST_CHECK_KEY, type UpdateCheckResult } from '../../lib/app-update'
 import { BUILD_COMMIT, buildVersionLabel, formatBuildDate } from '../../lib/app-version'
+
+function renderVersionCard() {
+  return render(
+    <LanguageProvider>
+      <VersionCard />
+    </LanguageProvider>,
+  )
+}
 
 // Le câblage service worker n'existe pas sous jsdom : on remplace le module
 // de branchement, la décision elle-même étant testée dans app-update.test.ts.
@@ -23,26 +32,26 @@ beforeEach(() => {
 
 describe('VersionCard', () => {
   it('affiche la version, sa date et le commit du build', () => {
-    render(<VersionCard />)
+    renderVersionCard()
     expect(screen.getByText(buildVersionLabel())).toBeInTheDocument()
     expect(screen.getByText(BUILD_COMMIT)).toBeInTheDocument()
     expect(screen.getByText(formatBuildDate())).toBeInTheDocument()
   })
 
   it('indique qu\'aucune vérification n\'a encore eu lieu sur cet appareil', () => {
-    render(<VersionCard />)
+    renderVersionCard()
     expect(screen.getByText('jamais depuis cet appareil')).toBeInTheDocument()
   })
 
   it('affiche l\'ancienneté de la dernière vérification enregistrée', () => {
     localStorage.setItem(LAST_CHECK_KEY, String(Date.now() - 5 * 60 * 1000))
-    render(<VersionCard />)
+    renderVersionCard()
     expect(screen.getByText('il y a 5 minutes')).toBeInTheDocument()
   })
 
   it('confirme que l\'application est à jour', async () => {
     checkForUpdate.mockResolvedValue('up-to-date')
-    render(<VersionCard />)
+    renderVersionCard()
     fireEvent.click(screen.getByRole('button', { name: /Rechercher une mise à jour/ }))
     expect(await screen.findByText('Vous avez déjà la dernière version.')).toBeInTheDocument()
     expect(checkForUpdate).toHaveBeenCalledTimes(1)
@@ -50,21 +59,21 @@ describe('VersionCard', () => {
 
   it('annonce une nouvelle version et le redémarrage à venir', async () => {
     checkForUpdate.mockResolvedValue('update-found')
-    render(<VersionCard />)
+    renderVersionCard()
     fireEvent.click(screen.getByRole('button', { name: /Rechercher une mise à jour/ }))
     expect(await screen.findByText(/Nouvelle version trouvée/)).toBeInTheDocument()
   })
 
   it('explique l\'absence de réseau plutôt que d\'échouer en silence', async () => {
     checkForUpdate.mockResolvedValue('offline')
-    render(<VersionCard />)
+    renderVersionCard()
     fireEvent.click(screen.getByRole('button', { name: /Rechercher une mise à jour/ }))
     expect(await screen.findByText(/Pas de connexion/)).toBeInTheDocument()
   })
 
   it('rapporte un échec de vérification', async () => {
     checkForUpdate.mockResolvedValue('error')
-    render(<VersionCard />)
+    renderVersionCard()
     fireEvent.click(screen.getByRole('button', { name: /Rechercher une mise à jour/ }))
     expect(await screen.findByText(/La vérification a échoué/)).toBeInTheDocument()
   })
@@ -72,7 +81,7 @@ describe('VersionCard', () => {
   it('désactive le bouton pendant la recherche, puis le rend', async () => {
     let resolve: (value: UpdateCheckResult) => void = () => {}
     checkForUpdate.mockReturnValue(new Promise((r) => { resolve = r }))
-    render(<VersionCard />)
+    renderVersionCard()
     const button = screen.getByRole('button', { name: /Rechercher une mise à jour/ })
 
     fireEvent.click(button)
@@ -88,7 +97,7 @@ describe('VersionCard', () => {
       localStorage.setItem(LAST_CHECK_KEY, String(Date.now()))
       return 'up-to-date'
     })
-    render(<VersionCard />)
+    renderVersionCard()
     expect(screen.getByText('jamais depuis cet appareil')).toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('button', { name: /Rechercher une mise à jour/ }))

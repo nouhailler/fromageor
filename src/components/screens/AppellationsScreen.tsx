@@ -1,5 +1,8 @@
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
+import { useLanguage } from '../../state/LanguageContext'
+import { appellationLabel, type AppellationLabel } from '../../lib/appellations'
+import { pick } from '../../lib/i18n/lang'
 import { OverlayScreen } from '../layout/OverlayScreen'
 import { OverlayHeader, OverlayTitle, OverlayEyebrow } from '../layout/OverlayHeader'
 import { ChipRow } from '../ui/ChipRow'
@@ -12,19 +15,27 @@ const APP_FILTER_OPTIONS: AppFilterValue[] = ['Tous', 'AOP', 'IGP', 'Label Rouge
 export function AppellationsScreen() {
   const { state, actions } = useAppState()
   const { appList } = useCollections()
+  const { t, lang } = useLanguage()
+
+  function filterLabel(opt: AppFilterValue): string {
+    if (opt === 'Tous') return pick(lang, 'Tous', 'All')
+    return appellationLabel(opt as AppellationLabel, lang)
+  }
 
   return (
     <OverlayScreen>
       <OverlayHeader
         onBack={actions.closeAppellations}
-        extra={<ChipRow options={APP_FILTER_OPTIONS} value={state.appFilter} onChange={actions.setAppFilter} />}
+        extra={
+          <ChipRow options={APP_FILTER_OPTIONS} value={state.appFilter} onChange={actions.setAppFilter} labelFor={filterLabel} />
+        }
       >
-        <OverlayTitle>Appellations</OverlayTitle>
-        <OverlayEyebrow>Signes de qualité</OverlayEyebrow>
+        <OverlayTitle>{t('drawer.appellations')}</OverlayTitle>
+        <OverlayEyebrow>{t('appellations.eyebrow')}</OverlayEyebrow>
       </OverlayHeader>
 
       <div className={styles.content}>
-        <div className={styles.count}>{appList.length} fromage(s)</div>
+        <div className={styles.count}>{t('appellations.count', { n: appList.length })}</div>
         <div className={styles.list}>
           {appList.map((c) => (
             <CheeseCard
@@ -37,10 +48,7 @@ export function AppellationsScreen() {
             />
           ))}
         </div>
-        <div className={styles.note}>
-          AOP et IGP correspondent aux signes officiels du fromage. Label Rouge et Bio sont déduits de sa famille et
-          de son intensité, à titre indicatif : ils ne reflètent pas les certifications réellement détenues.
-        </div>
+        <div className={styles.note}>{t('appellations.note')}</div>
       </div>
     </OverlayScreen>
   )

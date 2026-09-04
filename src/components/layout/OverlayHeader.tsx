@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { ChevronLeft } from 'lucide-react'
+import { useLanguage } from '../../state/LanguageContext'
 import styles from './OverlayHeader.module.css'
 
 /** Back-button + title/subtitle header shared by the secondary overlays
@@ -7,7 +8,7 @@ import styles from './OverlayHeader.module.css'
  *  renders below the title row (Appellations' filter chips). */
 export function OverlayHeader({
   onBack,
-  backLabel = 'Retour',
+  backLabel,
   children,
   extra,
 }: {
@@ -16,10 +17,11 @@ export function OverlayHeader({
   children: ReactNode
   extra?: ReactNode
 }) {
+  const { t } = useLanguage()
   return (
     <div className={styles.header}>
       <div className={extra ? `${styles.row} ${styles.rowWithExtra}` : styles.row}>
-        <button type="button" className={styles.backButton} onClick={onBack} aria-label={backLabel}>
+        <button type="button" className={styles.backButton} onClick={onBack} aria-label={backLabel ?? t('common.back')}>
           <ChevronLeft size={21} strokeWidth={2.75} />
         </button>
         <div className={styles.textBlock}>{children}</div>

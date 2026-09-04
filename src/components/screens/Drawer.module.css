@@ -42,6 +42,35 @@
   color: var(--color-neutral-700);
   margin-top: 6px;
 }
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.langSwitch {
+  display: flex;
+  border-radius: 999px;
+  background: var(--color-surface);
+  padding: 3px;
+  gap: 2px;
+}
+.langButton {
+  border: none;
+  background: transparent;
+  color: var(--color-neutral-700);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 7px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 32px;
+}
+.langButton[data-active='true'] {
+  background: var(--color-accent);
+  color: #fff;
+}
 .closeButton {
   width: 44px;
   height: 44px;

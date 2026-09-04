@@ -1,6 +1,8 @@
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
+import { useLanguage } from '../../state/LanguageContext'
+import { regionName } from '../../lib/region-lookup'
 import { StickyHeader } from '../layout/StickyHeader'
 import { CheeseAvatar } from '../ui/CheeseAvatar'
 import { CheeseCard } from '../ui/CheeseCard'
@@ -11,18 +13,20 @@ import styles from './HomeScreen.module.css'
 export function HomeScreen() {
   const { actions } = useAppState()
   const { deco, featured, allDots, seasonName, seasonal, popular, regions } = useCollections()
+  const { t, lang } = useLanguage()
 
   return (
     <div>
       <StickyHeader>
-        <div className={styles.overline}>Encyclopédie du terroir</div>
+        <div className={styles.overline}>{t('home.overline')}</div>
         <h1 className={styles.title}>
-          Fromages
+          {t('drawer.brandLine1')}
           <br />
-          de France
+          {t('drawer.brandLine2')}
         </h1>
         <div className={styles.subtitle}>
-          {deco.length} fromages · {regions.length === 1 ? regions[0].name : `${regions.length} régions`}
+          {deco.length} {lang === 'en' ? (deco.length === 1 ? 'cheese' : 'cheeses') : 'fromages'} ·{' '}
+          {regions.length === 1 ? regionName(regions[0].id, lang) : t('home.subtitleRegions', { n: regions.length })}
         </div>
       </StickyHeader>
 
@@ -30,7 +34,7 @@ export function HomeScreen() {
         {featured.map((c) => (
           <button key={c.id} type="button" className={styles.featured} onClick={() => actions.openCheese(c.id)}>
             <div className={styles.featuredDecoration} />
-            <div className={styles.featuredKicker}>À la une</div>
+            <div className={styles.featuredKicker}>{t('home.featured')}</div>
             <div className={styles.featuredHeader}>
               <CheeseAvatar
                 initial={c.initial}
@@ -46,7 +50,7 @@ export function HomeScreen() {
             </div>
             <div className={styles.featuredNotes}>{c.notesStr}</div>
             <div className={styles.featuredLink}>
-              Découvrir la fiche
+              {t('home.discoverFiche')}
               <ArrowRight size={16} strokeWidth={2.75} />
             </div>
           </button>
@@ -54,12 +58,12 @@ export function HomeScreen() {
 
         <div>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Sur la carte</h2>
+            <h2 className={styles.sectionTitle}>{t('home.onMap')}</h2>
             <button type="button" className={styles.sectionLink} onClick={actions.goCarte}>
-              Tout explorer →
+              {t('home.exploreAll')}
             </button>
           </div>
-          <button type="button" className={styles.mapCard} onClick={actions.goCarte} aria-label="Voir la carte de France">
+          <button type="button" className={styles.mapCard} onClick={actions.goCarte} aria-label={t('home.mapAriaLabel')}>
             <FranceMap
               className={styles.mapSvg}
               dots={allDots.map((d) => ({ id: d.id, x: d.x, y: d.y, fill: d.fill }))}
@@ -73,15 +77,15 @@ export function HomeScreen() {
             <GobletIcon size={26} />
           </div>
           <div className={styles.accordsCtaBody}>
-            <div className={styles.accordsCtaTitle}>Accords mets &amp; boissons</div>
-            <div className={styles.accordsCtaDesc}>Vins, bières, cidres, miel… suggestions automatiques</div>
+            <div className={styles.accordsCtaTitle}>{t('home.accordsCtaTitle')}</div>
+            <div className={styles.accordsCtaDesc}>{t('home.accordsCtaDesc')}</div>
           </div>
           <ChevronRight size={20} strokeWidth={2.75} style={{ flexShrink: 0 }} />
         </button>
 
         <div>
           <div className={styles.sectionHeaderTight}>
-            <h2 className={styles.sectionTitle}>De saison</h2>
+            <h2 className={styles.sectionTitle}>{t('home.inSeason')}</h2>
             <span className={styles.seasonLabel}>· {seasonName}</span>
           </div>
           <div className={`scrollx ${styles.carousel}`}>
@@ -99,7 +103,7 @@ export function HomeScreen() {
 
         <div>
           <h2 className={styles.sectionTitle} style={{ marginBottom: 12 }}>
-            À découvrir
+            {t('home.toDiscover')}
           </h2>
           <div className={styles.list}>
             {popular.map((c) => (

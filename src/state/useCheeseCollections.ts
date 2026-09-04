@@ -8,8 +8,9 @@ import { FR_XY } from '../data/fr-map'
 import type { Cheese } from '../data/cheese.types'
 import type { FavoriteList } from '../lib/favorites-storage'
 import type { AppState } from './types'
-import { laitBase, dotFill, intensityLabel, type LaitBase } from '../lib/lait'
-import { currentSeasonName, seasonMonths, MONTH_NAMES } from '../lib/season'
+import type { Lang } from '../lib/i18n/lang'
+import { laitBase, dotFill, intensityLabel, laitLabel, type LaitBase } from '../lib/lait'
+import { currentSeasonName, seasonMonths, monthNames, seasonLabel } from '../lib/season'
 import { searchCheeses } from '../lib/search'
 import { appellationsOf, appBadge, type AppellationBadge } from '../lib/appellations'
 import { accordsDefs, type AccordCategory } from '../lib/accords'
@@ -71,11 +72,12 @@ const LIST_TINTS: [string, string][] = [
   ['var(--color-neutral-200)', 'var(--color-neutral-700)'],
 ]
 
-function pluralFromage(n: number): string {
+function pluralFromage(n: number, lang: Lang): string {
+  if (lang === 'en') return `${n} ${n === 1 ? 'cheese' : 'cheeses'}`
   return n + (n === 1 ? ' fromage' : ' fromages')
 }
 
-export function useCheeseCollections(state: AppState, lists: FavoriteList[], cheeses: Cheese[]) {
+export function useCheeseCollections(state: AppState, lists: FavoriteList[], cheeses: Cheese[], lang: Lang = 'fr') {
   const inAny = useMemo(() => {
     const favIds = new Set<string>()
     lists.forEach((l) => l.ids.forEach((id) => favIds.add(id)))
@@ -86,20 +88,21 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[], che
     return cheeses.map((c) => {
       const base = laitBase(c.lait)
       const xy = FR_XY[c.id] ?? c.map
+      const notes = (lang === 'en' ? c.en?.notes : undefined) ?? c.notes
       return {
         ...c,
         initial: (c.nom || '?')[0],
         laitBase: base,
-        laitLabel: base,
+        laitLabel: laitLabel(base, lang),
         fill: dotFill(base),
         x: xy[0],
         y: xy[1],
-        notesStr: (c.notes || []).slice(0, 4).join(' · '),
-        intensityLabel: intensityLabel(c.intensite),
+        notesStr: (notes || []).slice(0, 4).join(' · '),
+        intensityLabel: intensityLabel(c.intensite, lang),
         fav: inAny(c.id),
       }
     })
-  }, [cheeses, inAny])
+  }, [cheeses, inAny, lang])
 
   const byId = useMemo(() => {
     const map = new Map<string, DecoratedCheese>()
@@ -107,12 +110,16 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[], che
     return map
   }, [deco])
 
-  const seasonName = currentSeasonName()
+  // Toujours en français : c'est le mot cherché tel quel dans le champ
+  // `saison` (français) de chaque fromage. Ne jamais remplacer par la
+  // version traduite ci-dessous, qui est réservée à l'affichage.
+  const seasonNameFr = currentSeasonName()
+  const seasonName = seasonLabel(seasonNameFr, lang)
 
   const seasonal = useMemo(() => {
-    const filtered = deco.filter((c) => (c.saison || '').includes(seasonName))
+    const filtered = deco.filter((c) => (c.saison || '').includes(seasonNameFr))
     return filtered.length < 4 ? deco.slice(0, 8) : filtered
-  }, [deco, seasonName])
+  }, [deco, seasonNameFr])
 
   const mapDots = useMemo(() => {
     const mf = state.mapFilter
@@ -136,9 +143,9 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[], che
   const listsOverview = useMemo<ListOverviewItem[]>(() => {
     return lists.map((l, i) => {
       const [tint, ink] = LIST_TINTS[i % LIST_TINTS.length]
-      return { id: l.id, name: l.name, count: l.ids.length, sub: pluralFromage(l.ids.length), tint, ink }
+      return { id: l.id, name: l.name, count: l.ids.length, sub: pluralFromage(l.ids.length, lang), tint, ink }
     })
-  }, [lists])
+  }, [lists, lang])
 
   const curList = state.openList ? lists.find((l) => l.id === state.openList) ?? null : null
   const curListItems = useMemo(() => {
@@ -155,7 +162,7 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[], che
       return {
         id: l.id,
         name: l.name,
-        sub: pluralFromage(l.ids.length),
+        sub: pluralFromage(l.ids.length, lang),
         tint,
         ink,
         inList,
@@ -164,12 +171,12 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[], che
         checkBd: inList ? 'var(--color-accent)' : 'var(--color-neutral-400)',
       }
     })
-  }, [lists, state.sheetFor])
+  }, [lists, state.sheetFor, lang])
 
   const calMonths = useMemo<CalendarMonth[]>(() => {
     const now = new Date().getMonth()
     const cache = deco.map((c) => ({ c, months: seasonMonths(c.saison) }))
-    return MONTH_NAMES.map((name, mi) => {
+    return monthNames(lang).map((name, mi) => {
       const items = cache
         .filter((x) => x.months.includes(mi))
         .map((x) => x.c)
@@ -183,23 +190,26 @@ export function useCheeseCollections(state: AppState, lists: FavoriteList[], che
         cardBd: mi === now ? 'var(--color-accent)' : 'transparent',
       }
     })
-  }, [deco])
+  }, [deco, lang])
 
   const appList = useMemo<AppListItem[]>(() => {
     const af = state.appFilter
     return deco
       .map((c) => {
         const keys = appellationsOf(c)
-        return { ...c, labels: keys.map(appBadge), labelKeys: keys }
+        return { ...c, labels: keys.map((k) => appBadge(k, lang)), labelKeys: keys }
       })
       .filter((c) => (af === 'Tous' ? c.labelKeys.length > 0 : c.labelKeys.includes(af)))
-  }, [deco, state.appFilter])
+  }, [deco, state.appFilter, lang])
 
   const accordsCats = useMemo<AccordCategoryWithItems[]>(() => {
-    return accordsDefs().map((cat) => ({ ...cat, items: deco.filter(cat.match).slice(0, 10) }))
-  }, [deco])
+    return accordsDefs(lang).map((cat) => ({ ...cat, items: deco.filter(cat.match).slice(0, 10) }))
+  }, [deco, lang])
 
-  const decoupeMethods = useMemo<DecoupeGroup<DecoratedCheese>[]>(() => decoupeGroups(deco), [deco])
+  const decoupeMethods = useMemo<DecoupeGroup<DecoratedCheese>[]>(
+    () => decoupeGroups(deco, 3, lang),
+    [deco, lang],
+  )
 
   return {
     deco,

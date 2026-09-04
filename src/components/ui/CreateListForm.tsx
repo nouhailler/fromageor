@@ -1,4 +1,5 @@
 import { Plus } from 'lucide-react'
+import { useLanguage } from '../../state/LanguageContext'
 import styles from './CreateListForm.module.css'
 
 export interface CreateListFormProps {
@@ -26,6 +27,7 @@ export function CreateListForm({
   dashedLabel,
   inputBackground,
 }: CreateListFormProps) {
+  const { t } = useLanguage()
   if (!creating) {
     return (
       <button type="button" className={styles.dashedButton} onClick={onStart}>
@@ -39,14 +41,14 @@ export function CreateListForm({
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Nom de la liste…"
+        placeholder={t('favorites.newListPlaceholder')}
         autoFocus
         className={styles.input}
         style={inputBackground ? { background: inputBackground } : undefined}
       />
       <div className={styles.actions}>
         <button type="button" className={styles.cancel} onClick={onCancel}>
-          Annuler
+          {t('common.cancel')}
         </button>
         <button type="button" className={styles.confirm} onClick={onConfirm}>
           {confirmLabel}

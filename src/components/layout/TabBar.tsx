@@ -1,19 +1,23 @@
 import { Home, MapPin, Search, Heart } from 'lucide-react'
 import type { ComponentType } from 'react'
 import type { Tab } from '../../state/types'
+import { useLanguage } from '../../state/LanguageContext'
+import type { StringKey } from '../../lib/i18n/strings'
 import styles from './TabBar.module.css'
 
-const TABS: { key: Tab; label: string; Icon: ComponentType<{ size?: number; strokeWidth?: number }> }[] = [
-  { key: 'home', label: 'Accueil', Icon: Home },
-  { key: 'carte', label: 'Carte', Icon: MapPin },
-  { key: 'recherche', label: 'Recherche', Icon: Search },
-  { key: 'favoris', label: 'Favoris', Icon: Heart },
+const TABS: { key: Tab; labelKey: StringKey; Icon: ComponentType<{ size?: number; strokeWidth?: number }> }[] = [
+  { key: 'home', labelKey: 'nav.home', Icon: Home },
+  { key: 'carte', labelKey: 'nav.map', Icon: MapPin },
+  { key: 'recherche', labelKey: 'nav.search', Icon: Search },
+  { key: 'favoris', labelKey: 'nav.favorites', Icon: Heart },
 ]
 
 export function TabBar({ active, onSelect }: { active: Tab; onSelect: (tab: Tab) => void }) {
+  const { t } = useLanguage()
   return (
     <div className={styles.bar}>
-      {TABS.map(({ key, label, Icon }) => {
+      {TABS.map(({ key, labelKey, Icon }) => {
+        const label = t(labelKey)
         const isActive = active === key
         return (
           <button

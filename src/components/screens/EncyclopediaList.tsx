@@ -1,5 +1,6 @@
 import { ChevronRight } from 'lucide-react'
 import { useAppState } from '../../state/AppStateContext'
+import { useLanguage } from '../../state/LanguageContext'
 import { encycloDefs } from '../../lib/encyclopedia'
 import { OverlayScreen } from '../layout/OverlayScreen'
 import { OverlayHeader, OverlayTitle, OverlayEyebrow } from '../layout/OverlayHeader'
@@ -7,13 +8,14 @@ import styles from './EncyclopediaList.module.css'
 
 export function EncyclopediaList() {
   const { actions } = useAppState()
-  const articles = encycloDefs()
+  const { t, lang } = useLanguage()
+  const articles = encycloDefs(lang)
 
   return (
     <OverlayScreen>
       <OverlayHeader onBack={actions.closeEncyclopedia}>
-        <OverlayTitle>Encyclopédie</OverlayTitle>
-        <OverlayEyebrow>Comprendre le fromage</OverlayEyebrow>
+        <OverlayTitle>{t('drawer.encyclopedia')}</OverlayTitle>
+        <OverlayEyebrow>{t('encyclopedia.eyebrow')}</OverlayEyebrow>
       </OverlayHeader>
 
       <div className={styles.content}>

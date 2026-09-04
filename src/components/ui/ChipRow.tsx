@@ -5,11 +5,15 @@ export interface ChipRowProps<T extends string> {
   value: T
   onChange: (value: T) => void
   className?: string
+  /** Translates an option to its display label. `opt` itself (French) stays
+   *  the value passed to `onChange` and compared for `active` — never
+   *  translate that, only what's rendered. Defaults to the option itself. */
+  labelFor?: (opt: T) => string
 }
 
 /** Horizontal scrolling row of pill filter chips (map/lait/appellation
  *  filters), ported from Component.mkChips(). */
-export function ChipRow<T extends string>({ options, value, onChange, className }: ChipRowProps<T>) {
+export function ChipRow<T extends string>({ options, value, onChange, className, labelFor }: ChipRowProps<T>) {
   return (
     <div className={className ? `scrollx ${styles.row} ${className}` : `scrollx ${styles.row}`}>
       {options.map((opt) => {
@@ -27,7 +31,7 @@ export function ChipRow<T extends string>({ options, value, onChange, className 
             onClick={() => onChange(opt)}
             aria-pressed={active}
           >
-            {opt}
+            {labelFor ? labelFor(opt) : opt}
           </button>
         )
       })}

@@ -3,6 +3,7 @@
 import type { ComponentType } from 'react'
 import type { Cheese } from '../data/cheese.types'
 import { laitBase } from './lait'
+import { type Lang } from './i18n/lang'
 import {
   WineIcon,
   GlassIcon,
@@ -29,7 +30,26 @@ function has(c: Cheese, re: RegExp): boolean {
   return re.test((c.famille || '') + ' ' + (c.croute || '') + ' ' + (c.texture || ''))
 }
 
-export function accordsDefs(): AccordCategory[] {
+const EN_LABELS: Record<string, { label: string; desc: string }> = {
+  'vin-rouge': { label: 'Red wines', desc: 'Pressed, well-aged cheeses with a tannic structure' },
+  'vin-blanc': { label: 'White wines', desc: 'Goat cheeses and bloomy rinds, crisp and fresh' },
+  champagne: { label: 'Champagne', desc: 'Triple-crèmes and delicate soft cheeses' },
+  biere: { label: 'Beer', desc: 'Washed rinds and characterful tommes' },
+  cidre: { label: 'Cider', desc: 'Reblochon, tommes and soft Savoie cheeses' },
+  poire: { label: 'Perry', desc: 'Fresh goat cheese and mild, delicate cheeses' },
+  whisky: { label: 'Whisky', desc: 'Blue cheeses and intense cheeses' },
+  pain: { label: 'Bread', desc: 'The universal companion — pressed cheeses and tommes' },
+  confiture: { label: 'Jam', desc: 'Goat, sheep and bloomy-rind cheeses' },
+  miel: { label: 'Honey', desc: 'Blue, goat and sheep cheeses — the sweet-salty contrast' },
+}
+
+export function accordsDefs(lang: Lang = 'fr'): AccordCategory[] {
+  const defs = accordsDefsFr()
+  if (lang !== 'en') return defs
+  return defs.map((d) => ({ ...d, ...EN_LABELS[d.key] }))
+}
+
+function accordsDefsFr(): AccordCategory[] {
   return [
     {
       key: 'vin-rouge',

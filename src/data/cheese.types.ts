@@ -44,6 +44,22 @@ export interface CheeseWikipedia {
   extract: string
 }
 
+/** English translation of a fiche's narrative fields — everything else
+ *  (dept, race, famille, forme, saison…) stays French: those are matched by
+ *  business logic (accords.ts, decoupe.ts, season.ts) and shown as-is in
+ *  both languages, the way an English text keeps "Savoie" or "AOP" untouched.
+ *  Populated per-cheese as a translation pass is done; absent fields fall
+ *  back to the French value (see CheeseDetailScreen). */
+export interface CheeseTranslation {
+  histoire?: string
+  anecdote?: string
+  fabrication?: string
+  conservation?: string
+  service?: string
+  notes?: string[]
+  accords?: CheeseAccords
+}
+
 export interface Cheese {
   id: string
   nom: string
@@ -98,6 +114,9 @@ export interface Cheese {
    *  they aren't guaranteed to match any specific `galerie` label — see
    *  scripts/enrich-wikipedia.mjs. */
   galleryImages?: CheeseImage[]
+  /** English translation of the narrative fields, when done — see
+   *  CheeseTranslation. */
+  en?: CheeseTranslation
 }
 
 export interface Region {

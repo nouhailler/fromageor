@@ -3,6 +3,7 @@
 // IGP is inferred from the name; Label Rouge/Bio are indicative only (demo
 // data) — see the footnote on the Appellations screen.
 import type { Cheese } from '../data/cheese.types'
+import { type Lang } from './i18n/lang'
 
 export type AppellationLabel = 'AOP' | 'IGP' | 'Label Rouge' | 'Bio'
 
@@ -25,7 +26,9 @@ export function appellationsOf(c: Cheese): AppellationLabel[] {
 }
 
 export interface AppellationBadge {
-  t: AppellationLabel
+  /** Display text — translated (see appellationLabel), not necessarily the
+   *  canonical AppellationLabel key. Never compare this for filtering. */
+  t: string
   bg: string
   fg: string
 }
@@ -37,7 +40,17 @@ const BADGE_COLORS: Record<AppellationLabel, [string, string]> = {
   Bio: ['var(--color-accent-2-700)', '#fff'],
 }
 
-export function appBadge(t: AppellationLabel): AppellationBadge {
+/** AOP/IGP/Label Rouge are official French designations, kept as-is in
+ *  English too (like "AOC" in an English text) — only "Bio" has a natural
+ *  English equivalent. The canonical AppellationLabel key never changes:
+ *  it's what filter state and `labelKeys` comparisons use. */
+const LABEL_EN: Partial<Record<AppellationLabel, string>> = { Bio: 'Organic' }
+
+export function appellationLabel(t: AppellationLabel, lang: Lang = 'fr'): string {
+  return lang === 'en' ? LABEL_EN[t] || t : t
+}
+
+export function appBadge(t: AppellationLabel, lang: Lang = 'fr'): AppellationBadge {
   const [bg, fg] = BADGE_COLORS[t] || BADGE_COLORS.AOP
-  return { t, bg, fg }
+  return { t: appellationLabel(t, lang), bg, fg }
 }

@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
+import { useLanguage } from '../../state/LanguageContext'
 import { OverlayScreen } from '../layout/OverlayScreen'
 import { OverlayHeader, OverlayTitle, OverlayEyebrow } from '../layout/OverlayHeader'
 import styles from './DecoupeList.module.css'
@@ -12,12 +13,13 @@ export function DecoupeList() {
   // cette méthode. La carte entière ouvre le détail de la méthode, où ils
   // sont tous listés et cliquables.
   const { decoupeMethods } = useCollections()
+  const { t } = useLanguage()
 
   return (
     <OverlayScreen>
       <OverlayHeader onBack={actions.closeDecoupe}>
-        <OverlayTitle>Découpe</OverlayTitle>
-        <OverlayEyebrow>Bien couper chaque fromage</OverlayEyebrow>
+        <OverlayTitle>{t('drawer.decoupe')}</OverlayTitle>
+        <OverlayEyebrow>{t('decoupe.listEyebrow')}</OverlayEyebrow>
       </OverlayHeader>
 
       <div className={styles.content}>
@@ -41,14 +43,11 @@ export function DecoupeList() {
                   </span>
                 ))}
                 {items.length > examples.length && (
-                  <span className={styles.exampleMore}>
-                    + {items.length - examples.length}
-                    {items.length - examples.length > 1 ? ' autres' : ' autre'}
-                  </span>
+                  <span className={styles.exampleMore}>{t('decoupe.more', { n: items.length - examples.length })}</span>
                 )}
               </div>
               <div className={styles.open}>
-                Le geste, pas à pas
+                {t('decoupe.stepByStep')}
                 <ChevronRight size={15} strokeWidth={2.75} />
               </div>
             </div>

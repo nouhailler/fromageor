@@ -1,5 +1,6 @@
 import { ChevronRight } from 'lucide-react'
 import type { AppellationBadge } from '../../lib/appellations'
+import { useLanguage } from '../../state/LanguageContext'
 import { CheeseAvatar } from './CheeseAvatar'
 import { LabelBadge } from './LabelBadge'
 import styles from './CheeseCard.module.css'
@@ -28,6 +29,7 @@ export function CheeseCard({
   avatarSize = 44,
   avatarFontSize = 19,
 }: CheeseCardProps) {
+  const { t } = useLanguage()
   return (
     <button type="button" className={styles.card} onClick={onClick}>
       <CheeseAvatar initial={initial} size={avatarSize} fontSize={avatarFontSize} />
@@ -36,7 +38,7 @@ export function CheeseCard({
           <span className={styles.name}>{nom}</span>
           {aop && (
             <LabelBadge bg="var(--color-accent-2-200)" fg="var(--color-accent-2-700)" size="xs">
-              AOP
+              {t('common.aopBadge')}
             </LabelBadge>
           )}
         </div>

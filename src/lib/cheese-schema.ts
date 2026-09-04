@@ -213,7 +213,10 @@ export interface CheeseFieldDoc {
 }
 
 /** Flat, UI-friendly rendering of CHEESE_JSON_SCHEMA — same source of
- *  truth, one row per field, for the in-app "format attendu" table. */
+ *  truth, one row per field, for the in-app "format attendu" table. Field
+ *  `key`/`type` are the actual JSON keys (always French field names, e.g.
+ *  "nom" not "name" — it's a data format, not UI text) — only `description`
+ *  is translated. */
 export const CHEESE_FIELD_DOCS: CheeseFieldDoc[] = [
   { key: 'id', type: 'string', required: true, description: 'Identifiant unique, stable, kebab-case.' },
   { key: 'nom', type: 'string', required: true, description: 'Nom usuel.' },
@@ -251,3 +254,36 @@ export const CHEESE_FIELD_DOCS: CheeseFieldDoc[] = [
   { key: 'wikipedia', type: '{ url, extract }', required: false, description: 'Lien et résumé Wikipédia.' },
   { key: 'galleryImages', type: '{ url, width, height, credit, creditUrl }[]', required: false, description: 'Photos supplémentaires pour les vignettes (libellés génériques, pas de correspondance garantie avec "galerie").' },
 ]
+
+const DESC_EN: Record<string, string> = {
+  id: 'Unique, stable identifier, kebab-case.',
+  nom: 'Common name.',
+  alt: 'Alternative names / synonyms. Default: [].',
+  dept: 'Department(s), e.g. "Vienne (86)".',
+  commune: 'Commune or precise locality.',
+  lait: 'Must contain "Vache", "Chèvre", "Brebis", "Mélange" or "Bufflonne" (French milk-type words — matched by the app\'s logic).',
+  race: 'Animal breed(s).',
+  famille: 'Technological family, e.g. "Pâte pressée non cuite" (French cheesemaking term).',
+  mg: 'Fat content, e.g. "45 %".',
+  saison: 'Contains "Printemps"/"Été"/"Automne"/"Hiver" (with "→" for a range) or "Toute l\'année" — French season words, matched by the app\'s logic.',
+  intensite: '1 = mild … 5 = intense.',
+  aop: 'Real AOP designation (official mark).',
+  prix: 'E.g. "≈ 28 €/kg".',
+  dispo: 'E.g. "Courante", "Saisonnière", "Rare".',
+  notes: 'Aroma notes (3-4 recommended), non-empty.',
+  accords: 'Object; every field is optional.',
+  histoire: 'History paragraph.',
+  anecdote: '"Did you know" callout.',
+  nutrition: 'Object, per 100 g; every field is optional.',
+  galerie: 'Photo captions (not image files), non-empty.',
+  map: '[x, y] normalized 0-100 on the France silhouette.',
+  regionId: 'Optional if the file provides "region" (see envelope), or the entry is merged into an existing region.',
+  image: 'Main photo (e.g. Wikimedia Commons). All sub-fields are required if the object is present.',
+  wikipedia: 'Wikipedia link and summary.',
+  galleryImages: 'Extra photos for thumbnails (generic captions, no guaranteed match with "galerie").',
+}
+
+export function cheeseFieldDocs(lang: 'fr' | 'en' = 'fr'): CheeseFieldDoc[] {
+  if (lang !== 'en') return CHEESE_FIELD_DOCS
+  return CHEESE_FIELD_DOCS.map((f) => ({ ...f, description: DESC_EN[f.key] ?? f.description }))
+}

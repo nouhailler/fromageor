@@ -2,8 +2,7 @@ import { useRef, useState } from 'react'
 import { Download, Upload, FileJson, RotateCcw, CircleCheck, CircleAlert } from 'lucide-react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
-import { OverlayScreen } from '../layout/OverlayScreen'
-import { OverlayHeader, OverlayTitle, OverlayEyebrow } from '../layout/OverlayHeader'
+import { useLanguage } from '../../state/LanguageContext'
 import {
   parseImportPayload,
   validateImportPayload,
@@ -11,7 +10,9 @@ import {
   exportPayloadToJson,
   type ValidationResult,
 } from '../../lib/cheese-import-export'
-import { EXAMPLE_CHEESE, EXAMPLE_REGION, CHEESE_FIELD_DOCS } from '../../lib/cheese-schema'
+import { EXAMPLE_CHEESE, EXAMPLE_REGION, cheeseFieldDocs } from '../../lib/cheese-schema'
+import { OverlayScreen } from '../layout/OverlayScreen'
+import { OverlayHeader, OverlayTitle, OverlayEyebrow } from '../layout/OverlayHeader'
 import { VersionCard } from '../ui/VersionCard'
 import styles from './ImportExportScreen.module.css'
 
@@ -37,6 +38,7 @@ export function ImportExportScreen() {
   const [parseError, setParseError] = useState<string | null>(null)
   const [confirmedCount, setConfirmedCount] = useState<number | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const { t, lang } = useLanguage()
 
   function handleExport() {
     downloadTextFile(`fromages-export-${todayStamp()}.json`, exportJson())
@@ -92,51 +94,46 @@ export function ImportExportScreen() {
   return (
     <OverlayScreen>
       <OverlayHeader onBack={actions.closeImportExport}>
-        <OverlayTitle>Import / Export</OverlayTitle>
-        <OverlayEyebrow>Base de données</OverlayEyebrow>
+        <OverlayTitle>{t('drawer.importExport')}</OverlayTitle>
+        <OverlayEyebrow>{t('importExport.eyebrow')}</OverlayEyebrow>
       </OverlayHeader>
 
       <div className={styles.content}>
         <VersionCard />
 
         <div className={styles.card}>
-          <h2 className={styles.sectionTitle}>Exporter</h2>
-          <div className={styles.hint}>
-            {cheeses.length} fromage(s) · {regions.length} région(s) actuellement chargés.
-          </div>
+          <h2 className={styles.sectionTitle}>{t('importExport.exportTitle')}</h2>
+          <div className={styles.hint}>{t('importExport.loadedHint', { n: cheeses.length, r: regions.length })}</div>
           <div className={styles.buttonRow}>
             <button type="button" className={`${styles.button} ${styles.buttonPrimary}`} onClick={handleExport}>
               <Download size={17} strokeWidth={2.75} />
-              Exporter la base (.json)
+              {t('importExport.exportButton')}
             </button>
             <button type="button" className={`${styles.button} ${styles.buttonSecondary}`} onClick={handleDownloadTemplate}>
               <FileJson size={17} strokeWidth={2.75} />
-              Télécharger un gabarit
+              {t('importExport.templateButton')}
             </button>
           </div>
         </div>
 
         {importedCount > 0 && (
           <div className={styles.card}>
-            <h2 className={styles.sectionTitle}>Données importées</h2>
+            <h2 className={styles.sectionTitle}>{t('importExport.importedDataTitle')}</h2>
             <div className={styles.hint}>
-              <span className={styles.badge}>{importedCount}</span> fromage(s) importé(s) localement (stockés sur cet
-              appareil, ajoutés ou remplaçant des fiches existantes par id).
+              <span className={styles.badge}>{importedCount}</span> {t('importExport.importedHint')}
             </div>
             <div className={styles.buttonRow}>
               <button type="button" className={`${styles.button} ${styles.buttonDanger}`} onClick={handleReset}>
                 <RotateCcw size={16} strokeWidth={2.75} />
-                Réinitialiser les imports
+                {t('importExport.resetImports')}
               </button>
             </div>
           </div>
         )}
 
         <div className={styles.card}>
-          <h2 className={styles.sectionTitle}>Importer</h2>
-          <div className={styles.hint}>
-            Collez du JSON ci-dessous, ou choisissez un fichier. Format attendu détaillé plus bas.
-          </div>
+          <h2 className={styles.sectionTitle}>{t('importExport.importTitle')}</h2>
+          <div className={styles.hint}>{t('importExport.importHint')}</div>
           <textarea
             className={styles.textarea}
             value={text}
@@ -163,7 +160,7 @@ export function ImportExportScreen() {
               onClick={() => fileInputRef.current?.click()}
             >
               <Upload size={16} strokeWidth={2.75} />
-              Choisir un fichier…
+              {t('importExport.chooseFile')}
             </button>
             <button
               type="button"
@@ -171,7 +168,7 @@ export function ImportExportScreen() {
               onClick={handleValidate}
               disabled={!text.trim()}
             >
-              Valider
+              {t('importExport.validate')}
             </button>
           </div>
 
@@ -189,14 +186,14 @@ export function ImportExportScreen() {
               {validation.valid.length > 0 && (
                 <div className={`${styles.validationRow} ${styles.validOk}`}>
                   <CircleCheck size={16} strokeWidth={2.75} />
-                  {validation.valid.length} fromage(s) valide(s), prêt(s) à importer.
+                  {t('importExport.validCount', { n: validation.valid.length })}
                 </div>
               )}
               {validation.invalid.length > 0 && (
                 <>
                   <div className={`${styles.validationRow} ${styles.validError}`}>
                     <CircleAlert size={16} strokeWidth={2.75} />
-                    {validation.invalid.length} entrée(s) invalide(s), ignorée(s) :
+                    {t('importExport.invalidCount', { n: validation.invalid.length })}
                   </div>
                   <div className={styles.errorList}>
                     {validation.invalid.map((e) => (
@@ -210,7 +207,7 @@ export function ImportExportScreen() {
               {validation.valid.length > 0 && (
                 <div className={styles.buttonRow}>
                   <button type="button" className={`${styles.button} ${styles.buttonPrimary}`} onClick={handleConfirmImport}>
-                    Confirmer l'import ({validation.valid.length})
+                    {t('importExport.confirmImport', { n: validation.valid.length })}
                   </button>
                 </div>
               )}
@@ -220,35 +217,32 @@ export function ImportExportScreen() {
           {confirmedCount !== null && (
             <div className={`${styles.validationRow} ${styles.validOk}`}>
               <CircleCheck size={16} strokeWidth={2.75} />
-              {confirmedCount} fromage(s) importé(s) avec succès.
+              {t('importExport.importedSuccess', { n: confirmedCount })}
             </div>
           )}
         </div>
 
         <div className={styles.card}>
-          <h2 className={styles.sectionTitle}>Format attendu</h2>
-          <div className={styles.hint}>
-            Le fichier JSON doit être soit un tableau de fromages, soit un objet{' '}
-            <code>{'{ "region"?: { "id", "name" }, "cheeses": [...] }'}</code>. Chaque fromage suit le schéma
-            ci-dessous ; <code>regionId</code> hérite de <code>region.id</code> s'il est omis. Importer un{' '}
-            <code>id</code> déjà présent remplace la fiche existante ; un nouvel <code>id</code> l'ajoute.
-          </div>
+          <h2 className={styles.sectionTitle}>{t('importExport.formatTitle')}</h2>
+          <div className={styles.hint}>{t('importExport.formatHint')}</div>
           <div className={styles.tableScroll}>
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>Champ</th>
-                  <th>Type</th>
-                  <th>Requis</th>
-                  <th>Description</th>
+                  <th>{t('importExport.table.field')}</th>
+                  <th>{t('importExport.table.type')}</th>
+                  <th>{t('importExport.table.required')}</th>
+                  <th>{t('importExport.table.description')}</th>
                 </tr>
               </thead>
               <tbody>
-                {CHEESE_FIELD_DOCS.map((f) => (
+                {cheeseFieldDocs(lang).map((f) => (
                   <tr key={f.key}>
                     <td className={styles.fieldKey}>{f.key}</td>
                     <td className={styles.fieldType}>{f.type}</td>
-                    <td className={f.required ? styles.required : styles.optional}>{f.required ? 'oui' : 'non'}</td>
+                    <td className={f.required ? styles.required : styles.optional}>
+                      {f.required ? t('importExport.yes') : t('importExport.no')}
+                    </td>
                     <td>{f.description}</td>
                   </tr>
                 ))}

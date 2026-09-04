@@ -1,6 +1,7 @@
 import { Check, Heart } from 'lucide-react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
+import { useLanguage } from '../../state/LanguageContext'
 import { BottomSheet } from '../ui/BottomSheet'
 import { CreateListForm } from '../ui/CreateListForm'
 import styles from './FavoritesSheet.module.css'
@@ -8,11 +9,12 @@ import styles from './FavoritesSheet.module.css'
 export function FavoritesSheet() {
   const { state, actions } = useAppState()
   const { sheetCheese, sheetLists } = useCollections()
+  const { t } = useLanguage()
 
   return (
     <BottomSheet open={!!sheetCheese} onClose={actions.closeSheet}>
       <div className={styles.header}>
-        <div className={styles.kicker}>Ajouter aux favoris</div>
+        <div className={styles.kicker}>{t('favorites.addToFavorites')}</div>
         <div className={styles.title}>{sheetCheese?.nom}</div>
       </div>
 
@@ -45,15 +47,15 @@ export function FavoritesSheet() {
           onStart={actions.startCreate}
           onCancel={actions.cancelCreate}
           onConfirm={actions.confirmCreateAdd}
-          confirmLabel="Créer et ajouter"
-          dashedLabel="Créer une nouvelle liste"
+          confirmLabel={t('favorites.createAndAdd')}
+          dashedLabel={t('favorites.createNewList')}
           inputBackground="var(--color-surface)"
         />
       </div>
 
       <div className={styles.footer}>
         <button type="button" className={styles.doneButton} onClick={actions.closeSheet}>
-          Terminé
+          {t('common.done')}
         </button>
       </div>
     </BottomSheet>

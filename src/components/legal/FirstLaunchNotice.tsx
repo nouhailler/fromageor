@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft } from 'lucide-react'
-import { legalNotice } from '../../lib/legal-notice'
+import { legalTitle, legalShortWarning } from '../../lib/legal-notice'
 import { needsAcknowledgement, setAcknowledged } from '../../lib/legal-storage'
+import { useLanguage } from '../../state/LanguageContext'
 import { LiabilityNotice } from './LiabilityNotice'
 import { useDismissOnBack } from './useDismissOnBack'
 import styles from './FirstLaunchNotice.module.css'
@@ -23,6 +24,7 @@ export function FirstLaunchNotice() {
   const [detailsOpen, setDetailsOpen] = useState(false)
   const dialogRef = useRef<HTMLDivElement>(null)
   const primaryRef = useRef<HTMLButtonElement>(null)
+  const { t, lang } = useLanguage()
 
   const closeDetails = useCallback(() => setDetailsOpen(false), [])
   useDismissOnBack(open && detailsOpen, closeDetails)
@@ -79,12 +81,12 @@ export function FirstLaunchNotice() {
                 type="button"
                 className={styles.backButton}
                 onClick={closeDetails}
-                aria-label="Revenir à l'avertissement"
+                aria-label={t('legal.backToWarning')}
               >
                 <ChevronLeft size={21} strokeWidth={2.75} />
               </button>
               <h1 className={styles.detailsTitle} id="legal-notice-title">
-                Mentions légales
+                {t('drawer.legal')}
               </h1>
             </div>
             <div className={`mainscroll ${styles.body}`}>
@@ -94,9 +96,9 @@ export function FirstLaunchNotice() {
         ) : (
           <div className={`mainscroll ${styles.body}`}>
             <h1 className={styles.title} id="legal-notice-title">
-              {legalNotice.title}
+              {legalTitle(lang)}
             </h1>
-            {legalNotice.shortWarning.map((paragraph, index) => (
+            {legalShortWarning(lang).map((paragraph, index) => (
               <p className={styles.paragraph} key={index}>
                 {paragraph}
               </p>
@@ -107,11 +109,11 @@ export function FirstLaunchNotice() {
         <div className={styles.actions}>
           {!detailsOpen && (
             <button type="button" className={styles.secondary} onClick={() => setDetailsOpen(true)}>
-              Voir les détails
+              {t('legal.seeDetails')}
             </button>
           )}
           <button type="button" className={styles.primary} onClick={acknowledge} ref={primaryRef}>
-            J&rsquo;ai compris
+            {t('legal.understood')}
           </button>
         </div>
       </div>

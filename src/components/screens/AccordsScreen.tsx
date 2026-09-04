@@ -1,5 +1,6 @@
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
+import { useLanguage } from '../../state/LanguageContext'
 import { OverlayScreen } from '../layout/OverlayScreen'
 import { OverlayHeader, OverlayTitle, OverlayEyebrow } from '../layout/OverlayHeader'
 import { CheeseAvatar } from '../ui/CheeseAvatar'
@@ -8,12 +9,13 @@ import styles from './AccordsScreen.module.css'
 export function AccordsScreen() {
   const { actions } = useAppState()
   const { accordsCats } = useCollections()
+  const { t } = useLanguage()
 
   return (
     <OverlayScreen>
       <OverlayHeader onBack={actions.closeAccords}>
-        <OverlayTitle>Accords mets &amp; boissons</OverlayTitle>
-        <OverlayEyebrow>Suggestions automatiques</OverlayEyebrow>
+        <OverlayTitle>{t('drawer.accords')}</OverlayTitle>
+        <OverlayEyebrow>{t('accords.eyebrow')}</OverlayEyebrow>
       </OverlayHeader>
 
       <div className={styles.content}>

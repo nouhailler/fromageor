@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { LEGAL_NOTICE_VERSION, USES_GEOLOCATION, legalNotice, legalSections } from './legal-notice'
+import {
+  LEGAL_NOTICE_VERSION,
+  USES_GEOLOCATION,
+  legalPublisher,
+  legalShortWarning,
+  legalTitle,
+  legalSections,
+} from './legal-notice'
 
 /** Chaque paragraphe du texte de limitation de responsabilité fourni par
  *  l'éditeur. Le test ci-dessous vérifie qu'ils sont tous présents, au mot
@@ -50,7 +57,7 @@ describe('legalSections', () => {
 
   it('reprend l\'avertissement court à l\'identique dans la section Avertissement', () => {
     const section = legalSections(false).find((s) => s.id === 'avertissement')
-    expect(section?.paragraphs).toEqual(legalNotice.shortWarning)
+    expect(section?.paragraphs).toEqual(legalShortWarning())
   })
 
   it('ajoute la section « Précision de la localisation » quand l\'application utilise le GPS', () => {
@@ -81,15 +88,28 @@ describe('legalSections', () => {
   })
 })
 
-describe('legalNotice', () => {
-  it('porte le titre et la version des mentions', () => {
-    expect(legalNotice.title).toBe('⚠️ Information importante')
-    expect(legalNotice.version).toBe(LEGAL_NOTICE_VERSION)
+describe('legalTitle / legalPublisher', () => {
+  it('porte le titre des mentions, dans les deux langues', () => {
+    expect(legalTitle('fr')).toBe('⚠️ Information importante')
+    expect(legalTitle('en')).toBe('⚠️ Important information')
+    expect(LEGAL_NOTICE_VERSION).toBe('1.0')
   })
 
   it('renseigne l\'identité de l\'éditeur', () => {
-    expect(legalNotice.publisher.name).toBe('Swinux')
-    expect(legalNotice.publisher.email).toBe('contact@swinux.ch')
-    expect(legalNotice.publisher.address).toBe('Canton de Vaud, Suisse')
+    expect(legalPublisher.name).toBe('Swinux')
+    expect(legalPublisher.email).toBe('contact@swinux.ch')
+    expect(legalPublisher.address).toBe('Canton de Vaud, Suisse')
+  })
+})
+
+describe('legalSections (anglais)', () => {
+  it('traduit les huit sections sans en perdre ni en dupliquer', () => {
+    const fr = legalSections(false, 'fr')
+    const en = legalSections(false, 'en')
+    expect(en.map((s) => s.id)).toEqual(fr.map((s) => s.id))
+    en.forEach((section, i) => {
+      expect(section.paragraphs.length).toBe(fr[i].paragraphs.length)
+      expect(section.paragraphs.every((p) => p.trim().length > 0)).toBe(true)
+    })
   })
 })

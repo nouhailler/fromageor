@@ -1,6 +1,7 @@
 import { Heart, ChevronRight } from 'lucide-react'
 import { useAppState } from '../../state/AppStateContext'
 import { useCollections } from '../../state/CheeseCollectionsContext'
+import { useLanguage } from '../../state/LanguageContext'
 import { StickyHeader } from '../layout/StickyHeader'
 import { CreateListForm } from '../ui/CreateListForm'
 import styles from './FavoritesOverview.module.css'
@@ -8,11 +9,12 @@ import styles from './FavoritesOverview.module.css'
 export function FavoritesOverview() {
   const { state, actions } = useAppState()
   const { listsOverview } = useCollections()
+  const { t } = useLanguage()
 
   return (
     <div>
       <StickyHeader>
-        <h1 className={styles.title}>Mes listes</h1>
+        <h1 className={styles.title}>{t('favorites.myLists')}</h1>
       </StickyHeader>
 
       <div className={styles.content}>
@@ -36,8 +38,8 @@ export function FavoritesOverview() {
           onStart={actions.startCreate}
           onCancel={actions.cancelCreate}
           onConfirm={actions.confirmCreate}
-          confirmLabel="Créer"
-          dashedLabel="Créer une liste"
+          confirmLabel={t('favorites.create')}
+          dashedLabel={t('favorites.createList')}
         />
       </div>
     </div>

@@ -1,6 +1,7 @@
 // Ported from the Component class in the design handoff prototype:
 // seasonMonths() parses strings like "Été → Hiver", "Toute l'année",
 // "Automne → Hiver (15 août – 15 mars)" into month indices (0-11).
+import { pick, type Lang } from './i18n/lang'
 
 export const MONTH_NAMES = [
   'Janvier',
@@ -16,6 +17,43 @@ export const MONTH_NAMES = [
   'Novembre',
   'Décembre',
 ]
+
+const MONTH_NAMES_EN = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
+
+/** Month names for display only — always index-aligned with MONTH_NAMES,
+ *  never used to parse a cheese's `saison` field (seasonMonths() below
+ *  always matches the French season words, regardless of display language). */
+export function monthNames(lang: Lang = 'fr'): string[] {
+  return pick(lang, MONTH_NAMES, MONTH_NAMES_EN)
+}
+
+const SEASON_LABEL_EN: Record<string, string> = {
+  Printemps: 'Spring',
+  Été: 'Summer',
+  Automne: 'Autumn',
+  Hiver: 'Winter',
+  "Toute l'année": 'All year round',
+}
+
+/** Translates a season name for display (e.g. the "De saison" carousel
+ *  heading). Never feed the result back into seasonMonths() or an `.includes`
+ *  match against `cheese.saison` — those must stay on the French original. */
+export function seasonLabel(name: string, lang: Lang = 'fr'): string {
+  return lang === 'en' ? SEASON_LABEL_EN[name] || name : name
+}
 
 /** Season assigned to each calendar month (0=Janvier..11=Décembre), used by
  *  the home screen's "De saison" carousel (simple substring match against

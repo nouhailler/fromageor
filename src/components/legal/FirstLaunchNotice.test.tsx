@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { FirstLaunchNotice } from './FirstLaunchNotice'
+import { LanguageProvider } from '../../state/LanguageContext'
 import { ACKNOWLEDGED_KEY, ACKNOWLEDGED_VERSION_KEY, setAcknowledged } from '../../lib/legal-storage'
 import { LEGAL_NOTICE_VERSION } from '../../lib/legal-notice'
 
@@ -8,16 +9,24 @@ beforeEach(() => {
   localStorage.clear()
 })
 
+function renderNotice() {
+  return render(
+    <LanguageProvider>
+      <FirstLaunchNotice />
+    </LanguageProvider>,
+  )
+}
+
 /** Remonte le composant, comme au lancement suivant de l'application : seul
  *  le stockage traverse. */
 function relaunch() {
-  const { unmount } = render(<FirstLaunchNotice />)
+  const { unmount } = renderNotice()
   return unmount
 }
 
 describe('FirstLaunchNotice', () => {
   it('affiche l\'avertissement à la première ouverture', () => {
-    render(<FirstLaunchNotice />)
+    renderNotice()
     const dialog = screen.getByRole('dialog')
     expect(dialog).toHaveAttribute('aria-modal', 'true')
     expect(screen.getByRole('heading', { name: /Information importante/ })).toBeInTheDocument()
@@ -26,7 +35,7 @@ describe('FirstLaunchNotice', () => {
   })
 
   it('fait disparaître l\'avertissement au clic sur « J\'ai compris » et mémorise la validation', () => {
-    render(<FirstLaunchNotice />)
+    renderNotice()
     fireEvent.click(screen.getByRole('button', { name: /J’ai compris/ }))
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
@@ -46,7 +55,7 @@ describe('FirstLaunchNotice', () => {
 
   it('laisse arriver directement sur l\'écran principal quand la validation est déjà là', () => {
     setAcknowledged(true)
-    const { container } = render(<FirstLaunchNotice />)
+    const { container } = renderNotice()
     expect(container).toBeEmptyDOMElement()
   })
 
@@ -61,7 +70,7 @@ describe('FirstLaunchNotice', () => {
   })
 
   it('ouvre les mentions complètes depuis « Voir les détails » et revient en arrière', () => {
-    render(<FirstLaunchNotice />)
+    renderNotice()
 
     fireEvent.click(screen.getByRole('button', { name: 'Voir les détails' }))
     expect(screen.getByRole('heading', { name: 'Mentions légales' })).toBeInTheDocument()
@@ -75,7 +84,7 @@ describe('FirstLaunchNotice', () => {
   })
 
   it('referme le détail sur Échap sans valider l\'avertissement', () => {
-    render(<FirstLaunchNotice />)
+    renderNotice()
 
     fireEvent.click(screen.getByRole('button', { name: 'Voir les détails' }))
     fireEvent.keyDown(document, { key: 'Escape' })
@@ -85,7 +94,7 @@ describe('FirstLaunchNotice', () => {
   })
 
   it('referme le détail sur le retour Android, sans quitter la modale', () => {
-    render(<FirstLaunchNotice />)
+    renderNotice()
     fireEvent.click(screen.getByRole('button', { name: 'Voir les détails' }))
 
     // jsdom ne déclenche pas `popstate` sur history.back() : on l'émet
@@ -97,13 +106,13 @@ describe('FirstLaunchNotice', () => {
   })
 
   it('n\'est pas refermé par Échap tant que l\'avertissement n\'est pas validé', () => {
-    render(<FirstLaunchNotice />)
+    renderNotice()
     fireEvent.keyDown(document, { key: 'Escape' })
     expect(screen.getByRole('dialog')).toBeInTheDocument()
   })
 
   it('donne le focus au bouton principal et le garde dans la modale', () => {
-    render(<FirstLaunchNotice />)
+    renderNotice()
     const primary = screen.getByRole('button', { name: /J’ai compris/ })
     expect(primary).toHaveFocus()
 

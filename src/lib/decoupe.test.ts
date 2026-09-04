@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { decoupeDefs, decoupeGroups, decoupeMatchFor, decoupeMethodIdFor, poidsKg } from './decoupe'
-import { DECOUPE_GUIDE } from './decoupe-guide'
+import { DECOUPE_GUIDE_IDS, decoupeGuide } from './decoupe-guide'
 import { ALL_CHEESES } from '../data/dataset'
 
 function cheese(id: string) {
@@ -191,31 +191,35 @@ describe('decoupeGroups', () => {
 
 // Le guide est du texte écrit à la main : le test ne juge pas le fond, il
 // vérifie qu'aucune méthode n'ouvre un écran à trous.
-describe('DECOUPE_GUIDE', () => {
+describe('decoupeGuide', () => {
   it('couvre les six méthodes, et seulement elles', () => {
-    expect(Object.keys(DECOUPE_GUIDE).sort()).toEqual(decoupeDefs().map((m) => m.id).sort())
+    expect([...DECOUPE_GUIDE_IDS].sort()).toEqual(decoupeDefs().map((m) => m.id).sort())
   })
 
-  it('donne à chacune quatre étapes numérotables et distinctes', () => {
-    for (const [id, guide] of Object.entries(DECOUPE_GUIDE)) {
-      expect([id, guide.etapes.length]).toEqual([id, 4])
-      const titres = guide.etapes.map((e) => e.titre)
-      expect([id, new Set(titres).size]).toEqual([id, 4])
-    }
-  })
+  for (const lang of ['fr', 'en'] as const) {
+    it(`donne à chacune quatre étapes numérotables et distinctes (${lang})`, () => {
+      for (const id of DECOUPE_GUIDE_IDS) {
+        const guide = decoupeGuide(id, lang)
+        expect([id, guide.etapes.length]).toEqual([id, 4])
+        const titres = guide.etapes.map((e) => e.titre)
+        expect([id, new Set(titres).size]).toEqual([id, 4])
+      }
+    })
 
-  it('ne laisse aucun texte vide', () => {
-    for (const [id, guide] of Object.entries(DECOUPE_GUIDE)) {
-      const textes = [
-        guide.principe,
-        guide.pourquoi,
-        guide.particularite.titre,
-        guide.particularite.texte,
-        ...guide.etapes.flatMap((e) => [e.titre, e.texte]),
-        ...guide.eviter,
-      ]
-      expect([id, textes.filter((t) => !t.trim()).length]).toEqual([id, 0])
-      expect([id, guide.eviter.length > 0]).toEqual([id, true])
-    }
-  })
+    it(`ne laisse aucun texte vide (${lang})`, () => {
+      for (const id of DECOUPE_GUIDE_IDS) {
+        const guide = decoupeGuide(id, lang)
+        const textes = [
+          guide.principe,
+          guide.pourquoi,
+          guide.particularite.titre,
+          guide.particularite.texte,
+          ...guide.etapes.flatMap((e) => [e.titre, e.texte]),
+          ...guide.eviter,
+        ]
+        expect([id, textes.filter((t) => !t.trim()).length]).toEqual([id, 0])
+        expect([id, guide.eviter.length > 0]).toEqual([id, true])
+      }
+    })
+  }
 })

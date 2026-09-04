@@ -1,7 +1,8 @@
 import { useAppState } from '../../state/AppStateContext'
+import { useLanguage } from '../../state/LanguageContext'
 import { OverlayScreen } from '../layout/OverlayScreen'
 import { OverlayHeader, OverlayTitle, OverlayEyebrow } from '../layout/OverlayHeader'
-import { legalNotice } from '../../lib/legal-notice'
+import { LEGAL_NOTICE_VERSION } from '../../lib/legal-notice'
 import { resetAcknowledged } from '../../lib/legal-storage'
 import { LiabilityNotice } from './LiabilityNotice'
 import styles from './LegalScreen.module.css'
@@ -10,12 +11,13 @@ import styles from './LegalScreen.module.css'
  *  Suit le motif des autres écrans secondaires (Accords, Découpe…). */
 export function LegalScreen() {
   const { actions } = useAppState()
+  const { t } = useLanguage()
 
   return (
     <OverlayScreen>
       <OverlayHeader onBack={actions.closeLegal}>
-        <OverlayEyebrow>Version {legalNotice.version}</OverlayEyebrow>
-        <OverlayTitle>Mentions légales</OverlayTitle>
+        <OverlayEyebrow>{t('legal.version', { v: LEGAL_NOTICE_VERSION })}</OverlayEyebrow>
+        <OverlayTitle>{t('drawer.legal')}</OverlayTitle>
       </OverlayHeader>
 
       <div className={styles.content}>
