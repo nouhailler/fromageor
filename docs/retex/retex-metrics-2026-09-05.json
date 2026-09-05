@@ -1,0 +1,125 @@
+{
+  "project": "fromageor",
+  "generatedAt": "2026-09-05",
+  "scope": "tout l'historique (met à jour le RETEX du 2026-09-04)",
+  "git": {
+    "firstCommit": "2026-08-04",
+    "lastCommit": "2026-09-04",
+    "calendarDays": 32,
+    "activeDays": 9,
+    "totalCommits": 39,
+    "commitsByMonth": {
+      "2026-08": 32,
+      "2026-09": 7
+    },
+    "commitsByDay": {
+      "2026-08-04": 4,
+      "2026-08-05": 3,
+      "2026-08-19": 13,
+      "2026-08-20": 5,
+      "2026-08-21": 1,
+      "2026-08-22": 5,
+      "2026-08-24": 1,
+      "2026-09-03": 3,
+      "2026-09-04": 4
+    },
+    "hotspots": [
+      { "file": "README.md", "revisions": 30 },
+      { "file": "src/data/dataset.ts", "revisions": 15 },
+      { "file": "src/data/dataset.test.ts", "revisions": 15 },
+      { "file": "src/data/regions.ts", "revisions": 11 },
+      { "file": "src/data/cheeses-extra-media.ts", "revisions": 11 },
+      { "file": "scripts/enrich-wikipedia-extra.mjs", "revisions": 11 },
+      { "file": "CONTEXT.md", "revisions": 11 },
+      { "file": "src/components/screens/Drawer.tsx", "revisions": 9 },
+      { "file": "scripts/enrich-wikipedia.mjs", "revisions": 9 },
+      { "file": "src/components/screens/CheeseDetailScreen.tsx", "revisions": 8 },
+      { "file": "src/data/cheeses-extra.ts", "revisions": 7 },
+      { "file": "src/components/screens/CheeseDetailScreen.module.css", "revisions": 7 },
+      { "file": "vite.config.ts", "revisions": 6 },
+      { "file": "src/lib/cheese-schema.ts", "revisions": 6 }
+    ],
+    "fixRatio": 0.0513,
+    "fixRatioNote": "plancher — proxy par mots-clés de titre de commit (fix/bug/hotfix/revert/patch), sous-compte probablement le rework réel",
+    "reverts": 0,
+    "longestGapDays": 14,
+    "longestGapRange": ["2026-08-05", "2026-08-19"],
+    "secondGapDays": 10,
+    "secondGapRange": ["2026-08-24", "2026-09-03"],
+    "authors": {
+      "nouhailler": 35,
+      "Patrick": 3,
+      "Claude": 1
+    }
+  },
+  "claudeCode": {
+    "coverage": "partielle",
+    "coverageNote": "logs locaux disponibles seulement à partir de 2026-08-19T12:45Z ; les 7 premiers commits (04-05 août) n'ont aucune session associée retrouvée",
+    "sessions": 7,
+    "messages": 3526,
+    "period": { "first": "2026-08-19T12:45:05.060Z", "last": "2026-09-05T12:28:11.481Z" },
+    "tokens": {
+      "input": 7040,
+      "output": 3951315,
+      "cacheCreate": 16069774,
+      "cacheRead": 1259591490
+    },
+    "cacheReadShare": 0.9843,
+    "byModel": {
+      "claude-opus-5": { "input": 3518, "output": 2313856, "cacheCreate": 5845867, "cacheRead": 411566537 },
+      "claude-sonnet-5": { "input": 3522, "output": 1637459, "cacheCreate": 10223907, "cacheRead": 848024953 }
+    },
+    "byMonth": {
+      "2026-08": 419729778,
+      "2026-09": 859889841
+    },
+    "byDay": {
+      "2026-08-19": 160771376,
+      "2026-08-20": 59799119,
+      "2026-08-21": 33805824,
+      "2026-08-22": 126367197,
+      "2026-08-24": 38986262,
+      "2026-09-03": 136387937,
+      "2026-09-04": 474937691,
+      "2026-09-05": 248564213
+    }
+  },
+  "derived": {
+    "tokenCoverage": "partielle",
+    "activeRatio": 0.28125,
+    "velocity": 4.33,
+    "fixRatio": 0.0513,
+    "tokensPerCommit": 33.81,
+    "tokensPerCommitUnit": "millions, médiane des 7 jours où commits et tokens sont tous deux mesurés (04/08, 05/08, 05/09 exclus)",
+    "cacheShare": 0.9843,
+    "totalTokens": 1279619619,
+    "perProjectThreshold": 68.76,
+    "perProjectThresholdUnit": "millions de tokens/commit, médiane + 3×MAD sur la série des 7 jours",
+    "perProjectThresholdOutliers": [
+      { "date": "2026-09-04", "tokensPerCommitMillions": 118.73 }
+    ],
+    "uncommittedWorkNote": "05/09/2026 : 248.6M tokens traités, 0 commit associé ; git diff --stat au moment du rapport = 4077 insertions / 34 suppressions sur 5 fichiers (dont 3877 lignes dans src/data/cheeses-extra.ts) — traduction anglaise des 216 fiches, vérifiée en navigateur mais pas encore committée"
+  },
+  "whatWorked": [
+    "Zéro revert sur 39 commits, taux correctif mesuré bas (5,1 %).",
+    "98,4 % des tokens traités servis par le cache-read — stable par rapport aux 98,0 % du RETEX précédent, coût marginal réel proche de 20,0 M sur 1 279,6 M traités.",
+    "Même patron de recollage de données (EXTRA_CHEESES, EXTRA_REGION_OVERRIDES, EXTRA_EDITORIAL, EXTRA_TRANSLATIONS) réutilisé sans changement structurel de la première à la treizième région.",
+    "Garde-fous de test étendus au même rythme que les données, jusqu'à un garde-fou global sur les 216 fiches.",
+    "Vérification systématique en navigateur (recherche, bascule FR/EN, lecture de fiche) sur chacune des 13 régions traduites."
+  ],
+  "keyFindings": [
+    "Objectif initial (une région + ossature extensible) tenu jusqu'au bout : 13/13 régions métropolitaines, 216 fiches, en français puis en anglais.",
+    "Pipeline d'enrichissement photo/Wikipédia : angle mort structurel redécouvert plusieurs fois (20 révisions cumulées sur 2 scripts), faute d'audit de couverture fait en amont.",
+    "Pivot documentation le 03/09 : 150 lignes ajoutées à README.md puis 146 supprimées le même jour (~7h d'écart) ; journée à 45,5 M tokens/commit contre 12-25 M sur les journées comparables.",
+    "Tous les tokens d'août proviennent du modèle Opus 5, tous ceux de septembre du modèle Sonnet 5 — aucun mélange de modèle au sein d'un même mois dans les logs retrouvés.",
+    "05/09/2026 : une session entière (248,6 M tokens) de traduction anglaise du contenu des 216 fiches, vérifiée en navigateur région par région, n'a donné lieu à aucun commit au moment du rapport — 4 077 lignes non sécurisées.",
+    "Couverture des données de session partielle : les deux premiers jours actifs (04-05 août) n'ont aucun log Claude Code local associé."
+  ],
+  "actions": [
+    "Committer immédiatement après chaque unité de travail vérifiée, plutôt qu'en fin de longue séquence.",
+    "Auditer la couverture d'un jeu de données sur l'ensemble du périmètre avant d'implémenter un pipeline dépendant d'une source externe.",
+    "Confirmer explicitement l'architecture cible avant d'écrire du contenu de documentation piloté par une spec.",
+    "Surveiller le ratio tokens/commit en cours de route comme signal de pivot ou de session longue sans commit.",
+    "Documenter dans CONTEXT.md, à chaque session, l'état des fichiers non committés en fin de session."
+  ]
+}
