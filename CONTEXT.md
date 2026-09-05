@@ -4,13 +4,37 @@ Note de passage de relais entre sessions. Ce qui est **à faire**, ce qui est
 **déjà fait**, et les pièges rencontrés. Le fonctionnement du projet lui-même
 est documenté dans [README.md](README.md) — ce fichier ne le répète pas.
 
-Dernière mise à jour : **04/09/2026**, après l'ajout d'une interface anglaise
-avec sélecteur de langue. Base à **216 fiches, 13 régions** : **la métropole
-est complète.**
+Dernière mise à jour : **05/09/2026**, après la traduction de la treizième
+et dernière région de fiches (Pays de la Loire) en anglais. Base à **216
+fiches, 13 régions** : **la métropole est complète.**
 
 ---
 
 ## ✅ Ce qui vient d'être fait
+
+**La Phase 2 de l'i18n est terminée : les 216 fiches, dans les 13
+régions, sont désormais traduites en anglais.** `histoire`, `fabrication`,
+`conservation`, `service`, `anecdote` (quand elle existe), `notes` et
+`accords` sont lisibles en anglais sur chaque fiche ; le résumé Wikipédia
+reste volontairement en français dans les deux langues (citation sourcée).
+Traitée région par région comme la saisie initiale des données :
+Auvergne-Rhône-Alpes (49), Bourgogne-Franche-Comté (17), Bretagne (11),
+Centre-Val de Loire (13), Normandie (13), Hauts-de-France (18), Corse (10),
+Grand Est (12), Île-de-France (11), Occitanie (14), Nouvelle-Aquitaine (19),
+Provence-Alpes-Côte d'Azur (20) et Pays de la Loire (9). Un seul mécanisme
+`EXTRA_TRANSLATIONS` (`cheeses-extra.ts`, fusionné dans `dataset.ts`) a
+couvert les 216 fiches sans jamais demander de changement à `dataset.ts` —
+y compris les 7 fromages rattachés par `EXTRA_REGION_OVERRIDES` (mont-dor,
+bleu-gex, charolais, bouton-culotte, bleu-causses, laguiole,
+tomme-champsaur), qui vivent dans le jeu généré (`cheeses.ts`) et non dans
+un fichier de région dédié. `dataset.test.ts` porte désormais un garde-fou
+global (« couvre les 216 fiches, toutes régions confondues ») en plus des
+garde-fous par région. Vérifié en navigateur sur une fiche du jeu généré
+(Reblochon, Comté), trois fiches rattachées par `EXTRA_REGION_OVERRIDES`
+(Mont d'Or, Laguiole, Tomme du Champsaur), et onze fiches de région dédiée,
+une par région (Tome du Pays de Rohan, Valençay, Livarot, Vieux Boulogne,
+Brocciu, Munster, Fontainebleau, Roquefort, Ossau-Iraty, Banon, Curé
+Nantais) — aucune n'a demandé de code supplémentaire.
 
 **L'interface est traduisible en anglais, sélecteur FR/EN dans le menu
 latéral.** Voir la section « Traduction anglaise » du README pour l'architecture
@@ -18,9 +42,8 @@ latéral.** Voir la section « Traduction anglaise » du README pour l'architect
 valeurs françaises utilisées par la logique métier (catégories de lait,
 regex de `accords.ts`/`decoupe.ts`, mots de saison) ne changent jamais, seul
 l'affichage est traduit par-dessus. Tout l'habillage est traduit — écrans,
-mentions légales, guide de découpe, encyclopédie — **sauf le contenu des 216
-fiches**, qui reste en français dans les deux langues pour l'instant : voir
-l'item 2 de la liste « À faire » ci-dessous pour la suite (Phase 2).
+mentions légales, guide de découpe, encyclopédie — le contenu des fiches
+suit maintenant région par région (voir ci-dessus).
 
 **Chaque fiche affiche sa méthode de découpe.** L'écran Découpe existait depuis
 le handoff et n'avait jamais bougé : six méthodes statiques, sans aucun lien
@@ -207,28 +230,25 @@ Si une région devait tout de même être ajoutée, le moule est stable :
 README dit quels quatre fichiers brancher — plus le test de région dans
 `dataset.test.ts`, qui en fait cinq.
 
-### 2. Traduire les 216 fiches en anglais (Phase 2 de l'i18n)
+### 2. ~~Traduire les fiches en anglais~~ — fait le 05/09/2026 (Phase 2 de l'i18n)
 
-L'interface complète est traduisible depuis le 04/09/2026 (voir « Traduction
-anglaise » du README) : sélecteur FR/EN dans le menu, tous les écrans, les
-mentions légales, le guide de découpe, l'encyclopédie. Ce qui reste en
-français **quel que soit le réglage de langue**, c'est le contenu des 216
-fiches — `histoire`, `fabrication`, `conservation`, `service`, `anecdote`,
-`notes`, `accords`.
-
-La plomberie est prête : `Cheese.en?` (`src/data/cheese.types.ts`) attend un
-objet `CheeseTranslation` par fiche, et `CheeseDetailScreen` le lit déjà avec
-repli sur le français si absent — remplir une fiche ne demande **aucun
-changement de code**, seulement d'ajouter son `en: {...}`. Traiter région par
-région, comme la saisie initiale des données, avec le même souci de ne pas
-traduire à la volée sans relecture (une anecdote mal traduite reste un fait
-déformé). `dataset.test.ts` n'a pas encore de garde-fou sur la cohérence
-FR/EN — à ajouter en même temps que la première région traduite (mêmes clés
-qu'en français, rien de vide).
-
-Le résumé Wikipédia (`wikipedia.extract`) est **volontairement laissé en
-français** dans les deux langues : c'est une citation sourcée, le traduire
-romprait le lien direct avec l'article cité.
+Terminé : voir « Ce qui vient d'être fait » en tête de ce fichier pour le
+détail. Pour référence, si une future région ou une correction de traduction
+est nécessaire, le mécanisme reste `EXTRA_TRANSLATIONS: Record<string,
+CheeseTranslation>` dans `cheeses-extra.ts`, fusionné dans `dataset.ts` par
+`{ ...c, en: translation }` — appliqué aussi bien aux entrées du jeu généré
+qu'aux fiches d'`EXTRA_CHEESES`. Toute nouvelle fiche ajoutée au jeu de
+données (nouveau fromage, nouvelle région, ou fiche corrigée) doit recevoir
+sa traduction dans cette même table, région par région comme la saisie
+initiale des données, avec le même souci de ne pas traduire à la volée sans
+relecture (une anecdote mal traduite reste un fait déformé).
+`dataset.test.ts` porte le garde-fou FR/EN (bloc « Traductions anglaises
+(en) ») : toute fiche `en` doit reprendre exactement les champs non vides du
+français, ni plus ni moins, notes et clés d'accords comprises — plus un
+garde-fou global qui vérifie que les 216 fiches ont toutes un `en`. Le
+résumé Wikipédia (`wikipedia.extract`) reste **volontairement en français**
+dans les deux langues : c'est une citation sourcée, le traduire romprait le
+lien direct avec l'article cité.
 
 ### 3. Le guide de découpe peut aller plus loin
 

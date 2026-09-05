@@ -801,4 +801,150 @@ describe('ALL_CHEESES', () => {
       expect(cheese.regionId).toBe('bourgogne-franche-comte')
     }
   })
+
+  // Garde-fou promis par CONTEXT.md pour la phase 2 de l'i18n (traduction des
+  // fiches) : une fiche `en` ne doit ni manquer un champ présent en français,
+  // ni en inventer un absent, ni laisser un texte vide.
+  describe('Traductions anglaises (en)', () => {
+    const traduits = ALL_CHEESES.filter((c) => c.en)
+
+    it('couvre les 49 fiches d’Auvergne-Rhône-Alpes, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'auvergne-rhone-alpes')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(49)
+    })
+
+    it('couvre les 17 fiches de Bourgogne-Franche-Comté, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'bourgogne-franche-comte')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(17)
+    })
+
+    it('couvre les 11 fiches de Bretagne, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'bretagne')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(11)
+    })
+
+    it('couvre les 13 fiches de Centre-Val de Loire, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'centre-val-de-loire')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(13)
+    })
+
+    it('couvre les 13 fiches de Normandie, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'normandie')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(13)
+    })
+
+    it('couvre les 18 fiches de Hauts-de-France, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'hauts-de-france')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(18)
+    })
+
+    it('couvre les 10 fiches de Corse, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'corse')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(10)
+    })
+
+    it('couvre les 12 fiches de Grand Est, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'grand-est')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(12)
+    })
+
+    it('couvre les 11 fiches d’Île-de-France, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'ile-de-france')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(11)
+    })
+
+    it('couvre les 14 fiches d’Occitanie, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'occitanie')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(14)
+    })
+
+    it('couvre les 19 fiches de Nouvelle-Aquitaine, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'nouvelle-aquitaine')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(19)
+    })
+
+    it('couvre les 20 fiches de Provence-Alpes-Côte d’Azur, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'provence-alpes-cote-azur')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(20)
+    })
+
+    it('couvre les 9 fiches des Pays de la Loire, aucune laissée de côté', () => {
+      const region = ALL_CHEESES.filter((c) => c.regionId === 'pays-de-la-loire')
+      const nonTraduits = region.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(region).toHaveLength(9)
+    })
+
+    // Pays de la Loire était la dernière région : la Phase 2 de l'i18n
+    // (traduction du contenu des 216 fiches) est désormais complète.
+    it('couvre les 216 fiches, toutes régions confondues', () => {
+      const nonTraduits = ALL_CHEESES.filter((c) => !c.en).map((c) => c.id)
+      expect(nonTraduits).toEqual([])
+      expect(ALL_CHEESES).toHaveLength(216)
+    })
+
+    it('traduit histoire, fabrication, conservation, service et anecdote dès qu’ils existent en français', () => {
+      const manquants: string[] = []
+      for (const c of traduits) {
+        const en = c.en!
+        if (c.histoire && !en.histoire) manquants.push(`${c.id}.histoire`)
+        if (c.fabrication && !en.fabrication) manquants.push(`${c.id}.fabrication`)
+        if (c.conservation && !en.conservation) manquants.push(`${c.id}.conservation`)
+        if (c.service && !en.service) manquants.push(`${c.id}.service`)
+        if (c.anecdote && !en.anecdote) manquants.push(`${c.id}.anecdote`)
+      }
+      expect(manquants).toEqual([])
+    })
+
+    it('ne traduit aucun champ absent du français', () => {
+      const enTrop: string[] = []
+      for (const c of traduits) {
+        const en = c.en!
+        if (en.histoire && !c.histoire) enTrop.push(`${c.id}.histoire`)
+        if (en.fabrication && !c.fabrication) enTrop.push(`${c.id}.fabrication`)
+        if (en.conservation && !c.conservation) enTrop.push(`${c.id}.conservation`)
+        if (en.service && !c.service) enTrop.push(`${c.id}.service`)
+        if (en.anecdote && !c.anecdote) enTrop.push(`${c.id}.anecdote`)
+      }
+      expect(enTrop).toEqual([])
+    })
+
+    it('traduit chaque note et chaque accord, sans texte vide', () => {
+      for (const c of traduits) {
+        const en = c.en!
+        if (en.notes) {
+          expect(en.notes).toHaveLength(c.notes.length)
+          for (const note of en.notes) expect(note.trim()).not.toBe('')
+        }
+        if (en.accords) {
+          expect(Object.keys(en.accords).sort()).toEqual(Object.keys(c.accords).sort())
+          for (const value of Object.values(en.accords)) expect(String(value).trim()).not.toBe('')
+        }
+      }
+    })
+  })
 })

@@ -6,6 +6,7 @@ import {
   EXTRA_REGION_OVERRIDES,
   EXTRA_FIELD_FIXES,
   EXTRA_EDITORIAL,
+  EXTRA_TRANSLATIONS,
 } from './cheeses-extra'
 import { BFC_CHEESES } from './cheeses-bourgogne-franche-comte'
 import { BRETAGNE_CHEESES } from './cheeses-bretagne'
@@ -57,7 +58,8 @@ export const ALL_CHEESES: Cheese[] = [
     const region = EXTRA_REGION_OVERRIDES[c.id]
     const fixes = EXTRA_FIELD_FIXES[c.id]
     const editorial = EXTRA_EDITORIAL[c.id]
-    if (!extra && !region && !fixes && !editorial) return c
+    const translation = EXTRA_TRANSLATIONS[c.id]
+    if (!extra && !region && !fixes && !editorial && !translation) return c
     return {
       ...c,
       ...(extra ? { alt: [...c.alt, ...extra.filter((n) => !c.alt.includes(n))] } : null),
@@ -70,10 +72,12 @@ export const ALL_CHEESES: Cheese[] = [
       ...(editorial
         ? Object.fromEntries(Object.entries(editorial).filter(([k]) => !c[k as keyof typeof c]))
         : null),
+      ...(translation ? { en: translation } : null),
     }
   }),
   ...[...EXTRA_CHEESES, ...BFC_CHEESES, ...BRETAGNE_CHEESES, ...CVL_CHEESES, ...NORMANDIE_CHEESES, ...HDF_CHEESES, ...CORSE_CHEESES, ...GRAND_EST_CHEESES, ...IDF_CHEESES, ...OCCITANIE_CHEESES, ...NA_CHEESES, ...PACA_CHEESES, ...PDL_CHEESES].map((c) => {
     const media = EXTRA_MEDIA[c.id]
-    return media ? { ...c, ...media } : c
+    const translation = EXTRA_TRANSLATIONS[c.id]
+    return media || translation ? { ...c, ...media, ...(translation ? { en: translation } : null) } : c
   }),
 ].map(avecImages)
